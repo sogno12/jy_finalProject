@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mj.jy.salary.model.dao.SalaryDao">
+	
+	<!-- 
+	<resultMap type="SalaryDTO" id="salaryDtoResultSet">
+		<result property="empNo" column="emp_no"/>
+		<result property="memberName" column="member_name"/>
+		<result property="deptName" column="dept_name"/>
+		<result property="positionName" column="position_name"/>
+		<result property="promotionDate" column="promotion_date"/>
+		<result property="stepSum" column="step_sum"/>
+		<result property="positionSum" column="position_sum"/>
+		<result property="grade" column="grade"/>
+		<result property="sum" column="sum"/>
+		<result property="payDate" column="pay_date"/>
+		<result property="salaryNo" column="salary_no"/>
+	</resultMap>
+ 	-->
+ 	
+	<select id="selectSalaryList" resultType="SalaryDto">
+		SELECT DISTINCT SALARY_NO, M.EMP_NO AS EMP_NO, M.NAME AS MEMBER_NAME, P.NAME AS POSITION_NAME, D.NAME AS DEPARTMENT_NAME, ST.GRADE AS GRADE, PAY_DATE, SA.SALARY AS SUM
+		  FROM SALARY SA
+		  JOIN MEMBER M ON(SA.MEMBER_NO=M.MEMBER_NO)
+		  JOIN POSITION P ON(P.POSITION_NO=M.POSITION_NO)
+		  JOIN DEPARTMENT D ON(M.DEPARTMENT_NO=D.DEPARTMENT_NO)
+		  JOIN STEP ST ON(P.POSITION_NO=ST.POSITION_NO)
+		  JOIN SALARYLIST SL ON(ST.GRADE=SL.EXP1 AND ST.POSITION_NO=SL.POSITION_NO)
+	</select>
+	
+	<select id="selectSalary" parameterType="_int" resultType="SalaryDto">
+		SELECT M.EMP_NO AS EMP_NO, SL.EXP1 AS GRADE, M.NAME AS MEMBER_NAME, P.NAME AS POSITION_NAME, D.NAME AS DEPARTMENT_NAME,
+			   P.SUM AS POSITION_SUM, ST.SUM AS STEP_SUM, SA.SALARY AS SUM, PROMOTION_DATE, PAY_DATE, SALARY_NO
+		  FROM SALARYLIST SL
+		  JOIN MEMBER M ON(M.POSITION_NO=SL.POSITION_NO)
+		  JOIN POSITION P ON(P.POSITION_NO=SL.POSITION_NO)
+		  JOIN DEPARTMENT D ON(M.DEPARTMENT_NO=D.DEPARTMENT_NO)
+		  JOIN STEP ST ON(ST.GRADE=SL.EXP1)
+		  LEFT JOIN SALARY SA ON(M.EMP_NO=SA.EMP_NO)
+		  WHERE M.POSITION_NO=ST.POSITION_NO AND SALARY_NO=#{salaryNo}
+	</select>
+	
+</mapper>
