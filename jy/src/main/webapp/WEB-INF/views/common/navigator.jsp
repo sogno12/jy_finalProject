@@ -216,7 +216,7 @@
 	                        <ul aria-expanded="false" class="collapse  first-level">
 	                           <li class="sidebar-item"><a href="form.app" class="sidebar-link"><i class="mdi mdi-alert-octagon"></i><span class="hide-menu"> 결재 작성 </span></a></li>
                                <li class="sidebar-item"><a href="listView.cir" class="sidebar-link"><i class="mdi mdi-alert-octagon"></i><span class="hide-menu"> 회람 </span></a></li>
-                               <li class="sidebar-item"><a href="appBox.box" class="sidebar-link"><i class="mdi mdi-alert-octagon"></i><span class="hide-menu"> 결재함 </span></a></li>
+                               <li class="sidebar-item"><a href="sendAppBox.box" class="sidebar-link"><i class="mdi mdi-alert-octagon"></i><span class="hide-menu"> 결재함 </span></a></li>
 	                        </ul>
 	                    </li>
 	                    <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="schedule.sc" aria-expanded="false"><i class="mdi mdi-calendar-check"></i><span class="hide-menu">Schedule</span></a></li>

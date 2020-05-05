@@ -2,6 +2,7 @@ package com.mj.jy.approval.model.service;
 
 import java.util.List;
 
+import com.mj.jy.appBox.model.vo.DisbursementDto;
 import com.mj.jy.appBox.model.vo.ReportDto;
 import com.mj.jy.approval.model.vo.SuperApprovalDto;
 import com.mj.jy.attachment.model.vo.Attachment;
@@ -30,7 +31,7 @@ public interface ApprovalService {
 	 * @param attachment	첨부파일정보
 	 * @param superArray	결재자 정보
 	 */
-	void enrollReport(Report report, Attachment attachment, String[] superArray);
+	int enrollReport(Report report, Attachment attachment, String[] superArray);
 	
 	/** sujin3. 모든 사원 정보
 	 * @return
@@ -66,7 +67,7 @@ public interface ApprovalService {
 	 * @param attachment	첨부파일정보
 	 * @param superArray	결재자 정보
 	 */
-	void enrollDisbursement(Disbursement disbursement, Attachment attachment, String[] superArray, List<DisContent> disContents);
+	int enrollDisbursement(Disbursement disbursement, Attachment attachment, String[] superArray, List<DisContent> disContents);
 	
 	
 	/* UPDATE */
@@ -77,18 +78,40 @@ public interface ApprovalService {
 	 */
 	int updateReport(ReportDto reportDto);
 	
+	/** sujin10. Dis수정
+	 * @param disbursementDto	결의서정보
+	 * @param disContents		결의서 내용정보
+	 * @return
+	 */
+	int updateDis(DisbursementDto disbursementDto, List<DisContent> disContents);
+	
 	
 	/* APPROVAL */
 	
-	/** sujin10. Report 결재
+	/** sujin11. Report 결재
 	 * @param superApprovalDto
 	 * @return
 	 */
 	int approvalReport(SuperApprovalDto superApprovalDto);
 	
-	/** sujin11. Dis 결재
+	/** sujin12. Dis 결재
 	 * @param superApprovalDto
 	 * @return
 	 */
 	int approvalDis(SuperApprovalDto superApprovalDto);
+	
+	
+	/* DELETE */
+	
+	/** sujin13. Report 삭제 (->상태 4로 변경)
+	 * @param reportNo
+	 * @return
+	 */
+	int deleteReport(int reportNo);
+	
+	/** sujin14. Dis 삭제 (->상태 4로 변경)
+	 * @param disbursementNo
+	 * @return
+	 */
+	int deleteDis(int disbursementNo);
 }

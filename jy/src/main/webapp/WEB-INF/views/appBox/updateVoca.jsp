@@ -59,6 +59,8 @@
                             	<input type="hidden" value="${ oneReport.reportNo }" name="reportNo" />
                                 <div class="card-body">
                                     <h4 class="card-title">보고서 수정</h4>
+                                    
+                                    <input type="hidden" id="reportNo" name="reportNo" />
 
                                     <div align="right">
                                         <table class="table-bordered text-center">
@@ -99,7 +101,7 @@
                                     <div class="form-group row">
                                         <label for="fname" class="col-sm-3 text-right control-label col-form-label">작성자</label>
                                         <div class="col-sm-2">
-                                            <input type="text" class="form-control" id="fname" value="${ oneReport.name }" readonly>
+                                            <input type="text" class="form-control" value="${ oneReport.name }" readonly id="createBy" name="createBy">
                                         </div>
                                     
                                         <label class="text-right col-md-2 m-t-15" style="display: inline-block;">작성일자</label>
@@ -127,7 +129,7 @@
                                         <div class="col-md-3" id="reasonList">
                                            
 							    			<select class="select2 form-control custom-select" style="width: 100%; height:36px;" id="reason" name="reasonNo">
-						                         <option>Select</option>
+						                         <option value="">Select</option>
 						                         <c:forEach var="r" items="${ reasons }">
 						                         	<c:if test="${ r.reasonNo eq oneReport.reasonNo }">
 						                         		<option value="${ r.reasonNo }" selected>${ r.reason }</option>
@@ -141,16 +143,16 @@
                                     </div>
                                         
                                     
-                                    <label class="text-right col-md-3 m-t-15" style="display: inline-block;">기간</label>
+                                    <label class="text-right col-md-3 m-t-15" style="display: inline-block;">(시작)날짜</label>
                                     <div class="input-group col-md-3" style="display: inline-block;">
-                                        <input type="text" class="form-control datepicker-autoclose" value="<fmt:formatDate value='${ oneReport.beginDate }' pattern='yyyy/MM/dd'/>" style="width: 120px; display: inline-block;" name="beginDate">
+                                        <input type="text" class="form-control datepicker-autoclose" value="<fmt:formatDate value='${ oneReport.beginDate }' pattern='yyyy/MM/dd'/>" style="width: 120px; display: inline-block;" name="beginDate" id="beginDate1">
                                         <div class="input-group-append" style="display: inline-block;">
                                             <span class="input-group-text"><i class="fa fa-calendar"></i></span>
                                         </div>
                                     </div>
-                                    ~
+                                    (종료날짜:선택작성)
                                     <div class="input-group col-md-3" style="display: inline-block;">
-                                        <input type="text" class="form-control datepicker-autoclose" value="<fmt:formatDate value='${ oneReport.endDate }' pattern='yyyy/MM/dd'/>" style="width: 120px; display: inline-block;" name="endDate">
+                                        <input type="text" class="form-control datepicker-autoclose" value="<fmt:formatDate value='${ oneReport.endDate }' pattern='yyyy/MM/dd'/>" style="width: 120px; display: inline-block;" name="endDate" id="endDate1">
                                         <div class="input-group-append" style="display: inline-block;">
                                             <span class="input-group-text"><i class="fa fa-calendar"></i></span>
                                         </div>
@@ -161,14 +163,14 @@
                                     <div class="form-group row">
                                         <label for="fname" class="col-sm-3 text-right control-label col-form-label">제목(필수)</label>
                                         <div class="col-sm-6">
-                                            <input type="text" class="form-control" id="fname" value="${ oneReport.title }" name="title">
+                                            <input type="text" class="form-control" value="${ oneReport.title }" name="title" id="title1">
                                         </div>
                                     </div>
                                     
                                     <div class="form-group row">
                                         <label for="cono1" class="col-sm-3 text-right control-label col-form-label">사유</label>
                                         <div class="col-sm-6">
-                                            <textarea class="form-control" style="min-height: 200px;" name="content">${ oneReport.content }</textarea>
+                                            <textarea class="form-control" style="min-height: 200px;" name="content" id="content1">${ oneReport.content }</textarea>
                                         </div>
                                     </div>
 
@@ -191,9 +193,7 @@
                                         	
                                             <div class="custom-file">
                                             		
-                                                <a href="${ pageContext.servletContext.contextPath }/resources/upload_file_report/${ oneReport.updateName }" download="${ oneReport.updateName }">
-                                            			링크 ${ oneReport.updateName }
-                                            	</a>
+                                                <a href="${ pageContext.servletContext.contextPath }/resources/upload_file_report/${ oneReport.updateName }" download="${ oneReport.updateName }">${ oneReport.updateName }</a>
                                             	<input type="hidden" value="${ oneReport.updateName }" name="updateName"/>
                                                 <div class="invalid-feedback">Example invalid custom file feedback</div>
                                             </div>
@@ -204,7 +204,10 @@
                                 </div>
                                 <div class="border-top">
                                     <div class="card-body text-right">
-                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#Modal2">Update</button>
+                                        <c:if test="${ loginUser.memberNo eq oneReport.createBy }">
+                                        	<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#Modal2">Update</button>
+                                        	<button type="button" class="btn btn-warning" data-toggle="modal" data-target="#Modal3">Delete</button>
+                                        </c:if>
                                         <button type="button" class="btn btn-info" onclick="location.href='${ pageContext.servletContext.contextPath }/appBox.box'">Check</button>
                                     
                                         <!-- Modal -->
@@ -226,7 +229,32 @@
                                                     </div>
                                                     <div class="modal-footer">
                                                     	<c:if test="${ loginUser.memberNo  eq oneReport.createBy }">
-                                                        	<button type="button" class="btn btn-warning" onclick="document.getElementById('updateReportForm').submit();">수정</button>
+                                                        	<button type="button" class="btn btn-warning" id="submitBtn1">수정</button>
+                                                        </c:if>
+                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- Modal -->
+                                        <div class="modal fade" id="Modal3" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="exampleModalLabel">DELETE</h5>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body text-left">
+                                                        <p>
+                                                            - 삭제하시겠습니까?
+                                                        </p>
+
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                    	<c:if test="${ loginUser.memberNo  eq oneReport.createBy }">
+                                                        	<button type="button" class="btn btn-warning" id="deleteBtn">삭제</button>
                                                         </c:if>
                                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                                     </div>
@@ -299,6 +327,83 @@
     var quill = new Quill('#editor', {
         theme: 'snow'
     });
+    
+
+    /****************************************
+     *       Submit Table 유효성 검사                *
+     ****************************************/
+    var re = /^[a-z|A-Z|0-9|가-힣|\s]{3,30}$/
+    var reCon = /^[a-z|A-Z|0-9|가-힣|]{3,1000}$/
+    var reNum = /^[0-9]{3,10}$/
+    
+   	function check(re, what, message){
+	if(re.test(what.value)){
+		return true;
+	}
+	alert(message);
+	what.value="";
+	what.focus();
+	} 
+
+    $('#submitBtn1').click(function(){
+    	
+    	var beginDate = document.getElementById("beginDate1");
+    	var endDate = document.getElementById("endDate1");
+    	var reason = document.getElementById("reason");
+    	var title = document.getElementById("title1");
+    	var content = document.getElementById("content1");
+    	
+    	console.log(reason.options[reason.selectedIndex].value);
+    	console.log(beginDate.value);
+    	console.log(endDate.value);
+    	console.log(title.value);
+    	console.log(content.value);
+    	
+    	if(selectReason.options[selectReason.selectedIndex].value == 0){
+    		alert("보고서 종류를 선택해주십시오");
+    		return false;
+    	}
+    	if(reason.options[reason.selectedIndex].value == 0){
+    		alert("사유를 선택해주십시오");
+    		return false;
+    	}
+    	if( beginDate.value == ""){
+    		alert("날짜는 필수 항목입니다. 지정해주십시오.");
+    		return false;
+    	}
+    	if(endDate.value != "" && beginDate.value > endDate.value){
+    		alert("종료날짜는 시작날짜보다 클 수 없습니다.");
+    		endDate.value="";
+    		return false;
+    	}
+    	if(!check(re,title,"제목은 3~30자 이내로 작성해주십시오")){
+    		return false;
+    	}
+    	if(!check(reCon,content,"내용은 3~1000자 이내로 작성해주십시오")){
+    		return false;
+    	}
+    	document.getElementById('updateReportForm').submit();
+    	
+    });
+    
+    /* Delete Report */
+	$('#deleteBtn').click(function(){
+		var reportNo = document.getElementById("reportNo");
+		var createBy = document.getElementById("createBy");
+		var form = document.getElementById('updateReportForm');
+		
+		reportNo.value = ${ oneReport.reportNo };
+		createBy.value = ${ oneReport.createBy };
+		
+		console.log(reportNo.value);
+		console.log(createBy.value);
+		
+		form.action = '${ pageContext.servletContext.contextPath }/deleteReport.app';
+		form.method = 'post';
+		form.submit();
+	});
+  
+    
 	</script>
     
 </div>
