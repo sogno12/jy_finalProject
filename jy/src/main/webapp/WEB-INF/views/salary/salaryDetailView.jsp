@@ -100,6 +100,10 @@
 	                                        		</c:otherwise>
 	                                        	</c:choose>
                                             </tr>
+                                            <tr>
+                                            	<th>지급자</th>
+                                            	<td>${ sa.createName }</td>
+                                            </tr>
                                         </thead>
                         
                                     </table>

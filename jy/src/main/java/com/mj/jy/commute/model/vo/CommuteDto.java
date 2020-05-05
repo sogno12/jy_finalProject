@@ -9,15 +9,15 @@ import org.apache.ibatis.type.Alias;
 @Alias("CommuteDto")
 public class CommuteDto {
 	
-	private int commuteNo;		// 근태번호
-	private int memberNo;		// 사원번호
-	private Date commuteDate;	// 출퇴근날짜
+	private int commuteNo;			// 근태번호
+	private int memberNo;			// 사원번호
+	private Date commuteDate;		// 출퇴근날짜
 	private Timestamp attendTime;	// 출근 시간
 	private Timestamp quittingTime;	// 퇴근시간
-	private String tardy;		// 지각 여부
-	private String empNo;		// 사번
-	private String memberName;	// 이름
-	private int count;			// 지각횟수
+	private String tardy;			// 지각 여부
+	private String empNo;			// 사번
+	private String memberName;		// 이름
+	private int count;				// 지각횟수
 	
 	public CommuteDto() {}
 

@@ -7,10 +7,10 @@ import org.apache.ibatis.type.Alias;
 @Alias("Member")
 public class Member {
 
-	private int memberNo;	// 직원번호
+	private int memberNo;		// 직원번호
 	private int departmentNo;	// 부서번호
 	private int positionNo;		// 직책번호
-	private String memberPwd;	// 비밀번호
+	private String pwd;			// 비밀번호
 	private Date joinDate;		// 입사일
 	private Date resignDate;	// 퇴사일
 	private Date promotionDate;	// 진급일
@@ -24,14 +24,14 @@ public class Member {
 	
 	public Member() {}
 
-	public Member(int memberNo, int departmentNo, int positionNo, String memberPwd, Date joinDate, Date resignDate,
+	public Member(int memberNo, int departmentNo, int positionNo, String pwd, Date joinDate, Date resignDate,
 			Date promotionDate, String memberName, String rrn, String address, String phone, String email,
 			String status, String empNo) {
 		super();
 		this.memberNo = memberNo;
 		this.departmentNo = departmentNo;
 		this.positionNo = positionNo;
-		this.memberPwd = memberPwd;
+		this.pwd = pwd;
 		this.joinDate = joinDate;
 		this.resignDate = resignDate;
 		this.promotionDate = promotionDate;
@@ -68,12 +68,12 @@ public class Member {
 		this.positionNo = positionNo;
 	}
 
-	public String getMemberPwd() {
-		return memberPwd;
+	public String getPwd() {
+		return pwd;
 	}
 
-	public void setMemberPwd(String memberPwd) {
-		this.memberPwd = memberPwd;
+	public void setPwd(String pwd) {
+		this.pwd = pwd;
 	}
 
 	public Date getJoinDate() {
@@ -159,7 +159,7 @@ public class Member {
 	@Override
 	public String toString() {
 		return "Member [memberNo=" + memberNo + ", departmentNo=" + departmentNo + ", positionNo=" + positionNo
-				+ ", memberPwd=" + memberPwd + ", joinDate=" + joinDate + ", resignDate=" + resignDate
+				+ ", memberPwd=" + pwd + ", joinDate=" + joinDate + ", resignDate=" + resignDate
 				+ ", promotionDate=" + promotionDate + ", memberName=" + memberName + ", rrn=" + rrn + ", address="
 				+ address + ", phone=" + phone + ", email=" + email + ", status=" + status + ", empNo=" + empNo + "]";
 	}
