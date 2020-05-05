@@ -81,7 +81,7 @@
 	<insert id="enrollDisContent" parameterType="DisContent">
 		INSERT INTO DIS_CONTENT
 		VALUES (SEQ_DIS_CNT.nextval, #{disbursementNo}, #{paydate}, #{content}, 
-				#{client}, #{price}, #{subjectNo}, #{methodNo})
+				#{client}, #{price}, #{subjectNo}, #{methodNo}, DEFAULT)
 	</insert>
 
 	<update id="updateAttachmentReport" parameterType="ReportDto">
@@ -189,5 +189,63 @@
 			 AND STATUS=1
 	</select>
 	
+	<update id="deleteReport" parameterType="_int">
+		UPDATE REPORT
+			SET APPROVAL_NO = 4
+			WHERE REPORT_NO = #{reportNo}
+	</update>
+	
+	<update id="deleteDis" parameterType="_int">
+		UPDATE DISBURSEMENT
+			SET APPROVAL_NO = 4
+			WHERE DISBURSEMENT_NO = #{disbursementNo}
+	</update>
+	
+	<update id="updateAttachmentDis" parameterType="DisbursementDto">
+		UPDATE ATTACHMENT
+		SET CREATE_DATE = SYSDATE,
+		    UPDATE_NAME = #{updateName}
+		WHERE ATTACHMENT_NO = 
+		    (SELECT ATTACHMENT_NO
+		    FROM DISBURSEMENT
+		    WHERE DISBURSEMENT_NO=#{disbursementNo})
+	</update>
+	
+	<select id="countDisCon" parameterType="_int" resultType="_int">
+		select content_no
+		from dis_content
+		where disbursement_no = #{disubersementNo}
+	</select>
+	
+	<update id="updateDis" parameterType="DisbursementDto">
+		UPDATE DISBURSEMENT
+			SET DIS_TYPE_NO = #{disTypeNo},
+				UPDATE_BY = #{updateBy},
+				TITLE = #{title},
+				PAYMENT = #{payment},
+				TERMS = #{terms},
+				UPDATE_DATE = SYSDATE,
+				BANK = #{bank},
+				ACCOUNT = #{account}
+			WHERE DISBURSEMENT_NO = #{disbursementNo}
+	</update>
+	
+	<update id="updateDisContent" parameterType="DisContent">
+		update DIS_CONTENT
+			set PAYDATE = #{paydate},
+				CONTENT = #{content},
+				CLIENT = #{client},
+				PRICE = #{price},
+				SUBJECT_NO = #{subjectNo},
+				METHOD_NO = #{methodNo},
+				STATUS = 'Y'
+			WHERE CONTENT_NO= #{contentNo}
+	</update>
+	
+	<update id="deleteDisCon" parameterType="_int">
+		UPDATE DIS_CONTENT
+		SET STATUS = 'N'
+		WHERE CONTENT_NO = #{contentNo}
+	</update>
 	
 </mapper>

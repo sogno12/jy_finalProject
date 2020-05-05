@@ -84,7 +84,4 @@ public class DisContentDto {
 				+ ", content=" + content + ", client=" + client + ", price=" + price + ", subjectNo=" + subjectNo
 				+ ", methodNo=" + methodNo + "]";
 	}
-	
-	
-	
 }
