@@ -63,7 +63,7 @@
                                             </tr>
                                             <tr>
                                                 <th class="info">부서</th>
-                                                <td>${ sa.deptName }</td>
+                                                <td>${ sa.departmentName }</td>
                                             </tr>
                                             <tr>
                                                 <th class="info">직급</th>
@@ -84,10 +84,6 @@
                                             <tr>
                                                 <th class="info">직책금</th>
                                                 <td>${ sa.positionSum }</td>
-                                            </tr>
-                                            <tr >
-                                                <th  class="info">면책금(지각 + 결근 + 휴가)</th>
-                                                <td>---원</td>
                                             </tr>
                                             <tr>
                                                 <th class="info">실 지급액</th>
