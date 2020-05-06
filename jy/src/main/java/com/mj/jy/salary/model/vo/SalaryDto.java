@@ -10,7 +10,7 @@ public class SalaryDto {
 	private int salaryNo;			// 급여번호
 	private String empNo;			// 사번
 	private String memberName;		// 이름
-	private String departmentName;		// 부서
+	private String departmentName;	// 부서
 	private String positionName;	// 직책
 	private Date promotionDate;		// 진급일
 	private int stepSum;			// 기본급여(호봉금액)
@@ -18,11 +18,12 @@ public class SalaryDto {
 	private int positionSum;		// 직책금
 	private int sum;				// 총 급여
 	private Date payDate;			// 지급날짜
+	private String createName;		// 급여 지급 직원
 	
 	public SalaryDto() {}
 
 	public SalaryDto(int salaryNo, String empNo, String memberName, String departmentName, String positionName,
-			Date promotionDate, int stepSum, int grade, int positionSum, int sum, Date payDate) {
+			Date promotionDate, int stepSum, int grade, int positionSum, int sum, Date payDate, String createName) {
 		super();
 		this.salaryNo = salaryNo;
 		this.empNo = empNo;
@@ -35,6 +36,7 @@ public class SalaryDto {
 		this.positionSum = positionSum;
 		this.sum = sum;
 		this.payDate = payDate;
+		this.createName = createName;
 	}
 
 	public int getSalaryNo() {
@@ -125,13 +127,23 @@ public class SalaryDto {
 		this.payDate = payDate;
 	}
 
+	public String getCreateName() {
+		return createName;
+	}
+
+	public void setCreateName(String createName) {
+		this.createName = createName;
+	}
+
 	@Override
 	public String toString() {
 		return "SalaryDto [salaryNo=" + salaryNo + ", empNo=" + empNo + ", memberName=" + memberName
 				+ ", departmentName=" + departmentName + ", positionName=" + positionName + ", promotionDate="
 				+ promotionDate + ", stepSum=" + stepSum + ", grade=" + grade + ", positionSum=" + positionSum
-				+ ", sum=" + sum + ", payDate=" + payDate + "]";
+				+ ", sum=" + sum + ", payDate=" + payDate + ", createName=" + createName + "]";
 	}
+
+	
 
 	
 	

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -202,14 +203,18 @@
 	                            <li class="sidebar-item"><a href="yh-Board.html" class="sidebar-link"><i class="mdi mdi-note-outline"></i><span class="hide-menu"> 사내 게시판 </span></a></li>
 	                            <li class="sidebar-item"><a href="sujin-teamTable.html" class="sidebar-link"><i class="mdi mdi-sitemap"></i><span class="hide-menu"> 팀 정보 </span></a></li>
 	                            
-	                            <!-- 총무팀 로그인시 보여지는 메뉴 -->
-	                            <li class="sidebar-item"><a href="hajin_generalAffairs.html" class="sidebar-link"><i class="mdi mdi-alert-octagon"></i><span class="hide-menu"> 총무팀 </span></a></li>
+	                            <c:if test="${ loginUser.departmentNo eq 1 }">
+		                            <!-- 총무팀 로그인시 보여지는 메뉴 -->
+		                            <li class="sidebar-item"><a href="hajin_generalAffairs.html" class="sidebar-link"><i class="mdi mdi-alert-octagon"></i><span class="hide-menu"> 총무팀 </span></a></li>
+	                            </c:if>
 	                            
-	                            <!-- 인사팀 로그인시 보여지는 메뉴 -->
-	                            <li class="sidebar-item"><a href="memberList.me" class="sidebar-link"><i class="mdi mdi-alert-octagon"></i><span class="hide-menu"> 직원 정보 </span></a></li>
-	                            <li class="sidebar-item"><a href="salaryList.sa" class="sidebar-link"><i class="mdi mdi-alert-octagon"></i><span class="hide-menu"> 급여 관리 </span></a></li>
-	                            <li class="sidebar-item"><a href="enrollForm.me" class="sidebar-link"><i class="mdi mdi-alert-octagon"></i><span class="hide-menu"> 인사 관리 </span></a></li>
-	                            <li class="sidebar-item"><a href="commuteList.co" class="sidebar-link"><i class="mdi mdi-alert-octagon"></i><span class="hide-menu"> 근태 관리 </span></a></li>
+	                            <c:if test="${ loginUser.departmentNo eq 2 }">
+		                            <!-- 인사팀 로그인시 보여지는 메뉴 -->
+		                            <li class="sidebar-item"><a href="memberList.me" class="sidebar-link"><i class="mdi mdi-alert-octagon"></i><span class="hide-menu"> 직원 정보 </span></a></li>
+		                            <li class="sidebar-item"><a href="salaryList.sa" class="sidebar-link"><i class="mdi mdi-alert-octagon"></i><span class="hide-menu"> 급여 관리 </span></a></li>
+		                            <li class="sidebar-item"><a href="enrollForm.me" class="sidebar-link"><i class="mdi mdi-alert-octagon"></i><span class="hide-menu"> 인사 관리 </span></a></li>
+		                            <li class="sidebar-item"><a href="commuteList.co" class="sidebar-link"><i class="mdi mdi-alert-octagon"></i><span class="hide-menu"> 근태 관리 </span></a></li>
+	                            </c:if>
 	                        </ul>
 	                    </li>
 	                    <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="mdi mdi-alert"></i><span class="hide-menu">Submit </span></a>

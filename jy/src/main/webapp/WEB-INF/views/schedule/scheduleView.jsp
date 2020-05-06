@@ -6,6 +6,9 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<!-- Custom CSS -->
+<link href="${ pageContext.servletContext.contextPath }/resources/assets/libs/fullcalendar/dist/fullcalendar.min.css" rel="stylesheet" />
+<link href="${ pageContext.servletContext.contextPath }/resources/assets/extra-libs/calendar/calendar.css" rel="stylesheet" />
 </head>
 <body>
 	
@@ -27,7 +30,7 @@
                         <div class="ml-auto text-right">
                             <nav aria-label="breadcrumb">
                                 <ol class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                                    <li class="breadcrumb-item"><a href="${ pageContext.servletContext.contextPath }/WEB-INF/views/main.jsp">Home</a></li>
                                     <li class="breadcrumb-item active" aria-current="page">Calendar</li>
                                 </ol>
                             </nav>
@@ -229,5 +232,23 @@
         <!-- ============================================================== -->
 		
 	</div>
+	
+	<!-- this page js -->
+    <script src="${ pageContext.servletContext.contextPath }/resources/assets/libs/moment/min/moment.min.js"></script>
+    <script src="${ pageContext.servletContext.contextPath }/resources/assets/libs/fullcalendar/dist/fullcalendar.min.js"></script>
+    <script src="${ pageContext.servletContext.contextPath }/resources/js/pages/calendar/cal-init.js"></script>
+    <!-- datePicker -->
+    <script src="${ pageContext.servletContext.contextPath }/resources/assets/libs/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+    <script>
+        /*datepicker*/
+        jQuery('.mydatepicker').datepicker();
+        jQuery('#datepicker-autoclose').datepicker({
+            autoclose: true,
+            todayHighlight: true
+        });
+        var quill = new Quill('#editor', {
+            theme: 'snow'
+        });
+    </script>
 </body>
 </html>

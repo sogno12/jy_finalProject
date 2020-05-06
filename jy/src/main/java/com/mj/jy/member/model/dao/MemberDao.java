@@ -18,6 +18,7 @@ public interface MemberDao {
 	int updateMember(MemberDto m);
 	ArrayList<Member> selectListDept();
 	ArrayList<Member> selectListPos();
+	Member searchPwd(Member m);
 	
 	/*
 	 * package com.mj.jy.member.model.dao;

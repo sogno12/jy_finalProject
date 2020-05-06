@@ -20,6 +20,12 @@ public class MemberServiceImpl implements MemberService {
 	public MemberDto loginMember(MemberDto m) {
 		return mDao.loginMember(m);
 	}
+	
+	// 비밀번호 찾기 서비스
+	@Override
+	public Member searchPwd(Member m) {
+		return mDao.searchPwd(m);
+	}
 
 	// 인사 카드 등록 서비스
 	@Override
@@ -56,4 +62,5 @@ public class MemberServiceImpl implements MemberService {
 	public ArrayList<Member> selectListPos() {
 		return mDao.selectListPos();
 	}
+
 }
