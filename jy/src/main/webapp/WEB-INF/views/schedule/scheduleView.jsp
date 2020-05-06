@@ -53,15 +53,11 @@
                         <div class="card">
                             <div class="">
                                 <div class="row">
-                                	
-                                	<!-- calendar -->
                                     <div class="col-lg-9">
                                         <div class="card-body b-l calender-sidebar">
                                             <div id="calendar"></div>
                                         </div>
                                     </div>
-                                    
-                                    <!-- to do list -->
                                     <div class="col-lg-3 border-right p-r-0">
                                         <div class="card-body border-bottom">
                                             <h4 class="card-title m-t-30 m-b-30"><i class="mdi mdi-border-color"> To Do List <a href="javascript:void(0)" data-toggle="modal" data-target="#add-new-todo" class="m-l-20" style="color: palevioletred;">+</a></i></h4>
@@ -250,15 +246,9 @@
             autoclose: true,
             todayHighlight: true
         });
-        
-        var todoDate='';
-        /* full calendar 날짜 받아오기 */
-         $('#calendar').fullCalendar({ 
-		     dayClick: function(date, jsEvent, view) {
-		         todoDate = date._d;
-		      }
-		  });
-        
+        var quill = new Quill('#editor', {
+            theme: 'snow'
+        });
     </script>
 </body>
 </html>

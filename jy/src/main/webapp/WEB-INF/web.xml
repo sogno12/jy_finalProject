@@ -35,7 +35,6 @@
 		<url-pattern>*.cir</url-pattern>
 		<url-pattern>*.app</url-pattern>
 		<url-pattern>*.box</url-pattern>
-		<url-pattern>*.sc</url-pattern>
 	</servlet-mapping>
 	
 	<filter>
