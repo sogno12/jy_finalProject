@@ -1,8 +1,14 @@
 package com.mj.jy.businessRoom.model.dao;
 
-import org.springframework.stereotype.Repository;
+import java.util.ArrayList;
 
-@Repository("bDao")
-public class BusinessRoomDao {
+import org.apache.ibatis.annotations.Mapper;
 
+import com.mj.jy.businessRoom.model.vo.BusinessDTO;
+import com.mj.jy.businessRoom.model.vo.BusinessInfo;
+
+@Mapper
+public interface BusinessRoomDao {
+	
+	ArrayList<BusinessInfo> selectBlist(BusinessDTO bd);
 }
