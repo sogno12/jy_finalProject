@@ -11,6 +11,7 @@ import com.mj.jy.member.model.vo.MemberDto;
 @Mapper
 public interface MemberDao {
 
+	// 로그
 	MemberDto loginMember(MemberDto m);
 	int insertMember(Member m);
 	ArrayList<Member> selectMemberList();
