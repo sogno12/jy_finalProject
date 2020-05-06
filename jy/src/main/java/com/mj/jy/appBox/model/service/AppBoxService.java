@@ -8,20 +8,22 @@ import com.mj.jy.appBox.model.vo.ReportDto;
 import com.mj.jy.appBox.model.vo.SentAppBoxDto;
 import com.mj.jy.approval.model.vo.ApprovalDto;
 import com.mj.jy.member.model.vo.AllMemberDto;
+import com.mj.jy.namecard.model.vo.PageInfo;
 
 public interface AppBoxService {
 	
 	/** sujin1. 결재미완료 보고서들
 	 * @param memberNo 로그인한 회원정보
+	 * @param pi 
 	 * @return
 	 */
-	List<SentAppBoxDto> getSentAppBox(int memberNo);
+	List<SentAppBoxDto> getSentAppBox(int memberNo, PageInfo pi);
 	
 	/** sujin2. 결재완료된 보고서들
 	 * @param memberNo 로그인한 회원정보
 	 * @return
 	 */
-	List<SentAppBoxDto> getEndSentAppBox(int memberNo);
+	List<SentAppBoxDto> getEndSentAppBox(int memberNo, PageInfo pi);
 	
 	/** sujin3. 보고서 상세조회
 	 * @param sentAppBoxDto no=reportNo
@@ -44,13 +46,13 @@ public interface AppBoxService {
 	 * @param memberNo 로그인한 회원정보
 	 * @return
 	 */
-	List<SentAppBoxDto> getReceiveAppBox(int memberNo);
+	List<SentAppBoxDto> getReceiveAppBox(int memberNo, PageInfo pi);
 	
 	/** sujin7. 승인완료 보고서들
 	 * @param memberNo 로그인한 회원정보
 	 * @return
 	 */
-	List<SentAppBoxDto> getEndReceiveAppBox(int memberNo);
+	List<SentAppBoxDto> getEndReceiveAppBox(int memberNo, PageInfo pi);
 	
 	/** sujin8. 결의서 상세조회
 	 * @param disbursementNo
@@ -69,4 +71,11 @@ public interface AppBoxService {
 	 * @return
 	 */
 	List<DisContentDto> getDisContents(int disbursementNo);
+	
+	
+	/* 각각의 appBox의 보고서 총 갯수*/
+	int countSendAppBox(int memberNo);
+	int countEndSentAppBox(int memberNo);
+	int countReceiveAppBox(int memberNo);
+	int countEndReceiveAppBox(int memberNo);
 }

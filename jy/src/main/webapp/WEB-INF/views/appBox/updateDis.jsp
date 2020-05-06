@@ -57,9 +57,11 @@
 			<div class="row" id="enrollPay">
 				<div class="col-md-12">
 					<div class="card">
-						<form class="form-horizontal" method="post" action="updateDis.app" enctype="multipart/form-data" id="enrollDisForm">
+						<form class="form-horizontal" method="post" action="updateDis.app" enctype="multipart/form-data" id="updateDisForm">
 						    <div class="card-body">
 						        <h4 class="card-title">결재기안서 수정</h4>
+						        
+						        <input type="hidden" id="disbursementNo" name="disbursementNo"/>
 						
 						     	<div align="right">
 									<table class="table-bordered text-center">
@@ -89,7 +91,7 @@
                                 <div class="form-group row">
                                      <label for="fname" class="col-sm-3 text-right control-label col-form-label">작성자</label>
                                      <div class="col-sm-2">
-                                         <input type="text" class="form-control" id="fname" value="${ oneDis.name }" readonly>
+                                         <input type="text" class="form-control" value="${ oneDis.name }" id="createBy" name="createBy" readonly>
                                      </div>
                                  
                                      <label class="text-right col-md-2 m-t-15" style="display: inline-block;">작성일자</label>
@@ -170,9 +172,9 @@
                                  <!-- 결재기안서 상세내용 기입테이블 -->
                                  <div class="col-sm-12" style="margin:auto;">
                                      <label for="table" class="col-sm-3 text-left control-label col-form-label">내역</label>
-                                     <div class="col-md-3 text-right" style="float: right;">
-                                         <select class="select2 form-control custom-select" style="width: 100px; height:26px; font-size: 10px;">
-                                             <option value="">행 갯수 선택</option>
+                                     <div class="col-md-9 text-right" style="float: right;">
+                                     	<label class="control-label col-form-label">행 갯수 선택 (행갯수가 바뀌면 내용은 리셋됩니다) : </label>
+                                         <select class="select2 form-control custom-select" style="width: 100px; height:26px; font-size: 10px;" id="rowSelect">
                                              <option value="3">3</option>
                                              <option value="5">5</option>
                                              <option value="7">7</option>
@@ -203,7 +205,7 @@
                                                 </td>
                                                 <td>
                                                   <select class="select2 form-control" style="width: 100%; height: 30px; font-size: 70%;" name="subjectNo">
-                                                      <option>과목선택</option>
+                                                      <option value="">과목선택</option>
                                                       <c:forEach var="s" items="${ subject }">
                                                       	<c:if test="${ c.subjectNo eq s.subjectNo }">
                                                       		<option value="${ s.subjectNo }" selected>${ s.subject }</option>
@@ -225,7 +227,7 @@
                                                 </td>
                                                 <td>
                                                   <select class="select2 form-control" style="width: 110%; height: 30px; font-size: 70%;" name="methodNo">
-                                                      <option>수단선택</option>
+                                                      <option value="">수단선택</option>
                                                       <c:forEach var="m" items="${ method }">
                                                       	<c:if test="${ c.methodNo eq m.methodNo }">
                                                       		<option value="${ m.methodNo }" selected>${ m.method }</option>
@@ -267,9 +269,15 @@
                                   </div>
 
                              </div>
+                             
+                             
+                             <!-- BtnS -->
                              <div class="border-top">
                                     <div class="card-body text-right">
-                                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#Modal2">Update</button>
+                                    	<c:if test="${ loginUser.memberNo eq oneDis.createBy }">
+                                        	<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#Modal2">Update</button>
+                                        	<button type="button" class="btn btn-warning" data-toggle="modal" data-target="#Modal3">Delete</button>
+                                        </c:if>
                                         <button type="button" class="btn btn-info" onclick="location.href='${ pageContext.servletContext.contextPath }/appBox.box'">Check</button>
                                     
                                         <!-- Modal -->
@@ -292,6 +300,32 @@
                                                     <div class="modal-footer">
                                                     	<c:if test="${ loginUser.memberNo  eq oneDis.createBy }">
                                                         	<button type="button" class="btn btn-warning" id="submitBtn">수정</button>
+                                                        </c:if>
+                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <!-- Modal -->
+                                        <div class="modal fade" id="Modal3" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                            <div class="modal-dialog" role="document">
+                                                <div class="modal-content">
+                                                    <div class="modal-header">
+                                                        <h5 class="modal-title" id="exampleModalLabel">DELETE</h5>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                    <div class="modal-body text-left">
+                                                        <p>
+                                                            - 삭제하시겠습니까?
+                                                        </p>
+
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                    	<c:if test="${ loginUser.memberNo  eq oneDis.createBy }">
+                                                        	<button type="button" class="btn btn-warning" id="deleteBtn">삭제</button>
                                                         </c:if>
                                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                                     </div>
@@ -402,12 +436,12 @@
     	console.log(account.value);
     	console.log(payment.value);
     	console.log(title.value); */
-    	console.log(paydate[0].value);
+    	/* console.log(paydate[0].value);
     	console.log(subjectNo[0].value);
     	console.log(disContent[0].value);
     	console.log(client[0].value);
     	console.log(price[0].value);
-    	console.log(methodNo[0].value);
+    	console.log(methodNo[0].value); */
 
     	if(disType.options[disType.selectedIndex].value == 0){
     		alert("기안서 분류를 선택해주십시오");
@@ -456,10 +490,91 @@
     		return false;
     	}
     	
-    	
-    	return;
+    	var disbursementNo = document.getElementById("disbursementNo");
+		var createBy = document.getElementById("createBy");
+		
+		disbursementNo.value = ${ oneDis.disbursementNo };
+		createBy.value = ${ oneDis.createBy };
+
     	document.getElementById('updateDisForm').submit();
     });
+    
+    
+	/* select rowSelect Number Ajax */
+    
+    $(function(){
+    	$("#rowSelect").on('change', function(){
+    		
+    		if(this.value !== ""){
+    			var rowNum = $(this).find(":selected").val();
+    			var data = { rowNum : rowNum };
+    			
+    			$.get('rowSelectNum.app', data)
+    			.done(function (res){
+    				// console.log(res);
+    				var num = res[Object.keys(res)[1]];
+    				// console.log(num);
+    				
+    				var row= ""
+    				
+    				for(var i=0; i<num; i++){
+    					row += '<tr>' +
+                        '<th scope="row">${ i }</th>' +
+                        '<td>' +
+                          '<input type="text" class="form-control datepicker-autoclose" placeholder="mm/dd/yyyy" ' +
+                          	'style="width: 80px; height: 30px; display: inline-block; font-size: 70%;" name="paydate">' +
+                        '</td>' +
+                        '<td>' +
+                          '<select class="select2 form-control" style="width: 100%; height: 30px; font-size: 70%;" name="subjectNo">' +
+                              '<option value="">과목선택</option>' +
+                              '<c:forEach var="s" items="${ subject }">' +
+                              	'<option value="${ s.subjectNo }">${ s.subject }</option>' +
+                              '</c:forEach>' +
+                          '</select>' +
+                        '</td>' +
+                        '<td>' +
+                          '<input type="text" class="form-control" id="fname" placeholder="내용작성" style="font-size: 70%; height: 30px;" name="disContent">' +
+                        '</td>' +
+                        '<td>' +
+                          '<input type="text" class="form-control" id="fname" placeholder="거래처" style="font-size: 70%; height: 30px;" name="client">' +
+                        '</td>' +
+                        '<td>' +
+                          '<input type="text" class="form-control text-right" id="fname" placeholder="금액: 숫자만 입력" style="font-size: 70%; height: 30px;" name="price">' +
+                        '</td>' +
+                        '<td>' +
+                          '<select class="select2 form-control" style="width: 110%; height: 30px; font-size: 70%;" name="methodNo">' +
+                              '<option value="">수단선택</option>' +
+                              '<c:forEach var="m" items="${ method }">' +
+                              	'<option value="${ m.methodNo }">${ m.method }</option>' +
+                              '</c:forEach>' +
+                          '</select>' +
+                        '</td>' +
+                  	'</tr>';
+    				}
+    				$('#disContentTable tbody').html(row);
+    			
+    			})
+    			.fail(function(err){
+    				console.log("select rowNum ajax 실패");
+    			})
+    		}
+    		
+    	})
+    })
+    
+    /* Delete Dis */
+	$('#deleteBtn').click(function(){
+		var disbursementNo = document.getElementById("disbursementNo");
+		var createBy = document.getElementById("createBy");
+		var form = document.getElementById('updateDisForm');
+		
+		disbursementNo.value = ${ oneDis.disbursementNo };
+		createBy.value = ${ oneDis.createBy };
+		
+		form.action = '${ pageContext.servletContext.contextPath }/deleteDis.app';
+		form.method = 'post';
+		form.submit();
+	});
     
     
     

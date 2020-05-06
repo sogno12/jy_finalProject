@@ -3,12 +3,15 @@ package com.mj.jy.appBox.controller;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttribute;
 
 import com.mj.jy.appBox.model.service.AppBoxService;
 import com.mj.jy.appBox.model.vo.SentAppBoxDto;
 import com.mj.jy.approval.model.service.ApprovalService;
 import com.mj.jy.member.model.vo.MemberDto;
+import com.mj.jy.namecard.model.vo.PageInfo;
+import com.mj.jy.namecard.model.vo.Pagination;
 
 @Controller
 public class AppBoxController {
@@ -21,24 +24,64 @@ public class AppBoxController {
 		this.approvalService = approvalService;
 	}
 	
-
-	@GetMapping("appBox.box")
-	public String goAppBox(@SessionAttribute("loginUser") MemberDto loginUser,
+	@GetMapping("sendAppBox.box")
+	public String goSendAppBox(@SessionAttribute("loginUser") MemberDto loginUser,
+			@RequestParam(required = false, defaultValue = "1") int pageIndex, 
+			@RequestParam(required = false, defaultValue = "5") int countNum, 
 			Model model) {
 		
 		// 보낸결재함
-		model.addAttribute("sendAppBox", appBoxService.getSentAppBox(loginUser.getMemberNo()));
+		int count = appBoxService.countSendAppBox(loginUser.getMemberNo());
+		PageInfo pi = Pagination.getPageInfo(count, pageIndex, 10, countNum);
+		model.addAttribute("sendAppBox", appBoxService.getSentAppBox(loginUser.getMemberNo(), pi));
+		model.addAttribute("countNum", countNum);
+
+		return "appBox/sendAppBox";
+	}
+	
+	@GetMapping("endSentAppBox.box")
+	public String goEndSentAppBox(@SessionAttribute("loginUser") MemberDto loginUser,
+			@RequestParam(required = false, defaultValue = "1") int pageIndex,
+			@RequestParam(required = false, defaultValue = "5") int countNum, 
+			Model model) {
 		
 		// 결재완료함
-		model.addAttribute("endSentAppBox", appBoxService.getEndSentAppBox(loginUser.getMemberNo()));
+		int count = appBoxService.countEndSentAppBox(loginUser.getMemberNo());
+		PageInfo pi = Pagination.getPageInfo(count, pageIndex, 10, countNum);
+		model.addAttribute("endSentAppBox", appBoxService.getEndSentAppBox(loginUser.getMemberNo(), pi));
+		model.addAttribute("countNum", countNum);
+		
+		return "appBox/endSentAppBox";
+	}
+	
+	@GetMapping("receiveAppBox.box")
+	public String goReceiveAppBox(@SessionAttribute("loginUser") MemberDto loginUser,
+			@RequestParam(required = false, defaultValue = "1") int pageIndex,
+			@RequestParam(required = false, defaultValue = "5") int countNum, 
+			Model model) {
 		
 		// 승인요청함
-		model.addAttribute("receiveAppBox", appBoxService.getReceiveAppBox(loginUser.getMemberNo()));
+		int count = appBoxService.countReceiveAppBox(loginUser.getMemberNo());
+		PageInfo pi = Pagination.getPageInfo(count, pageIndex, 10, countNum);
+		model.addAttribute("receiveAppBox", appBoxService.getReceiveAppBox(loginUser.getMemberNo(), pi));
+		model.addAttribute("countNum", countNum);
+		
+		return "appBox/receiveAppBox";
+	}
+	
+	@GetMapping("endReceiveAppBox.box")
+	public String goEndReceiveAppBox(@SessionAttribute("loginUser") MemberDto loginUser,
+			@RequestParam(required = false, defaultValue = "1") int pageIndex,
+			@RequestParam(required = false, defaultValue = "5") int countNum, 
+			Model model) {
 		
 		// 승인완료함
-		model.addAttribute("endReceiveAppBox", appBoxService.getEndReceiveAppBox(loginUser.getMemberNo()));
+		int count = appBoxService.countEndReceiveAppBox(loginUser.getMemberNo());
+		PageInfo pi = Pagination.getPageInfo(count, pageIndex, 10, countNum);
+		model.addAttribute("endReceiveAppBox", appBoxService.getEndReceiveAppBox(loginUser.getMemberNo(), pi));
+		model.addAttribute("countNum", countNum);
 
-		return "appBox/appBox";
+		return "appBox/endReceiveAppBox";
 	}
 	
 	@GetMapping("selectOne.app")
