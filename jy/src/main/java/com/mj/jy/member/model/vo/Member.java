@@ -4,7 +4,6 @@ import java.sql.Date;
 
 import org.apache.ibatis.type.Alias;
 
-@Alias("Member")
 public class Member {
 
 	private int memberNo;		// 직원번호
