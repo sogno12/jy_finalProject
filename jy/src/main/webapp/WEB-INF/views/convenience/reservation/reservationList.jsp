@@ -43,7 +43,7 @@
                             <div class="card-body">
                                 <h4 class="card-title">회의실 예약 목록</h4>
                                 <div class="table-responsive">
-                                    <table class="table">
+                                    <table class="table" style="text-align:center;">
                                         <thead class="thead-light">
                                             <tr>
                                                 <th>
@@ -121,7 +121,7 @@
                                 <div class="card-body">
                                     <h4 class="card-title">명함 예약 목록</h4>
                                     <div class="table-responsive">
-                                        <table class="table">
+                                        <table class="table" style="text-align:center;">
                                             <thead class="thead-light">
                                                 <tr>
                                                     <th>
@@ -157,7 +157,14 @@
 	                                                    </td>
 	                                                    <td>${ n.reportingDate }</td>
 	                                                    <td>${ n.processingDate }</td>
-	                                                    <td>${ n.status }</td>
+	                                                   <td>
+	                                                    <c:if test="${n.status eq 'N' }">
+	                                                    	미승인
+	                                                    </c:if>
+	                                                    <c:if test="${n.status eq 'Y' }">
+	                                                    	승인
+	                                                    </c:if>
+	                                                    </td>
 	                                                </tr>
 	                                            </c:forEach>
                                             </tbody>

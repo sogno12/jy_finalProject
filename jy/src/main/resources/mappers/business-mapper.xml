@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mj.jy.businessRoom.model.dao.BusinessRoomDao">
+	
+	<select id="selectBlist" resultType="BusinessDTO">
+		SELECT *
+		FROM BUSINESS_ROOM
+		JOIN BUSINESS_INFO USING(ROOM_NO)
+		JOIN TIME USING(TIME)
+		WHERE ROOM_NO = #{roomNo} AND HOPE_DATE = to_date(#{hopeDateStr}, 'MM/DD/YYYY') AND ROOM_COUNT >= #{count}	
+	</select>
+
+</mapper>
