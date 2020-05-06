@@ -91,6 +91,7 @@
 											<option value="10" ${ countNum eq 10 ? "selected" : "" }>10개</option>
 											<option value="15" ${ countNum eq 15 ? "selected" : "" }>15개</option>
 											<option value="20" ${ countNum eq 20 ? "selected" : "" }>20개</option>
+											<option value="0" ${ countNum eq 0 ? "selected" : "" }>All</option>
 										</select>
                                     </div>
                                     <br>

@@ -32,8 +32,14 @@ public class AppBoxController {
 		
 		// 보낸결재함
 		int count = appBoxService.countSendAppBox(loginUser.getMemberNo());
+		if(countNum == 0) {
+			countNum = count;
+		}
 		PageInfo pi = Pagination.getPageInfo(count, pageIndex, 10, countNum);
 		model.addAttribute("sendAppBox", appBoxService.getSentAppBox(loginUser.getMemberNo(), pi));
+		if(countNum == count) {
+			countNum = 0;
+		}
 		model.addAttribute("countNum", countNum);
 
 		return "appBox/sendAppBox";
@@ -47,8 +53,14 @@ public class AppBoxController {
 		
 		// 결재완료함
 		int count = appBoxService.countEndSentAppBox(loginUser.getMemberNo());
+		if(countNum == 0) {
+			countNum = count;
+		}
 		PageInfo pi = Pagination.getPageInfo(count, pageIndex, 10, countNum);
 		model.addAttribute("endSentAppBox", appBoxService.getEndSentAppBox(loginUser.getMemberNo(), pi));
+		if(countNum == count) {
+			countNum = 0;
+		}
 		model.addAttribute("countNum", countNum);
 		
 		return "appBox/endSentAppBox";
@@ -62,8 +74,14 @@ public class AppBoxController {
 		
 		// 승인요청함
 		int count = appBoxService.countReceiveAppBox(loginUser.getMemberNo());
+		if(countNum == 0) {
+			countNum = count;
+		}
 		PageInfo pi = Pagination.getPageInfo(count, pageIndex, 10, countNum);
 		model.addAttribute("receiveAppBox", appBoxService.getReceiveAppBox(loginUser.getMemberNo(), pi));
+		if(countNum == count) {
+			countNum = 0;
+		}
 		model.addAttribute("countNum", countNum);
 		
 		return "appBox/receiveAppBox";
@@ -77,8 +95,16 @@ public class AppBoxController {
 		
 		// 승인완료함
 		int count = appBoxService.countEndReceiveAppBox(loginUser.getMemberNo());
+		if(countNum == 0) {
+			countNum = count;
+		}
 		PageInfo pi = Pagination.getPageInfo(count, pageIndex, 10, countNum);
 		model.addAttribute("endReceiveAppBox", appBoxService.getEndReceiveAppBox(loginUser.getMemberNo(), pi));
+		
+		System.out.println(appBoxService.getEndReceiveAppBox(loginUser.getMemberNo(), pi));
+		if(countNum == count) {
+			countNum = 0;
+		}
 		model.addAttribute("countNum", countNum);
 
 		return "appBox/endReceiveAppBox";
