@@ -4,7 +4,7 @@ import java.sql.Date;
 
 import org.apache.ibatis.type.Alias;
 
-
+@Alias("MemberDto")
 public class MemberDto {
 	
 	private String empNo;			// 사번

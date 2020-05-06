@@ -50,7 +50,7 @@
  		 WHERE EMP_NO=#{empNo}
 	</select>
 	
-	<select id="searchPwd" parameterType="Member" resultType="Member">
+	<select id="searchPwd" parameterType="String" resultType="String">
 		SELECT PWD
 		  FROM MEMBER
 		 WHERE EMP_NO=#{empNo}

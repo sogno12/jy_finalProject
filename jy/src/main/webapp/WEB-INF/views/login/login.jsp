@@ -91,7 +91,7 @@
                     </div>
                     <div class="row m-t-20">
                         <!-- Form -->
-                        <form class="col-12" action="searchPwd.me">
+                        <form class="col-12">
                             <!-- email -->
                             <div class="input-group mb-3">
                                 <div class="input-group-prepend">
@@ -103,7 +103,7 @@
                             <div class="row m-t-20 p-t-20 border-top border-secondary">
                                 <div class="col-12">
                                     <a class="btn btn-success" href="#" id="to-login" name="action">로그인하기</a>
-                                    <button class="btn btn-info float-right" type="button" name="action" id="searchBtn" data-target="#pwdModal">확인</button>
+                                    <button class="btn btn-info float-right" type="button" name="action" id="searchBtn" data-toggle="modal">확인</button>
                                 </div>
                             </div>
                         </form>
@@ -179,8 +179,9 @@
 	    		type:"POST",
 	    		url:"searchPwd.me",
 	    		data:{empNo:$("#empNo").val()},
-	    		success:function(data){
-	    			$(".modal-body").text(data);
+	    		success:function(pwd){
+	    			console.log(pwd);
+	    			// $(".modal-body").text(data);
 	    		}, error:function(){
 	    			console.log("ajax 통신 실패");
 	    		}
