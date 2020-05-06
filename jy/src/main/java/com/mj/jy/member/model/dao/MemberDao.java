@@ -11,7 +11,6 @@ import com.mj.jy.member.model.vo.MemberDto;
 @Mapper
 public interface MemberDao {
 
-	// 로그
 	MemberDto loginMember(MemberDto m);
 	int insertMember(Member m);
 	ArrayList<Member> selectMemberList();
@@ -19,7 +18,7 @@ public interface MemberDao {
 	int updateMember(MemberDto m);
 	ArrayList<Member> selectListDept();
 	ArrayList<Member> selectListPos();
-	Member searchPwd(Member m);
+	String searchPwd(String empNo);
 	
 	/*
 	 * package com.mj.jy.member.model.dao;

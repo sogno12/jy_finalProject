@@ -1,5 +1,6 @@
 package com.mj.jy.schedule.model.service;
 
-public class ScheduleService {
-
+public interface ScheduleService {
+	
+	// ArrayList<TodoList> todoList();
 }
