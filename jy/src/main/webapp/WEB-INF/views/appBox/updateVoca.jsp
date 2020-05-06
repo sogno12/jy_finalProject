@@ -333,7 +333,7 @@
      *       Submit Table 유효성 검사                *
      ****************************************/
     var re = /^[a-z|A-Z|0-9|가-힣|\s]{3,30}$/
-    var reCon = /^[a-z|A-Z|0-9|가-힣|]{3,1000}$/
+    var reCon = /^[a-z|A-Z|0-9|가-힣|./?!@#$%^&*()|\s]{3,1000}$/
     var reNum = /^[0-9]{3,10}$/
     
    	function check(re, what, message){

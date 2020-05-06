@@ -248,4 +248,11 @@
 		WHERE CONTENT_NO = #{contentNo}
 	</update>
 	
+	<update id="changeVacationCount" parameterType="Map">
+		UPDATE LEAVE_DAYS
+			SET LEFT_DAYS = LEFT_DAYS-#{countV},
+				VACATIONCOUNT = VACATIONCOUNT+#{countV}
+			WHERE LEAVEDAYS_YEAR = #{leavedaysYear} AND MEMBER_NO =#{memberNo}
+	</update>
+	
 </mapper>

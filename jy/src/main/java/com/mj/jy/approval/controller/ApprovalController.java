@@ -226,7 +226,7 @@ public class ApprovalController {
 			session.setAttribute("appMsg", "결재상태 변경 실패");
 		}
 		
-		return "redirect:endReceiveAppBox";
+		return "redirect:endReceiveAppBox.box";
 	}
 	
 	@GetMapping("goApproveDis.app")
@@ -241,7 +241,7 @@ public class ApprovalController {
 			session.setAttribute("appMsg", "결재상태 변경 실패");
 		}
 		
-		return "redirect:endReceiveAppBox";
+		return "redirect:endReceiveAppBox.box";
 	}
 	
 	

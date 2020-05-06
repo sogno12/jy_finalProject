@@ -407,11 +407,15 @@
     });
     
     $('#checkBtn').click(function(){
-    	if( ${loginUser.memberNo } == ${oneDis.createBy} && ${oneDis.approvalNo} != 2) {
+    	var memberNo = ${ loginUser.memberNo};
+    	var createBy = ${ oneDis.createBy};
+    	var approvalNo = ${ oneDis.approvalNo };
+    	
+    	if( memberNo == createBy && approvalNo != 2) {
     		location.href='${ pageContext.servletContext.contextPath }/sendAppBox.box';
-    	}else if(  ${loginUser.memberNo} == ${oneDis.createBy} && ${oneDis.approvalNo} == 2 ){
+    	}else if(  memberNo == createBy && approvalNo == 2 ){
     		location.href='${ pageContext.servletContext.contextPath }/endSentAppBox.box';
-    	}else if(  ${loginUser.memberNo} != ${oneDis.createBy} && ${oneDis.approvalNo} != 2 ){
+    	}else if(  memberNo != createBy && approvalNo != 2 ){
     		location.href='${ pageContext.servletContext.contextPath }/receiveAppBox.box';
     	}else {
     		location.href='${ pageContext.servletContext.contextPath }/endReceiveAppBox.box';

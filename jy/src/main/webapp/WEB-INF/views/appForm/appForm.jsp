@@ -192,16 +192,6 @@
 	                                           <!-- reasonBox - Ajax -->
                                            
                                         </div>
-                                        <div class="col-md-6" id="selectHalf" style="display:none">
-                                             <div class="custom-control custom-radio" style="display:none">
-                                                <input type="radio" class="custom-control-input" id="customControlValidation2" name="radio-stacked" required>
-                                                <label class="custom-control-label" for="customControlValidation2">오전</label>
-                                            </div>
-                                             <div class="custom-control custom-radio" style="display: inline-block">
-                                                <input type="radio" class="custom-control-input" id="customControlValidation3" name="radio-stacked" required>
-                                                <label class="custom-control-label" for="customControlValidation3">오후</label>
-                                            </div>
-                                        </div>
                                     </div>
                                         
                                     
@@ -700,6 +690,18 @@
    	})
    
     
+    /* 반차의 경우 EndDate 작성 불가하도록 */
+    //$("#reason").on('change', function(){
+    $("#reasonList").on('change', '#reason', function(){
+		var reason = document.getElementById("reason");
+		
+		if(reason.options[reason.selectedIndex].value == 2){
+    		$('#endDate1').attr('disabled', true);
+    	} else{
+    		$('#endDate1').attr('disabled', false);
+    	}
+	});
+   	
     
     /* select Approval reason Ajax */
     
@@ -797,7 +799,7 @@
      *       Submit Table 유효성 검사                *
      ****************************************/
     var re = /^[a-z|A-Z|0-9|가-힣|\s]{3,30}$/
-    var reCon = /^[a-z|A-Z|0-9|가-힣|\s]{3,1000}$/
+    var reCon = /^[a-z|A-Z|0-9|가-힣|./?!@#$%^&*()|\s]{3,1000}$/
     var reNum = /^[0-9]{3,10}$/
     
    	function check(re, what, message){
@@ -956,6 +958,9 @@
          "lengthMenu": [[5, 10, 15, -1], [5, 10, 15, "All"]]
      });
         
+    
+    
+    
     </script>
     
 </div>
