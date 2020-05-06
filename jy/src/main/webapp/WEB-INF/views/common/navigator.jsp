@@ -29,11 +29,11 @@
 	        <nav class="navbar top-navbar navbar-expand-md navbar-dark">
 	            <div class="navbar-header" data-logobg="skin5">
 	                <!-- This is for the sidebar toggle which is visible on mobile only -->
-	                <a class="nav-toggler waves-effect waves-light d-block d-md-none" href="javascript:void(0)"><i class="ti-menu ti-close"></i></a>
+	                <a class="nav-toggler waves-effect waves-light d-block d-md-none" href="main.do"><i class="ti-menu ti-close"></i></a>
 	                <!-- ============================================================== -->
 	                <!-- Logo -->
 	                <!-- ============================================================== -->
-	                <a class="navbar-brand" href="index.html">
+	                <a class="navbar-brand" href="main.do">
 	                    <!-- Logo icon -->
 	                    <b class="logo-icon p-l-10">
 	                        <!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
@@ -41,9 +41,11 @@
 	                        <img src="${ pageContext.servletContext.contextPath }/resources/images/logo-icon.png" alt="homepage" class="light-logo"/>
 	                        
 	                        <!-- Logo text -->
-	                        <span class="logo-text" style="margin-left: 20px; vertical-align: middle;">
-	                            J&Y CO.
-	                        </span>
+	                        
+	                        	<span class="logo-text" style="margin-left: 20px; vertical-align: middle;">
+	                            	J&Y CO.
+	                        	</span>
+	                        
 	                       
 	                    </b>
 	                    <!--End Logo icon -->
@@ -201,7 +203,7 @@
 	                    <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="mdi mdi-account-multiple"></i><span class="hide-menu">Team </span></a>
 	                        <ul aria-expanded="false" class="collapse  first-level">
 	                            <li class="sidebar-item"><a href="yh-Board.html" class="sidebar-link"><i class="mdi mdi-note-outline"></i><span class="hide-menu"> 사내 게시판 </span></a></li>
-	                            <li class="sidebar-item"><a href="sujin-teamTable.html" class="sidebar-link"><i class="mdi mdi-sitemap"></i><span class="hide-menu"> 팀 정보 </span></a></li>
+	                            <li class="sidebar-item"><a href="teamTable.me" class="sidebar-link"><i class="mdi mdi-sitemap"></i><span class="hide-menu"> 팀 정보 </span></a></li>
 	                            
 	                            <c:if test="${ loginUser.departmentNo eq 1 }">
 		                            <!-- 총무팀 로그인시 보여지는 메뉴 -->

@@ -1,9 +1,11 @@
 package com.mj.jy.member.model.service;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import com.mj.jy.member.model.vo.Member;
 import com.mj.jy.member.model.vo.MemberDto;
+import com.mj.jy.namecard.model.vo.PageInfo;
 
 public interface MemberService {
 	
@@ -30,5 +32,17 @@ public interface MemberService {
 	
 	// 직급별 주소록
 	ArrayList<Member> selectListPos();
+
+	/** sujin1.
+	 * @param departmentNo 로그인 유저 부서번호
+	 * @return
+	 */
+	List<MemberDto> getListDept(int departmentNo, PageInfo pi);
+
+	/** sujin2
+	 * @param departmentNo 로그인 유저 부서번호
+	 * @return
+	 */
+	int getCountDeptMember(int departmentNo);
 
 }
