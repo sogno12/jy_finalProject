@@ -446,8 +446,8 @@
                                     <!-- 결재기안서 상세내용 기입테이블 -->
                                     <div class="col-sm-12" style="margin:auto;">
                                         <label for="table" class="col-sm-3 text-left control-label col-form-label">내역</label>
-                                        <div class="col-md-3 text-right" style="float: right;">
-                                        	<label class="control-label col-form-label">행 갯수 선택  : </label>
+                                        <div class="col-md-9 text-right" style="float: right;">
+                                     		<label class="control-label col-form-label">행 갯수 선택 (행갯수가 바뀌면 내용은 리셋됩니다) : </label>
                                             <select class="select2 form-control custom-select" style="width: 100px; height:26px; font-size: 12px;" id="rowSelect">
                                                 <option value="3">3</option>
                                                 <option value="5">5</option>

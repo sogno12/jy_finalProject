@@ -2,6 +2,7 @@ package com.mj.jy.appBox.model.service;
 
 import java.util.List;
 
+import org.apache.ibatis.session.RowBounds;
 import org.springframework.stereotype.Service;
 
 import com.mj.jy.appBox.model.dao.AppBoxDao;
@@ -11,6 +12,7 @@ import com.mj.jy.appBox.model.vo.ReportDto;
 import com.mj.jy.appBox.model.vo.SentAppBoxDto;
 import com.mj.jy.approval.model.vo.ApprovalDto;
 import com.mj.jy.member.model.vo.AllMemberDto;
+import com.mj.jy.namecard.model.vo.PageInfo;
 
 @Service
 public class AppBoxServiceImpl implements AppBoxService {
@@ -22,13 +24,15 @@ public class AppBoxServiceImpl implements AppBoxService {
 	}
 	
 	@Override
-	public List<SentAppBoxDto> getSentAppBox(int memberNo) {
-		return appBoxDao.getSentAppBox(memberNo);
+	public List<SentAppBoxDto> getSentAppBox(int memberNo, PageInfo pi) {
+		RowBounds rowBounds = new RowBounds(pi.getCurrentPage(), pi.getBoardLimit());
+		return appBoxDao.getSentAppBox(memberNo, rowBounds);
 	}
 
 	@Override
-	public List<SentAppBoxDto> getEndSentAppBox(int memberNo) {
-		return appBoxDao.getEndSentAppBox(memberNo);
+	public List<SentAppBoxDto> getEndSentAppBox(int memberNo, PageInfo pi) {
+		RowBounds rowBounds = new RowBounds(pi.getCurrentPage(), pi.getBoardLimit());
+		return appBoxDao.getEndSentAppBox(memberNo, rowBounds);
 	}
 
 	@Override
@@ -47,13 +51,15 @@ public class AppBoxServiceImpl implements AppBoxService {
 	}
 
 	@Override
-	public List<SentAppBoxDto> getReceiveAppBox(int memberNo) {
-		return appBoxDao.getReceiveAppBox(memberNo);
+	public List<SentAppBoxDto> getReceiveAppBox(int memberNo, PageInfo pi) {
+		RowBounds rowBounds = new RowBounds(pi.getCurrentPage(), pi.getBoardLimit());
+		return appBoxDao.getReceiveAppBox(memberNo, rowBounds);
 	}
 
 	@Override
-	public List<SentAppBoxDto> getEndReceiveAppBox(int memberNo) {
-		return appBoxDao.getEndReceiveAppBox(memberNo);
+	public List<SentAppBoxDto> getEndReceiveAppBox(int memberNo, PageInfo pi) {
+		RowBounds rowBounds = new RowBounds(pi.getCurrentPage(), pi.getBoardLimit());
+		return appBoxDao.getEndReceiveAppBox(memberNo, rowBounds);
 	}
 
 	@Override
@@ -69,6 +75,26 @@ public class AppBoxServiceImpl implements AppBoxService {
 	@Override
 	public List<DisContentDto> getDisContents(int disbursementNo) {
 		return appBoxDao.getDisContents(disbursementNo);
+	}
+
+	@Override
+	public int countSendAppBox(int memberNo) {
+		return appBoxDao.countSendAppBox(memberNo);
+	}
+
+	@Override
+	public int countEndSentAppBox(int memberNo) {
+		return appBoxDao.countEndSentAppBox(memberNo);
+	}
+
+	@Override
+	public int countReceiveAppBox(int memberNo) {
+		return appBoxDao.countReceiveAppBox(memberNo);
+	}
+
+	@Override
+	public int countEndReceiveAppBox(int memberNo) {
+		return appBoxDao.countEndReceiveAppBox(memberNo);
 	}
 
 }

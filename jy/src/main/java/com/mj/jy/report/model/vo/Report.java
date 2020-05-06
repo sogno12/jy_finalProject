@@ -14,11 +14,11 @@ public class Report {
 	private int createDate;
 	private String title;
 	
-	@DateTimeFormat(pattern="yyyy-MM-dd")
+	@DateTimeFormat(pattern="MM/dd/yyyy")
 	private Date beginDate;
-	@DateTimeFormat(pattern="yyyy-MM-dd")
-
+	@DateTimeFormat(pattern="MM/dd/yyyy")
 	private Date endDate;
+	
 	private String content;
 	private int reasonNo;
 	private int updateBy;

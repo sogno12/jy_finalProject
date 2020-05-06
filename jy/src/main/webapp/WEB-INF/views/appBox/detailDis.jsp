@@ -257,7 +257,7 @@
                              <div class="border-top">
                                     <div class="card-body text-right">
                                         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#Modal2">Update</button>
-                                        <button type="button" class="btn btn-info" onclick="location.href='${ pageContext.servletContext.contextPath }/appBox.box'">Check</button>
+                                        <button type="button" class="btn btn-info" id="checkBtn">Check</button>
                                     
                                         <!-- Modal -->
                                         <div class="modal fade" id="Modal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -400,13 +400,22 @@
     });
     
     $('#approvalBtn').click(function(){
-    	console.log("클릭!");
     	var selectNo = $('#approvalSelect option:selected').val();
-    	console.log(selectNo);
     	if(selectNo != ""){
 	    	location.href="goApproveDis.app?no="+${oneDis.disbursementNo}+"&selectNo="+selectNo;
     	}
-
+    });
+    
+    $('#checkBtn').click(function(){
+    	if( ${loginUser.memberNo } == ${oneDis.createBy} && ${oneDis.approvalNo} != 2) {
+    		location.href='${ pageContext.servletContext.contextPath }/sendAppBox.box';
+    	}else if(  ${loginUser.memberNo} == ${oneDis.createBy} && ${oneDis.approvalNo} == 2 ){
+    		location.href='${ pageContext.servletContext.contextPath }/endSentAppBox.box';
+    	}else if(  ${loginUser.memberNo} != ${oneDis.createBy} && ${oneDis.approvalNo} != 2 ){
+    		location.href='${ pageContext.servletContext.contextPath }/receiveAppBox.box';
+    	}else {
+    		location.href='${ pageContext.servletContext.contextPath }/endReceiveAppBox.box';
+    	}
     });
 	</script>
 </div>
