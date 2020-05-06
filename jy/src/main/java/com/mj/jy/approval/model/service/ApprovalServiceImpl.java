@@ -1,10 +1,12 @@
 package com.mj.jy.approval.model.service;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.mj.jy.appBox.model.vo.DisbursementDto;
 import com.mj.jy.appBox.model.vo.ReportDto;
 import com.mj.jy.approval.model.dao.ApprovalDao;
 import com.mj.jy.approval.model.vo.SuperApprovalDto;
@@ -34,22 +36,11 @@ public class ApprovalServiceImpl implements ApprovalService {
 		return appDao.getReportReasons(typeNo);
 	}
 
-	// 트랜잭션
-	// JDBC 직접 코드
-	// 스프링 -> 추상화 AOP 를 사용해 추상화 해놨음
-	// 개발자 -> AOP 로 처리를 해도되고, @Transactional 
-	// isolation 디비 기본 전략 따라감
-	// pro
-	// A 
-	// B
-	// (B -> (A)) 
-	// 예외 발생시 롤백 -> RuntimeException 구현 예외들 발생시 
-	// SQLException Checked Exception (try-catch)
-	// 추상화 -> DataAccessException (RuntimeException) 
-	// 오라클, MySQL, ... 디비 종류가 많음
 	@Override
 	@Transactional
-	public void enrollReport(Report report, Attachment attachment, String[] superArray) {
+	public int enrollReport(Report report, Attachment attachment, String[] superArray) {
+		int enrollResult = 0;
+		
 		//첨부파일
 		if(attachment.getOriginName() != null) {
 			appDao.enrollAttachment(attachment);
@@ -57,15 +48,16 @@ public class ApprovalServiceImpl implements ApprovalService {
 		}
 		
 		//리포트 추가
-		appDao.enrollReport(report);
+		enrollResult = appDao.enrollReport(report);
 		report.setReportNo(report.getReportNo());
 		
 		
 		//리포트-super연결
 		for(int i=0; i<superArray.length; i++) {
 			ReportApp reportApp = new ReportApp(report.getReportNo(), Integer.parseInt(superArray[i]), superArray.length-i);
-			appDao.enrollReportSuper(reportApp);
+			enrollResult = enrollResult * appDao.enrollReportSuper(reportApp);
 		}
+		return enrollResult;
 	}
 
 	@Override
@@ -94,7 +86,9 @@ public class ApprovalServiceImpl implements ApprovalService {
 	}
 
 	@Override
-	public void enrollDisbursement(Disbursement disbursement, Attachment attachment, String[] superArray, List<DisContent> disContents) {
+	public int enrollDisbursement(Disbursement disbursement, Attachment attachment, String[] superArray, List<DisContent> disContents) {
+		int enrollResult = 0;
+		
 		//첨부파일
 		if(attachment.getOriginName() != null) {
 			appDao.enrollAttachment(attachment);
@@ -102,21 +96,23 @@ public class ApprovalServiceImpl implements ApprovalService {
 		}
 		
 		//결의서 추가
-		appDao.enrollDisbursement(disbursement);
+		enrollResult = appDao.enrollDisbursement(disbursement);
 		disbursement.setDisbursementNo(disbursement.getDisbursementNo());
 		
 		//결의서 내용 추가
 		for(int i=0; i<disContents.size(); i++) {
 			DisContent disContent = disContents.get(i);
 			disContent.setDisbursementNo(disbursement.getDisbursementNo());
-			appDao.enrollDisContent(disContent);
+			enrollResult = enrollResult * appDao.enrollDisContent(disContent);
 		}
 		
 		//결의서-super 연결
 		for(int i=0; i<superArray.length; i++) {
 			DisApp disApp = new DisApp(disbursement.getDisbursementNo(), Integer.parseInt(superArray[i]), superArray.length-i);
-			appDao.enrollDisSuper(disApp);
+			enrollResult = enrollResult * appDao.enrollDisSuper(disApp);
 		}
+		
+		return enrollResult;
 	}
 
 	@Override
@@ -188,6 +184,74 @@ public class ApprovalServiceImpl implements ApprovalService {
 		}
 			
 		return approvalResult;
+	}
+
+	@Override
+	public int deleteReport(int reportNo) {
+		return appDao.deleteReport(reportNo);
+	}
+
+	@Override
+	public int deleteDis(int disbursementNo) {
+		return appDao.deleteDis(disbursementNo);
+	}
+
+	@Override
+	public int updateDis(DisbursementDto disbursementDto, List<DisContent> disContents) {
+		
+		int updateResult = 0;
+		
+		//1. 파일업데이트
+			appDao.updateAttachmentDis(disbursementDto);
+		//2. Dis 업데이트
+			updateResult = appDao.updateDis(disbursementDto);
+			
+		//3. Dis 내용 업데이트 (갯수마다 범위 나눠서)
+			//3.1 원래 갯수 확인
+			List<Integer> disCon = appDao.countDisCon(disbursementDto.getDisbursementNo());
+			System.out.println(disCon);
+			
+			//3.2 갯수가 같을때 : 내용 업데이트
+			if(disCon.size() == disContents.size()) {
+				for(int i = 0; i<disCon.size(); i++) {
+					DisContent disContent = disContents.get(i);
+					disContent.setDisbursementNo(disbursementDto.getDisbursementNo());
+					disContent.setContentNo(disCon.get(i));
+					int result = appDao.updateDisContent(disContent);
+					updateResult = updateResult * result;
+				}
+				
+			//3.3 기존내용의 갯수가 새 내용의 갯수보다 적을 때	: 내용 업데이트 + 추가내용 insert
+			} else if( disCon.size() < disContents.size()) {
+				for(int i = 0; i<disCon.size(); i++) {
+					DisContent disContent = disContents.get(i);
+					disContent.setDisbursementNo(disbursementDto.getDisbursementNo());
+					disContent.setContentNo(disCon.get(i));
+					updateResult = updateResult * appDao.updateDisContent(disContent);
+				}
+				for(int j = disCon.size(); j<disContents.size(); j++) {
+					DisContent disContent = disContents.get(j);
+					disContent.setDisbursementNo(disbursementDto.getDisbursementNo());
+					int result = appDao.enrollDisContent(disContent);
+					updateResult = updateResult * result;
+				}
+				
+			// 3.4 기존내용의 갯수가 새 내용의 갯수보다 많을 때 : 내용 업데이트 + 남는기존내용 삭제('N')
+			} else {
+				for(int i = 0; i<disContents.size(); i++) {
+					DisContent disContent = disContents.get(i);
+					disContent.setDisbursementNo(disbursementDto.getDisbursementNo());
+					disContent.setContentNo(disCon.get(i));
+					int result = appDao.updateDisContent(disContent);
+					updateResult = updateResult * result;
+				}
+				for(int j = disContents.size(); j<disCon.size(); j++) {
+					int result = appDao.deleteDisCon(disCon.get(j));
+					updateResult = updateResult * result;
+				}
+			}
+		
+		return updateResult;
 	}
 
 	

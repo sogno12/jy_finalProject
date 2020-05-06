@@ -9,6 +9,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,11 +19,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.mj.jy.appBox.model.vo.DisContentDto;
+import com.mj.jy.appBox.model.vo.DisbursementDto;
 import com.mj.jy.appBox.model.vo.ReportDto;
 import com.mj.jy.approval.model.service.ApprovalService;
 import com.mj.jy.approval.model.vo.SuperApprovalDto;
 import com.mj.jy.attachment.model.vo.Attachment;
 import com.mj.jy.disbursement.model.vo.DisContent;
+import com.mj.jy.disbursement.model.vo.DisContentCreateDto;
 import com.mj.jy.disbursement.model.vo.Disbursement;
 import com.mj.jy.member.model.vo.MemberDto;
 import com.mj.jy.report.model.vo.Report;
@@ -65,7 +69,8 @@ public class ApprovalController {
 	
 	@PostMapping("/enrollVa.app")
 	public String enrollReport(@SessionAttribute("loginUser") MemberDto loginUser, Model model, Report report, String[] superArray,
-			@RequestParam(value="uploadFile", required=false) MultipartFile file, HttpServletRequest request) {
+			@RequestParam(value="uploadFile", required=false) MultipartFile file, HttpServletRequest request,
+			HttpSession session) {
 		
 		/* Report 처리 */
 		report.createBy(loginUser.getMemberNo());
@@ -81,39 +86,29 @@ public class ApprovalController {
 			changeName = saveFile(file, request, folderNo);
 		}
 		
-		approvalService.enrollReport(report, new Attachment(originName, changeName, folderNo), superArray);
+		int appResult = approvalService.enrollReport(report, new Attachment(originName, changeName, folderNo), superArray);
 		
-		return "redirect:appBox.box";
+		if(appResult> 0) {
+			session.setAttribute("appMsg", "보고서 등록 성공!");
+		}else {
+			session.setAttribute("appMsg", "보고서 등록 실패");
+		}
+		
+		//System.out.println(session.getAttribute("appMsg"));
+		
+		return "redirect:sendAppBox.box";
 	}
 	
 	
 	@PostMapping("enrollDis.app")
 	public String enrollDisbursement(@SessionAttribute("loginUser") MemberDto loginUser, Model model, Disbursement disbursement,
-			String[] superArray, @RequestParam(value="uploadFile", required=false) MultipartFile file, HttpServletRequest request) {
+			String[] superArray, @RequestParam(value="uploadFile", required=false) MultipartFile file, HttpServletRequest request,
+			DisContentCreateDto disContentCreateDto,
+			HttpSession session) {
 		
-		String[] paydate = request.getParameterValues("paydate");
-		String[] subjectNo = request.getParameterValues("subjectNo");
-		String[] disContent = request.getParameterValues("disContent");
-		String[] client = request.getParameterValues("client");
-		String[] price = request.getParameterValues("price");
-		String[] methodNo = request.getParameterValues("methodNo");
+		List<DisContent> disContents = disContentCreateDto.toEtities();
 		
-		SimpleDateFormat fm = new SimpleDateFormat("MM/dd/yyyy");
-		
-		List<DisContent> disContents = new ArrayList<>();
-		
-		for(int i=0; i<paydate.length; i++) {
-			if(paydate[i] != "" || !paydate[i].equals("")) {
-				try {
-					disContents.add(new DisContent(fm.parse(paydate[i]), disContent[i], client[i], 
-							Integer.parseInt(price[i]), Integer.parseInt(subjectNo[i]), Integer.parseInt(methodNo[i])));
-				} catch (NumberFormatException | ParseException e) {
-					e.printStackTrace();
-				}
-			}
-		}
-		
-		System.out.println("disContents: "+disContents);
+		//System.out.println("disContents: "+disContents);
 		
 		/* Disbursement 처리 */
 		disbursement.setCreateBy(loginUser.getMemberNo());
@@ -129,16 +124,188 @@ public class ApprovalController {
 			changeName = saveFile(file, request, folderNo);
 		}
 		
-		System.out.println("disbursement: "+disbursement);
-		System.out.println("originName: "+originName);
-		System.out.println("changeName: "+changeName);
+		// System.out.println("disbursement: "+disbursement);
+		// System.out.println("originName: "+originName);
+		// System.out.println("changeName: "+changeName);
 		
-		approvalService.enrollDisbursement(disbursement, new Attachment(originName, changeName, folderNo), superArray, disContents);
+		int appResult = approvalService.enrollDisbursement(disbursement, new Attachment(originName, changeName, folderNo), superArray, disContents);
 		
+		if(appResult> 0) {
+			session.setAttribute("appMsg", "결재서 등록 완료");
+		}else {
+			session.setAttribute("appMsg", "결재서 등록 실패");
+		}
 		
-		return "redirect:appBox.box";
+		return "redirect:sendAppBox.box";
 	}
 	
+	
+	
+	@PostMapping("updateReport.app")
+	public String updateReport(@SessionAttribute("loginUser") MemberDto loginUser, Model model, ReportDto reportDto, 
+			@RequestParam(value="uploadFile", required=false) MultipartFile file, HttpServletRequest request,
+			HttpSession session) {
+		
+		int folderNo = 2;
+		reportDto.setUpdateBy(loginUser.getMemberNo());
+				
+		// 새로 넘어온 첨부파일이 있을 경우
+		if(!file.getOriginalFilename().equals("")) {
+			
+			// 기존 첨부파일은 삭제
+			if(reportDto.getUpdateName() != null) {
+				deleteFile(reportDto.getUpdateName(), request, folderNo);
+			}
+			
+			// 새 첨부파일 업로드
+			reportDto.setUpdateName(saveFile(file, request, folderNo));
+		}
+				
+		int updateResult = approvalService.updateReport(reportDto);
+		
+		if(updateResult> 0) {
+			session.setAttribute("appMsg", "보고서 수정 완료");
+		}else {
+			session.setAttribute("appMsg", "보고서 수정 실패");
+		}
+		
+		return "redirect:sendAppBox.box";
+	}
+	
+
+	@PostMapping("updateDis.app")
+	public String updateDis(@SessionAttribute("loginUser") MemberDto loginUser, Model model, DisbursementDto disbursementDto,
+			@RequestParam(value="uploadFile", required=false) MultipartFile file, HttpServletRequest request,
+			DisContentCreateDto disContentCreateDto, HttpSession session) {
+		
+		List<DisContent> disContents = disContentCreateDto.toEtities();
+		
+		disbursementDto.setUpdateBy(loginUser.getMemberNo());
+		// System.out.println("disContents: "+disContents);
+		// System.out.println("disbursement: "+disbursementDto);
+
+		//2. 첨부파일 처리
+		int folderNo = 3;
+				
+		// 새로 넘어온 첨부파일이 있을 경우
+		if(!file.getOriginalFilename().equals("")) {
+			
+			// 기존 첨부파일은 삭제
+			if(disbursementDto.getUpdateName() != null) {
+				deleteFile(disbursementDto.getUpdateName(), request, folderNo);
+			}
+			
+			// 새 첨부파일 업로드
+			disbursementDto.setUpdateName(saveFile(file, request, folderNo));
+		}
+		
+		//3. 파일 수정하기
+		int updateDis = approvalService.updateDis(disbursementDto, disContents);
+		
+		if(updateDis > 0) {
+			session.setAttribute("appMsg", "결재서 수정 완료");
+		}else {
+			session.setAttribute("appMsg", "결재서 수정 실패");
+		}
+		
+		
+
+		return "redirect:sendAppBox.box";
+	}
+	
+	
+	@GetMapping("goApproveReport.app")
+	public String approvalReport(@SessionAttribute("loginUser") MemberDto loginUser, int no, int selectNo,
+			HttpSession session) {
+	
+		int appResult = approvalService.approvalReport(new SuperApprovalDto("Report", loginUser.getMemberNo(), no, selectNo));
+		
+		if(appResult> 0) {
+			session.setAttribute("appMsg", "결재상태 변경 완료");
+		}else {
+			session.setAttribute("appMsg", "결재상태 변경 실패");
+		}
+		
+		return "redirect:endReceiveAppBox";
+	}
+	
+	@GetMapping("goApproveDis.app")
+	public String approvalDis(@SessionAttribute("loginUser") MemberDto loginUser, int no, int selectNo,
+			HttpSession session) {
+	
+		int appResult = approvalService.approvalDis(new SuperApprovalDto("Disbursement", loginUser.getMemberNo(), no, selectNo));
+		
+		if(appResult> 0) {
+			session.setAttribute("appMsg", "결재상태 변경 완료");
+		}else {
+			session.setAttribute("appMsg", "결재상태 변경 실패");
+		}
+		
+		return "redirect:endReceiveAppBox";
+	}
+	
+	
+	/* Delete : 파일 삭제부 */
+	
+	@PostMapping("deleteDis.app")
+	public String deleteDis(@SessionAttribute("loginUser") MemberDto loginUser, DisbursementDto disbursementDto, HttpServletRequest request,
+			HttpSession session) {
+		
+		// 0. loginUser memberNo 과 Dis createBy가 일치하는지 확인
+		if( loginUser.getMemberNo() != disbursementDto.getCreateBy() ) {
+			session.setAttribute("appMsg", "삭제 실패. 작성자와 삭제요청자가 다릅니다");
+			return "redirect:appBox.box";
+		}
+		
+		//1. 첨부파일이 있었을 경우 삭제
+		if(disbursementDto.getUpdateName() != null) { 
+			int folderNo = 2;
+			deleteFile(disbursementDto.getUpdateName(), request, folderNo);
+		}
+		
+		//2. Dis approval = 4 로 수정
+		int deleteResult = approvalService.deleteDis(disbursementDto.getDisbursementNo());
+		
+		if(deleteResult> 0) {
+			session.setAttribute("appMsg", "결재서 삭제 완료");
+		}else {
+			session.setAttribute("appMsg", "결재서 삭제 실패");
+		}
+		
+		return "redirect:sendAppBox.box";
+	}
+	
+	@PostMapping("deleteReport.app")
+	public String deleteDis(@SessionAttribute("loginUser") MemberDto loginUser, ReportDto reportDto, HttpServletRequest request,
+			HttpSession session) {
+		
+		//0. loginUser memberNo 와 reportDto createBy가 일치하는지 확인
+		if( loginUser.getMemberNo() != reportDto.getCreateBy() ) {
+			session.setAttribute("appMsg", "삭제 실패. 작성자와 삭제요청자가 다릅니다");
+			return "redirect:appBox.box";
+		}
+		
+		//1. 첨부파일이 있었을 경우 삭제
+		if(reportDto.getUpdateName() != null) {
+			int folderNo = 2;
+			deleteFile(reportDto.getUpdateName(), request, folderNo);
+		}
+		
+		//2. Report approval = 4 로 수정
+		int deleteResult = approvalService.deleteReport(reportDto.getReportNo());
+		
+		if(deleteResult> 0) {
+			session.setAttribute("appMsg", "보고서 삭제 완료");
+		}else {
+			session.setAttribute("appMsg", "보고서 삭제 실패");
+		}
+		
+		
+		return "redirect:sendAppBox.box";
+	}
+	
+
+	/* 첨부파일 처리부 */
 	
 	public String saveFile(MultipartFile file, HttpServletRequest request, int folderNo) {
 		String resources = request.getSession().getServletContext().getRealPath("resources");
@@ -165,32 +332,6 @@ public class ApprovalController {
 		return changeName;
 	}
 	
-	@PostMapping("updateReport.app")
-	public String updateReport(@SessionAttribute("loginUser") MemberDto loginUser, Model model, ReportDto reportDto, 
-			@RequestParam(value="uploadFile", required=false) MultipartFile file, HttpServletRequest request) {
-		int folderNo = 2;
-		reportDto.setUpdateBy(loginUser.getMemberNo());
-				
-		// 새로 넘어온 첨부파일이 있을 경우
-		if(!file.getOriginalFilename().equals("")) {
-			
-			// 기존 첨부파일은 삭제
-			if(reportDto.getUpdateName() != null) {
-				deleteFile(reportDto.getUpdateName(), request, folderNo);
-			}
-			
-			// 새 첨부파일 업로드
-			reportDto.setUpdateName(saveFile(file, request, folderNo));
-		}
-				
-		int result = approvalService.updateReport(reportDto);
-		//System.out.println(result);
-		
-		return "redirect:appBox.box";
-	}
-	
-	
-	
 	public void deleteFile(String fileName, HttpServletRequest request, int folderNo) {
 		String resources = request.getSession().getServletContext().getRealPath("resources");
 		String savePath = resources;
@@ -203,21 +344,5 @@ public class ApprovalController {
 		deleteFile.delete();
 	}
 	
-	
-	@GetMapping("goApproveReport.app")
-	public String approvalReport(@SessionAttribute("loginUser") MemberDto loginUser, int no, int selectNo) {
-	
-		int result = approvalService.approvalReport(new SuperApprovalDto("Report", loginUser.getMemberNo(), no, selectNo));
-		
-		return "redirect:appBox.box";
-	}
-	
-	@GetMapping("goApproveDis.app")
-	public String approvalDis(@SessionAttribute("loginUser") MemberDto loginUser, int no, int selectNo) {
-	
-		int result = approvalService.approvalDis(new SuperApprovalDto("Disbursement", loginUser.getMemberNo(), no, selectNo));
-		
-		return "redirect:appBox.box";
-	}
 	
 }
