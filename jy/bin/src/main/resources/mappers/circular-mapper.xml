@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mj.jy.circular.model.dao.CircularDao">
+
+	<resultMap id="circularDto" type="CircularDto">
+		<id column="CIRCULAR_NO" property="circularNo" />
+		<result column="CATEGORY_NO" property="categoryNo" />
+		<result column="CIRCULAR_TYPE_NO" property="circularTypeNo" />
+		<result column="TARGET" property="target" />
+		<result column="CREATE_BY" property="createBy" />
+		<result column="CREATE_DATE" property="createDate" />
+		<result column="TITLE" property="title" />
+		<result column="CONTENT" property="content" />
+		<result column="BEGIN_DATE" property="beginDate" />
+		<result column="END_DATE" property="endDate" />
+		<result column="STATUS" property="status" />
+		<result column="UPDATE_BY" property="updateBy" />
+		<result column="UPDATE_DATE" property="updateDate" />
+		<result column="CATEGORY" property="category" />
+		<result column="TYPE" property="type" />
+		<result column="NAME" property="name" />
+		<result column="DE_NAME" property="deName" />		
+	</resultMap>
+
+	<resultMap id="readingDto" type="Reading">
+		<id column="READING_NO" property="readingNo" />
+		<result column="CIRCULAR_NO" property="circularNo" />
+		<result column="MEMBER_NO" property="memberNo" />
+		<result column="DATE" property="date" />
+		<result column="NAME" property="name" />
+		<result column="DE_NAME" property="deName" />
+	</resultMap>
+
+
+	<select id="cirAllList" parameterType="_int" resultMap="circularDto">
+		SELECT C.CIRCULAR_NO, C.CATEGORY_NO, C.CIRCULAR_TYPE_NO, C."TARGET",
+		        C.CREATE_BY, C.CREATE_DATE, C.TITLE, C."CONTENT", C.BEGIN_DATE, C.END_DATE,
+		        C.STATUS, C.UPDATE_BY, C.UPDATE_DATE, CG."CATEGORY", CT."TYPE", M."NAME", D."NAME" DE_NAME
+		FROM CIRCULAR C
+		JOIN MEMBER M ON M.MEMBER_NO = C.CREATE_BY
+		JOIN CATEGORY CG ON C.CATEGORY_NO = CG.CATEGORY_NO
+		JOIN CIR_TYPE CT ON C.CIRCULAR_TYPE_NO = CT.TYPE_NO
+		LEFT JOIN DEPARTMENT D ON C.TARGET=D.DEPARTMENT_NO
+		WHERE (TARGET=0 OR TARGET=#{departmentNo}) AND C.STATUS='Y'
+	</select>
+	
+	<select id="cirOneInfo" parameterType="_int" resultMap="circularDto">
+		SELECT C.CIRCULAR_NO, C.CATEGORY_NO, C.CIRCULAR_TYPE_NO, C."TARGET",
+		        C.CREATE_BY, C.CREATE_DATE, C.TITLE, C."CONTENT", C.BEGIN_DATE, C.END_DATE,
+		        C.STATUS, C.UPDATE_BY, C.UPDATE_DATE, CG."CATEGORY", CT."TYPE", M."NAME", D."NAME" DE_NAME
+		FROM CIRCULAR C
+		JOIN MEMBER M ON M.MEMBER_NO = C.CREATE_BY
+		JOIN CATEGORY CG ON C.CATEGORY_NO = CG.CATEGORY_NO
+		JOIN CIR_TYPE CT ON C.CIRCULAR_TYPE_NO = CT.TYPE_NO
+		LEFT JOIN DEPARTMENT D ON C.TARGET=D.DEPARTMENT_NO
+		WHERE C.CIRCULAR_NO=#{circularNo}
+	</select>
+	
+	<select id="cirReadingList" parameterType="_int" resultMap="readingDto">
+		SELECT READING_NO, CIRCULAR_NO, R.MEMBER_NO, R."DATE", M."NAME", D."NAME" DE_NAME
+		FROM READING R
+		JOIN MEMBER M ON R.MEMBER_NO = M.MEMBER_NO
+		JOIN DEPARTMENT D ON M.DEPARTMENT_NO = D.DEPARTMENT_NO
+		WHERE R.CIRCULAR_NO=#{circularNo}
+	</select>
+	
+	<select id="readOrNot" parameterType="Reading" resultType="_int">
+		SELECT  COUNT(*)
+		FROM READING R
+		WHERE R.CIRCULAR_NO=#{circularNo} AND R.MEMBER_NO=#{memberNo}
+	</select>
+	
+	<insert id="insertReadInfo" parameterType="Reading">
+		INSERT INTO READING R (READING_NO, CIRCULAR_NO, MEMBER_NO, R."DATE")
+		VALUES (SEQ_CIR_LIST.nextval, #{circularNo}, #{memberNo}, DEFAULT)
+	</insert>
+	
+</mapper>

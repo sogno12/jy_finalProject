@@ -1,0 +1,251 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mj.jy.approval.model.dao.ApprovalDao">
+
+	<select id="getReportReasons" parameterType="_int" resultType="Reason">
+		SELECT REASON_NO, TYPE_NO, REASON
+		FROM REASON
+		WHERE TYPE_NO=#{typeNo}
+	</select>
+	
+	<insert id="enrollAttachment" parameterType="Attachment">
+		<selectKey keyProperty="attachmentNo" resultType="_int" order="BEFORE">
+			select SEQ_ATT.nextval From dual
+		</selectKey> 
+		INSERT INTO ATTACHMENT
+		VALUES (#{attachmentNo}, SYSDATE, #{originName}, #{updateName}, #{folderNo})
+	</insert>
+	
+	<insert id="enrollReport" parameterType="Report">
+		<selectKey keyProperty="reportNo" resultType="_int" order="BEFORE">
+			select SEQ_RPT.nextval From dual
+		</selectKey> 
+		INSERT INTO REPORT
+		VALUES (#{reportNo}, #{categoryNo}, #{createBy}, DEFAULT, #{attachmentNo}, DEFAULT, #{title},
+        		#{beginDate}, #{endDate}, #{content}, #{reasonNo}, NULL, NULL)
+	</insert>
+	
+	
+	<select id="getAllMemberList" resultType="AllMemberDto">
+		SELECT MEMBER_NO, M.NAME, D.NAME DE_NAME, P.NAME PO_NAME 
+		FROM MEMBER M
+		JOIN DEPARTMENT D ON M.DEPARTMENT_NO=D.DEPARTMENT_NO
+		JOIN POSITION P ON M.POSITION_NO = P.POSITION_NO
+	</select>
+	
+	<select id="getMembersIn" resultType="allMemberDto">
+		SELECT MEMBER_NO, NAME
+		FROM MEMBER
+		WHERE MEMBER_NO  
+		<foreach item="memberNo" collection="array" open="IN (" close=")" separator=",">
+		  #{memberNo}
+		</foreach>
+		ORDER BY POSITION_NO
+	</select>
+	
+	<insert id="enrollReportSuper" parameterType="ReportApp">
+		INSERT INTO REPORT_APP
+		VALUES (SEQ_RPT_LIST.nextval, #{reportNo}, #{memberNo}, DEFAULT, SYSDATE, #{status})
+	</insert>
+	
+	<select id="getDisType" resultType="DisType">
+		SELECT DIS_TYPE_NO, TYPE
+		FROM DIS_TYPE
+	</select>
+	
+	<select id="getSubject" resultType="Subject">
+		SELECT SUBJECT_NO, SUBJECT
+		FROM SUBJECT
+	</select>
+	
+	<select id="getMethod" resultType="Method">
+		SELECT METHOD_NO, METHOD
+		FROM METHOD
+	</select>
+	
+	<insert id="enrollDisbursement" parameterType="Disbursement">
+		<selectKey keyProperty="disbursementNo" resultType="_int" order="BEFORE">
+			select SEQ_DIS.nextval From dual
+		</selectKey> 
+		INSERT INTO DISBURSEMENT
+		VALUES (#{disbursementNo}, 3, #{disTypeNo}, #{createBy}, #{updateBy},
+				DEFAULT, #{attachmentNo}, SYSDATE, #{title}, #{payment},
+				#{terms}, #{updateDate}, #{bank}, #{account})
+	</insert>
+	
+	<insert id="enrollDisSuper" parameterType="DisApp">
+		INSERT INTO DIS_APP
+		VALUES (SEQ_DIS_LIST.nextval, #{disbursementNo}, #{memberNo}, DEFAULT, SYSDATE, #{status})
+	</insert>
+	
+	<insert id="enrollDisContent" parameterType="DisContent">
+		INSERT INTO DIS_CONTENT
+		VALUES (SEQ_DIS_CNT.nextval, #{disbursementNo}, #{paydate}, #{content}, 
+				#{client}, #{price}, #{subjectNo}, #{methodNo}, DEFAULT)
+	</insert>
+
+	<update id="updateAttachmentReport" parameterType="ReportDto">
+		UPDATE ATTACHMENT
+		SET CREATE_DATE = SYSDATE,
+		    UPDATE_NAME = #{updateName}
+		WHERE ATTACHMENT_NO = 
+		    (SELECT ATTACHMENT_NO
+		    FROM REPORT
+		    WHERE REPORT_NO=#{reportNo})
+	</update>
+	
+	<update id="updateReport" parameterType="ReportDto">
+		UPDATE REPORT
+		SET TITLE = #{title},
+		    BEGIN_DATE = #{beginDate},
+		    END_DATE = #{endDate},
+		    CONTENT = #{content},
+		    REASON_NO = #{reasonNo},
+		    UPDATE_BY = #{updateBy},
+		    UPDATE_DATE = SYSDATE
+		WHERE REPORT_NO = #{reportNo}
+	</update>
+
+	<select id="checkSupervisor" parameterType="SuperApprovalDto" resultType="_int">
+		SELECT COUNT(*)
+		FROM	<if test="reportNo != 0">
+				REPORT_APP
+				</if>
+				<if test="disbursementNo != 0">
+				DIS_APP
+				</if>
+		WHERE	<if test="reportNo != 0">
+				REPORT_NO = #{reportNo} 
+				</if>
+				<if test="disbursementNo != 0">
+				DISBURSEMENT_NO = #{disbursementNo}
+				</if>
+				AND MEMBER_NO = #{memberNo} AND STATUS = 1
+	</select>
+	
+	<update id="updateApproval" parameterType="SuperApprovalDto" >
+		UPDATE <if test="reportNo != 0">
+				REPORT
+				</if>
+				<if test="disbursementNo != 0">
+				DISBURSEMENT
+				</if>
+		SET APPROVAL_NO = #{approvalNo}
+		WHERE <if test="reportNo != 0">
+				REPORT_NO = #{reportNo}
+				</if>
+				<if test="disbursementNo != 0">
+				DISBURSEMENT_NO = #{disbursementNo}
+				</if>
+	</update>
+	
+	<update id="updateAppApproval" parameterType="SuperApprovalDto" >
+		UPDATE <if test="reportNo != 0">
+				REPORT_APP
+				</if>
+				<if test="disbursementNo != 0">
+				DIS_APP
+				</if>
+		SET APPROVAL_NO = #{approvalNo}
+		WHERE <if test="reportNo != 0">
+				REPORT_NO = #{reportNo} 
+				</if>
+				<if test="disbursementNo != 0">
+				DISBURSEMENT_NO = #{disbursementNo}
+				</if> 
+		AND MEMBER_NO = #{memberNo} AND STATUS = 1
+	</update>
+	
+	<update id="updateApp" parameterType="SuperApprovalDto" >
+		UPDATE <if test="reportNo != 0">
+				REPORT_APP
+				</if>
+				<if test="disbursementNo != 0">
+				DIS_APP
+				</if>
+		SET STATUS = STATUS-1
+		WHERE <if test="reportNo != 0">
+				REPORT_NO = #{reportNo} 
+				</if>
+				<if test="disbursementNo != 0">
+				DISBURSEMENT_NO = #{disbursementNo}
+				</if> 
+	</update>
+	
+	<select id="findSupervisor" parameterType="SuperApprovalDto" resultType="_int">
+		SELECT COUNT(*)
+		FROM <if test="reportNo != 0">
+				REPORT_APP
+				</if>
+				<if test="disbursementNo != 0">
+				DIS_APP
+				</if>
+		WHERE <if test="reportNo != 0">
+				REPORT_NO = #{reportNo} 
+				</if>
+				<if test="disbursementNo != 0">
+				DISBURSEMENT_NO = #{disbursementNo}
+				</if> 
+			 AND STATUS=1
+	</select>
+	
+	<update id="deleteReport" parameterType="_int">
+		UPDATE REPORT
+			SET APPROVAL_NO = 4
+			WHERE REPORT_NO = #{reportNo}
+	</update>
+	
+	<update id="deleteDis" parameterType="_int">
+		UPDATE DISBURSEMENT
+			SET APPROVAL_NO = 4
+			WHERE DISBURSEMENT_NO = #{disbursementNo}
+	</update>
+	
+	<update id="updateAttachmentDis" parameterType="DisbursementDto">
+		UPDATE ATTACHMENT
+		SET CREATE_DATE = SYSDATE,
+		    UPDATE_NAME = #{updateName}
+		WHERE ATTACHMENT_NO = 
+		    (SELECT ATTACHMENT_NO
+		    FROM DISBURSEMENT
+		    WHERE DISBURSEMENT_NO=#{disbursementNo})
+	</update>
+	
+	<select id="countDisCon" parameterType="_int" resultType="_int">
+		select content_no
+		from dis_content
+		where disbursement_no = #{disubersementNo}
+	</select>
+	
+	<update id="updateDis" parameterType="DisbursementDto">
+		UPDATE DISBURSEMENT
+			SET DIS_TYPE_NO = #{disTypeNo},
+				UPDATE_BY = #{updateBy},
+				TITLE = #{title},
+				PAYMENT = #{payment},
+				TERMS = #{terms},
+				UPDATE_DATE = SYSDATE,
+				BANK = #{bank},
+				ACCOUNT = #{account}
+			WHERE DISBURSEMENT_NO = #{disbursementNo}
+	</update>
+	
+	<update id="updateDisContent" parameterType="DisContent">
+		update DIS_CONTENT
+			set PAYDATE = #{paydate},
+				CONTENT = #{content},
+				CLIENT = #{client},
+				PRICE = #{price},
+				SUBJECT_NO = #{subjectNo},
+				METHOD_NO = #{methodNo},
+				STATUS = 'Y'
+			WHERE CONTENT_NO= #{contentNo}
+	</update>
+	
+	<update id="deleteDisCon" parameterType="_int">
+		UPDATE DIS_CONTENT
+		SET STATUS = 'N'
+		WHERE CONTENT_NO = #{contentNo}
+	</update>
+	
+</mapper>
