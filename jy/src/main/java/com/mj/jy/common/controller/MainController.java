@@ -1,5 +1,6 @@
 package com.mj.jy.common.controller;
 
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -23,14 +24,10 @@ public class MainController {
 	@RequestMapping("main.do")
 	public String goMain(Model model) {
 		
-		// 투두리스트 조회
-		ArrayList<TodoList> todoList = mainService.selectTodoList();
-		
-		model.addAttribute("todoList", todoList);
-		
 		return "main";
 	}
 	
+	// 할 일 체크/체크해제시 status 값 변경
 	@ResponseBody
 	@RequestMapping(value="update.todo", produces="application/json; charset=utf-8")
 	public String updateTodo(int todoNo, String status) {
@@ -51,16 +48,47 @@ public class MainController {
 	
 	/*
 	@ResponseBody
-	@RequestMapping(value="done.todo", produces="application/json; charset=utf-8")
-	public String doneTodo(int tdNo) {
+	@RequestMapping(value="insert.todo", produces="application/json; charset=utf-8")
+	public String insertTodo(int memberNo, String title, Date todoDate) {
 		
-		// System.out.println(tdNo);
+		HashMap<String, Object> map = new HashMap<String, Object>();
 		
-		int result = mainService.doneTodo(tdNo);
+		map.put("memberNo", memberNo);
+		map.put("title", title);
+		map.put("todoDate", todoDate);
+		
+		int result = mainService.insertTodo(map);
 		
 		return new Gson().toJson(result);
 	}
 	*/
 	
+	// 할 일 등록
+	@ResponseBody
+	@RequestMapping("insert.todo")
+	public String insertTodo(int memberNo, String title, Date todoDate) {
+		
+		HashMap<String, Object> map = new HashMap<String, Object>();
+		
+		map.put("memberNo", memberNo);
+		map.put("title", title);
+		map.put("todoDate", todoDate);
+		
+		int result = mainService.insertTodo(map);
+		
+		return String.valueOf(result);
+	}
+	
+	// 할 일 조회
+	@ResponseBody
+	@RequestMapping(value="list.todo", produces="application/json; charset=utf-8")
+	public String selectTodoList(int memberNo) {
+		
+		ArrayList<TodoList> list = mainService.selectTodoList(memberNo);
+		
+		Gson gson = new Gson();
+		
+		return gson.toJson(list);
+	}
 	
 }

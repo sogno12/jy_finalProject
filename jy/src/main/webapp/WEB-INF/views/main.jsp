@@ -180,37 +180,13 @@
 	                    <div class="card">
 	                        <div class="card-body">
 	                            <h4 class="card-title"><i class="mdi mdi-border-color">To Do List<a href="javascript:void(0)" data-toggle="modal" data-target="#add-new-todo" class="m-l-20" style="color: palevioletred;">+</a></i></h4>
-	                            <div class="todo-widget scrollable" style="height:450px;">
+	                            <div class="todo-widget scrollable" style="height:450px;" id="todoArea">
 	                                <ul class="list-task todo-list list-group m-b-0" data-role="tasklist">
-	                                
-	                                	<c:forEach items="${ todoList }" var="td">
-	                                	
-	                                		<c:choose>
-	                                			<c:when test="${ td.status eq 'N' }">
-				                                    <li class="list-group-item todo-item" data-role="task">
-				                                        <div class="custom-control custom-checkbox">
-				                                            <input type="checkbox" class="custom-control-input" name="checkRow" id="customCheck${ td.todoNo }" value="${ td.todoNo }" checked>
-				                                            <label class="custom-control-label todo-label" for="customCheck${ td.todoNo }">
-				                                                <span>${ td.title }</span> <span class="badge badge-pill badge-danger float-right">Today</span>
-				                                            </label>
-				                                        </div>
-				                                        <div class="item-date"> ${ td.todoDate } </div>
-			                                	</c:when>
-			                                	<c:otherwise>
-			                                		<li class="list-group-item todo-item" data-role="task">
-				                                        <div class="custom-control custom-checkbox">
-				                                            <input type="checkbox" class="custom-control-input" name="checkRow" id="customCheck${ td.todoNo }" value="${ td.todoNo }">
-				                                            <label class="custom-control-label todo-label" for="customCheck${ td.todoNo }">
-				                                                <span>${ td.title }</span> <span class="badge badge-pill badge-danger float-right">Today</span>
-				                                            </label>
-				                                        </div>
-				                                        <div class="item-date"> ${ td.todoDate } </div>
-				                                    </li>
-			                                	</c:otherwise>
-			                                </c:choose>
-	                                    </c:forEach>
-	                                    
-	                                </ul>
+
+										
+										
+
+									</ul>
 	                            </div>
 	                        </div>
 	                    </div>
@@ -236,21 +212,24 @@
 							<div class="modal-body">
 								<div class="row">
 									<div class="col-md-12 m-b-10">
-										<label class="control-label">할 일</label> <input class="form-control form-white" name="title" placeholder="Enter todo" />
+										<label class="control-label">할 일</label>
+										<input class="form-control form-white" id="title" name="title" placeholder="Enter todo" />
 									</div>
+									
+									
 									<div class="col-md-12">
-										<label class="control-label">날짜</label>
-										<div class="input-group">
-											<input type="text" class="form-control" id="datepicker-autoclose" name="todoDate" placeholder="mm/dd/yyyy">
-											<div class="input-group-append">
-												<span class="input-group-text"><i class="fa fa-calendar"></i></span>
-											</div>
-										</div>
-									</div>
+	                                    <label class="control-label">날짜</label>
+                                        <div class="input-group">
+                                            <input type="Date" class="form-control form-white" placeholder="mm/dd/yyyy" id="todoDate" name="todoDate">
+                                            <div class="input-group-append">
+                                                <span class="input-group-text"><i class="fa fa-calendar"></i></span>
+                                            </div>
+                                        </div>
+	                                </div>
 								</div>
 							</div>
 							<div class="modal-footer">
-	                            <button type="button" onclick="insertTodo();" class="btn btn-info waves-effect waves-light save-category" data-dismiss="modal">Save</button>
+	                            <button type="button" id="insertTodo" class="btn btn-info waves-effect waves-light save-category" data-dismiss="modal">Save</button>
 	                            <button type="button" class="btn btn-danger waves-effect" data-dismiss="modal">Close</button>
 	                        </div>
                          </form>
@@ -265,45 +244,101 @@
 		</div>
 	</div>
 	
-	
-
 	<script>
+	
 		
+		var memNo="<c:out value='${loginUser.memberNo}'/>";
 		var type='POST';
 		var status='';
 		
-		$("input:checkbox[name=checkRow]").change(function() {
-				
-			var todoNo = $(this).val();
-			if($("input:checkbox[name=checkRow]").is(":checked")){
-				value = 'N';
-			} else if($("input:checkbox[name=checkRow]").is(":checked") == false) {
-				value = 'Y';
-			}
+		
+		
+
+		$(function(){
 			
-			$.ajax({
-				url:"update.todo",
-				type:type,
-				data:{todoNo:$(this).val(),
-					  status:value},
-			  	success : function(data) {
-					// console.log(data);
-				},
-				error : function() {
-					console.log("ajax 통신 실패");
+			selectTodoList();
+			
+			$("#insertTodo").click(function(){
+				
+				if($("#title").val().trim().length != 0){
+					
+					$.ajax({
+						url:"insert.todo",
+						type:type,
+						data:{memberNo:memNo,
+							  title:$("#title").val(),
+							  todoDate:$("#todoDate").val()},
+						success:function(result){
+							
+							if(result > 0){
+								$("#title").val("");
+								selectTodoList();
+							} else{
+								
+							}
+						}, error:function(){
+							console.log("todo list 작성용 ajax 통신 실패");
+						}
+					});
+					
+				} else{
+					alert("일정을 작성하세요.");
 				}
+				
 			});
 			
 		});
 		
-		function insertTodo(){
+		// 할일 조회용 ajax 통신
+		function selectTodoList(){
 			
-			var title = $(".title").text();
-			var todoDate = $(".todoDate").text();
-			console.log(title);
-			console.log(todoDate);
+			$.ajax({
+				url:"list.todo",
+				data:{memberNo:memNo},
+				type:type,
+				success:function(list){
+					
+					var value="";
+					$.each(list, function(i, obj) {
+						value += "<li class='list-group-item todo-item' data-role='task'>" +
+										"<div class=custom-control custom-checkbox'>";
+										
+										if(obj.status == 'N') {
+											value += "<input type='checkbox' class='custom-control-input' name='checkRow' id='customCheck" + obj.todoNo + "' value='" + obj.todoNo + "' checked>";
+										}else {
+											value += "<input type='checkbox' class='custom-control-input' name='checkRow' id='customCheck" + obj.todoNo + "' value='" + obj.todoNo + "'>";
+										}
+										
+								value += "<label class='custom-control-label todo-label' for='customCheck" + obj.todoNo + "'>" +
+											"<span>" + obj.title + "</span>" +
+											"<span class='badge badge-pill badge-danger float-right'>Today</span>" +
+										"</label>" +
+									"</div>" +
+									"<div class='item-date'>" + obj.todoDate + "</div>" +
+								"</li>";
+								
+								
+								
+								
+					});
+					
+					$("#todoArea ul").html(value);
+					
+				}, error:function(){
+					
+				}
+			});
 		}
-		
+        
+
+		$("input:checkbox[name=checkRow]").change(function() {
+			
+			var todoNo = $(this).val();
+			
+			console.log(todoNo);
+			
+			
+		});
 		
 	</script>
 

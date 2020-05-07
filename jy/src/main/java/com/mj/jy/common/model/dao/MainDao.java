@@ -10,7 +10,7 @@ import com.mj.jy.todolist.model.vo.TodoList;
 @Mapper
 public interface MainDao {
 	
-	ArrayList<TodoList> selectTodoList();
 	int updateTodo(HashMap map);
-
+	int insertTodo(HashMap map);
+	ArrayList<TodoList> selectTodoList(int memberNo);
 }
