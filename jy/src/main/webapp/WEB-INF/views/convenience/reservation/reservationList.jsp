@@ -62,6 +62,8 @@
                                             </tr>
                                         </thead>
                                         <tbody class="customtable">
+                                        <c:forEach items="${ blist }" var="b">
+                                        <c:if test="${loginUser.memberNo eq b.memberNo }">
                                             <tr>
                                                 <th>
                                                     <label class="customcheckbox">
@@ -69,43 +71,23 @@
                                                         <span class="checkmark"></span>
                                                     </label>
                                                 </th>
-                                                <td>3</td>
-                                                <td>Room103</td>
-                                                <td>9명</td>
-                                                <td colspan="2"> ~ 2020-04-11 AM.11:00</td>
-                                                <td>2020-04-09</td>
-                                                <td>2020-04-10</td>
-                                                <td>미승인</td>
+                                                <td>${b.meetingNo }</td>
+                                                <td>${b.roomName }</td>
+                                                <td>${b.count }명</td>
+                                                <td colspan="2">${b.hopeDate } ${ b.timeType }</td>
+                                                <td>${ b. reportingDate }</td>
+                                                <td>${ b.statusDate }</td>
+                                                <td>
+                                               		<c:if test="${ b.status eq 'N'}">
+                                         			 미승인 
+                                         			</c:if>
+                                         			<c:if test="${ b.status eq 'Y'}">
+                                         			승인
+                                         			</c:if>
+                                             	</td>
                                             </tr>
-                                            <tr>
-                                                <th>
-                                                    <label class="customcheckbox">
-                                                        <input type="checkbox" class="listCheckbox" />
-                                                        <span class="checkmark"></span>
-                                                    </label>
-                                                </th>
-                                                <td>2</td>
-                                                <td>Room201</td>
-                                                <td>10명</td>
-                                                <td colspan="2">2020-04-11 AM.10:00 ~ 2020-04-11 AM.11:00</td>
-                                                <td>2020-04-09</td>
-                                                <td>2020-04-10</td>
-                                                <td>승인</td>
-                                            </tr><tr>
-                                                <th>
-                                                    <label class="customcheckbox">
-                                                        <input type="checkbox" class="listCheckbox" />
-                                                        <span class="checkmark"></span>
-                                                    </label>
-                                                </th>
-                                                <td>1</td>
-                                                <td>Room303</td>
-                                                <td>20명</td>
-                                                <td colspan="2">2020-04-11 AM.10:00 ~ 2020-04-11 AM.11:00</td>
-                                                <td>2020-04-09</td>
-                                                <td>2020-04-10</td>
-                                                <td>승인</td>
-                                            </tr>
+                                            </c:if>
+                                            </c:forEach>
                                         </tbody>
                                     </table>
                                 </div>
@@ -139,6 +121,7 @@
                                             </thead>
                                             <tbody class="customtable namecardTable">
                                                <c:forEach items="${ nlist }" var="n">
+                                               <c:if test="${loginUser.memberNo eq n.memberNo }">
 	                                                <tr>
 	                                                    <th>
 	                                                        <label class="customcheckbox">
@@ -148,11 +131,11 @@
 	                                                    </th>
 	                                                    <td>${ n.namecardNo }</td>
 	                                                    <td>
-	                                                     <c:if test="${n.contentType  eq 'namecard1'}">
+	                                                     <c:if test="${ n.contentType  eq 'namecard1'}">
 	                                                    	 <img src="${ pageContext.servletContext.contextPath }/resources/images/hajin/namecard/NAMECARD1.png" alt="namecard1" width="80px;" height="40px;"/>
 	                                                    </c:if>
 	                                                    <c:if test="${ n.contentType eq 'namecard2'}">
-	                                                    	 <img src="${ pageContext.servletContext.contextPath }/resources/images/hajin/namecard/NAMECARD2.png" alt="namecard1" width="80px;" height="40px;"/>
+	                                                    	 <img src="${ pageContext.servletContext.contextPath }/resources/images/hajin/namecard/NAMECARD2.png" alt="namecard2" width="80px;" height="40px;"/>
 	                                                   	</c:if>
 	                                                    </td>
 	                                                    <td>${ n.reportingDate }</td>
@@ -166,6 +149,7 @@
 	                                                    </c:if>
 	                                                    </td>
 	                                                </tr>
+	                                             </c:if>
 	                                            </c:forEach>
                                             </tbody>
                                         </table>
@@ -216,8 +200,8 @@
                 </div>
                 
             </div>
-        </div>
          <jsp:include page="../../common/footer.jsp"/>
+        </div>
 	</div>
 </body>
 </html>

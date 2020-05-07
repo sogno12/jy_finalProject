@@ -205,7 +205,7 @@
 	                            
 	                            <c:if test="${ loginUser.departmentNo eq 1 }">
 		                            <!-- 총무팀 로그인시 보여지는 메뉴 -->
-		                            <li class="sidebar-item"><a href="hajin_generalAffairs.html" class="sidebar-link"><i class="mdi mdi-alert-octagon"></i><span class="hide-menu"> 총무팀 </span></a></li>
+		                            <li class="sidebar-item"><a href="generalList.ge" class="sidebar-link"><i class="mdi mdi-alert-octagon"></i><span class="hide-menu"> 총무팀 </span></a></li>
 	                            </c:if>
 	                            
 	                            <c:if test="${ loginUser.departmentNo eq 2 }">

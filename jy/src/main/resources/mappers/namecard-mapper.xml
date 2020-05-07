@@ -28,4 +28,5 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		from namecard
 		order by namecard_no desc
 	</select>
+	
 </mapper>

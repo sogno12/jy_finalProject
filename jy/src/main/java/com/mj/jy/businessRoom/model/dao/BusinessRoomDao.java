@@ -5,10 +5,17 @@ import java.util.ArrayList;
 import org.apache.ibatis.annotations.Mapper;
 
 import com.mj.jy.businessRoom.model.vo.BusinessDTO;
-import com.mj.jy.businessRoom.model.vo.BusinessInfo;
 
 @Mapper
 public interface BusinessRoomDao {
 	
-	ArrayList<BusinessInfo> selectBlist(BusinessDTO bd);
+	ArrayList<BusinessDTO> selectBlist(BusinessDTO bd);
+	
+	ArrayList<BusinessDTO> selectbRoomList(int roomNo);
+	
+	int insertBroom(BusinessDTO bd);
+	
+	ArrayList<BusinessDTO> selectBroomList();
+	
+	
 }

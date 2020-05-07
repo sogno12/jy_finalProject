@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.google.gson.Gson;
 import com.mj.jy.businessRoom.model.service.BusinessRoomService;
 import com.mj.jy.businessRoom.model.vo.BusinessDTO;
-import com.mj.jy.businessRoom.model.vo.BusinessInfo;
 
 @Controller
 public class BusinessRoomController {
@@ -32,8 +31,33 @@ public class BusinessRoomController {
 	@RequestMapping(value="businessList.br", produces="application/json; charset=utf-8")
 	public String BusinessRoomForm(BusinessDTO bd, Model model) {
 		
-		ArrayList<BusinessInfo> blist = bService.selectBlist(bd);
+		ArrayList<BusinessDTO> blist = bService.selectBlist(bd);
 		
 		return new Gson().toJson(blist);
 	}
+	
+	@ResponseBody
+	@RequestMapping(value="selectList.br", produces="application/json; charset=utf-8")
+	public String selectListBroom(int roomNo, Model model){
+		
+		ArrayList<BusinessDTO> selectbList = bService.selectbRoomList(roomNo);
+		
+		return new Gson().toJson(selectbList);
+	}
+	
+	@RequestMapping("insertBroom.br")
+	public String insertBroom(BusinessDTO bd, Model model) {
+		
+		int result = bService.insertBroom(bd);
+	
+		if(result > 0) {
+			model.addAttribute("msg", "회의실이 예약되었습니다.");
+			return "convenience/namecard/namecardSuccess";
+		} else {
+			return "common/errorPage";
+		}
+		
+		
+	}
+
 }
