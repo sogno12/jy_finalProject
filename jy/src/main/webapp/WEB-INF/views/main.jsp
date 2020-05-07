@@ -249,10 +249,7 @@
 		
 		var memNo="<c:out value='${loginUser.memberNo}'/>";
 		var type='POST';
-		var status='';
-		
-		
-		
+		var st='';
 
 		$(function(){
 			
@@ -324,21 +321,39 @@
 					
 					$("#todoArea ul").html(value);
 					
+					$("input:checkbox[name=checkRow]").change(function() {
+						
+						var todoNo = $(this).val();
+						// console.log(todoNo);
+						
+						if($(this).is(":checked")){
+							st = 'N';
+						} else {
+							st = 'Y';
+						}
+						
+						$.ajax({
+							url:"update.todo",
+							type:type,
+							data:{memberNo:memNo,
+								  todoNo:$(this).val(),
+								  status:st},
+						  	success : function(data) {
+								// console.log(data);
+							},
+							error : function() {
+								console.log("ajax 통신 실패");
+							}
+						});
+						
+					});
+					
 				}, error:function(){
 					
 				}
 			});
 		}
-        
-
-		$("input:checkbox[name=checkRow]").change(function() {
-			
-			var todoNo = $(this).val();
-			
-			console.log(todoNo);
-			
-			
-		});
+		
 		
 	</script>
 

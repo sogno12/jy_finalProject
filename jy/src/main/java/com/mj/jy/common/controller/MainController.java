@@ -30,12 +30,11 @@ public class MainController {
 	// 할 일 체크/체크해제시 status 값 변경
 	@ResponseBody
 	@RequestMapping(value="update.todo", produces="application/json; charset=utf-8")
-	public String updateTodo(int todoNo, String status) {
-		
-		// System.out.println(todoNo);
-		// System.out.println(status);
+	public String updateTodo(int memberNo, int todoNo, String status) {
 		
 		HashMap<String, Object> map = new HashMap<String, Object>();
+
+		map.put("memberNo", memberNo);
 		map.put("todoNo", todoNo);
 		map.put("status", status);
 		
