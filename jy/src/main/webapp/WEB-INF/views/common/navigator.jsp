@@ -228,7 +228,7 @@
                                <li class="sidebar-item"><a href="reservationList.nc" class="sidebar-link"><i class="mdi mdi-format-list-bulleted"></i><span class="hide-menu"> 예약 내역 </span></a></li>
 	                        </ul>
 	                    </li>
-	                    <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="pys-chat-main.html" aria-expanded="false"><i class="mdi mdi-message-outline"></i><span class="hide-menu">Chat</span></a></li>
+	                    <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="chat.ch" aria-expanded="false"><i class="mdi mdi-message-outline"></i><span class="hide-menu">Chat</span></a></li>
 	                </ul>
 	            </nav>
 	            <!-- End Sidebar navigation -->
