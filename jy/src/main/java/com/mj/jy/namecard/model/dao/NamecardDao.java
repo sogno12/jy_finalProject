@@ -6,6 +6,7 @@ import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.mj.jy.businessRoom.model.vo.BusinessRoom;
 import com.mj.jy.namecard.model.vo.Namecard;
 import com.mj.jy.namecard.model.vo.PageInfo;
 
@@ -33,4 +34,5 @@ public class NamecardDao {
 		return (ArrayList)sqlSession.selectList("namecardMapper.selectNameList", null, rowBounds);
 		
 	}
+	
 }

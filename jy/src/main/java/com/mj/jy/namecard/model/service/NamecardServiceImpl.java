@@ -57,4 +57,5 @@ public class NamecardServiceImpl implements NamecardService{
 		return nDao.selectNameList(sqlSession, pi);
 	}
 
+
 }

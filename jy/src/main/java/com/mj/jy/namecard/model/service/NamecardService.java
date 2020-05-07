@@ -2,6 +2,7 @@ package com.mj.jy.namecard.model.service;
 
 import java.util.ArrayList;
 
+import com.mj.jy.businessRoom.model.vo.BusinessRoom;
 import com.mj.jy.namecard.model.vo.Namecard;
 import com.mj.jy.namecard.model.vo.PageInfo;
 
@@ -21,5 +22,5 @@ public interface NamecardService {
 	
 	// 명함 신청 삭제용 서비스
 	int deleteNamecard(int namecardNo);
-
+	
 }
