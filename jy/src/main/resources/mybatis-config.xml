@@ -9,7 +9,11 @@
 	
 	<typeAliases>
 		<typeAlias type="com.mj.jy.namecard.model.vo.Namecard" alias="Namecard"/>
+
 		<typeAlias type="com.mj.jy.businessRoom.model.vo.BusinessRoom" alias="BusinessRoom"/>
+
+		<typeAlias type="com.mj.jy.schedule.model.vo.Schedule" alias="Schedule"/>
+
 	</typeAliases> 
 	
 	<!-- 

@@ -11,7 +11,7 @@ public interface MemberService {
 	MemberDto loginMember(MemberDto m);
 	
 	// 비밀번호 찾기 서비스
-	Member searchPwd(Member m);
+	String searchPwd(String empNo);
 
 	// 인사카드 등록(사원 등록) 서비스
 	int insertMember(Member m);
