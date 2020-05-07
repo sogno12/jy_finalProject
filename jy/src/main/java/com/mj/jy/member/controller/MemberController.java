@@ -1,9 +1,11 @@
 package com.mj.jy.member.controller;
 
+import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,8 +13,10 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.google.gson.Gson;
 import com.mj.jy.member.model.service.MemberService;
 import com.mj.jy.member.model.vo.Member;
 import com.mj.jy.member.model.vo.MemberDto;
@@ -35,9 +39,9 @@ public class MemberController {
 		
 		if(loginUser != null && bcryptPasswordEncoder.matches(m.getPwd(), loginUser.getPwd())) {
 			
-			session.setAttribute("loginUser", loginUser);
+			session.setAttribute("loginUser", loginUser);			
 			mv.setViewName("redirect:/main.do");
-		
+			
 		} else {
 			session.setAttribute("msg", "로그인 실패");
 			mv.setViewName("redirect:/");
@@ -46,6 +50,23 @@ public class MemberController {
 		return mv;
 	}
 	
+	/*
+	// 비밀번호 찾기
+	@ResponseBody
+	@RequestMapping(value="searchPwd.me", produces="application/json; charset=utf-8")
+	public String searchPwd(String empNo, Model model, HttpServletResponse response) throws IOException {
+		
+		String pwd = mService.searchPwd(empNo);
+		
+		if(pwd != null && bcryptPasswordEncoder.matches(, ())) {
+			// model.addAttribute("member", member);			
+		} else {
+			model.addAttribute("일치하는 회원이 없습니다.");
+		}
+		return new Gson().toJson(m);
+	
+	}
+	*/
 	
 	// 로그아웃
 	@RequestMapping("logout.me")
@@ -74,7 +95,7 @@ public class MemberController {
 		DateFormat sdFormat = new SimpleDateFormat("yyyyMMdd");
 		String joinNo = sdFormat.format(m.getJoinDate());
 		
-		m.setMemberPwd(encPwd);
+		m.setPwd(encPwd);
 		m.setEmpNo(joinNo);
 		
 		int result = mService.insertMember(m);

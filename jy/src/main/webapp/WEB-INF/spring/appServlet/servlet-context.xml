@@ -34,6 +34,7 @@
 		<interceptor>
 			<mapping path="/*"/>
 			<exclude-mapping path="/login.me"/>
+			<exclude-mapping path="/searchPwd.me"/>
 			<beans:bean id="Interceptor" class="com.mj.jy.common.interceptor.Interceptor"/>
 		</interceptor>
 	</interceptors>

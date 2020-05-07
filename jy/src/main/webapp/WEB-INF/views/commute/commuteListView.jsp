@@ -60,7 +60,7 @@
                                                 <th>날짜</th>
                                                 <th>출근 시간</th>
                                                 <th>퇴근 시간</th>
-                                                <th>지각 횟수</th>
+                                                <th>지각 여부</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -71,7 +71,14 @@
 	                                                <td>${ co.commuteDate }</td>
 	                                                <td><fmt:formatDate value="${co.attendTime}" type="time"></fmt:formatDate></td>
 	                                                <td><fmt:formatDate value="${co.quittingTime}" type="time"></fmt:formatDate></td>
-	                                                <td></td>
+	                                                <c:choose>
+	                                                	<c:when test="${ co.tardy eq 'N' }">
+	                                                		<td></td>
+	                                                	</c:when>
+	                                                	<c:otherwise>
+	                                                		<td>지각</td>
+	                                                	</c:otherwise>
+	                                                </c:choose>
 	                                            </tr>
                                             </c:forEach>
                                         </tbody>
@@ -120,6 +127,7 @@
          *       Basic Table                   *
          ****************************************/
         $('#zero_config').DataTable();
+        
     </script>
 </body>
 </html>
