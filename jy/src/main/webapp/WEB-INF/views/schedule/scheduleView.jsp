@@ -244,6 +244,7 @@
     <!-- datePicker -->
     <script src="${ pageContext.servletContext.contextPath }/resources/assets/libs/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
     <script>
+    
         /*datepicker*/
         jQuery('.mydatepicker').datepicker();
         jQuery('#datepicker-autoclose').datepicker({

@@ -1,6 +1,9 @@
 package com.mj.jy.schedule.model.service;
 
+import com.mj.jy.schedule.model.vo.ScheduleDto;
+
 public interface ScheduleService {
 	
-	// ArrayList<TodoList> todoList();
+	// 일정 등록
+	int insertSchedule(ScheduleDto eventData);
 }
