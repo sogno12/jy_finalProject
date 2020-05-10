@@ -21,7 +21,7 @@ public class AppAlarmConteroller {
 	
 	@GetMapping("readAlarms.do")
 	public ResponseEntity readAlarms(@SessionAttribute("loginUser") MemberDto loginUser) {
-		System.out.println("ddd");
+		// System.out.println("ddd");
 		
 		// 1. 사용자의 EmpNo 가져오기
 			int memberNo = loginUser.getMemberNo();

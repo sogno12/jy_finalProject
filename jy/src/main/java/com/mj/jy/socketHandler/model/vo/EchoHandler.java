@@ -24,7 +24,7 @@ public class EchoHandler extends TextWebSocketHandler {
 	
 	@Override
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
-		System.out.println("connet..");
+		// System.out.println("connet..");
 		
 		// All	
 		sockets.add(session);
@@ -39,7 +39,7 @@ public class EchoHandler extends TextWebSocketHandler {
 		
 	@Override
 	protected void handleTextMessage(WebSocketSession session, TextMessage message) throws Exception {
-		System.out.println(message.getPayload());
+		// System.out.println(message.getPayload());
 
 		// 모두에게 보낼때
 		//TextMessage msg = new TextMessage(session.getId()+","+message.getPayload());
@@ -50,7 +50,7 @@ public class EchoHandler extends TextWebSocketHandler {
 		if(!StringUtils.isEmpty(msg)) {
 			String[] strs = msg.split(",");
 			
-			System.out.println(strs);
+			// System.out.println(strs);
 			
 			// Alarm - protocol: cmd, 받는사람
 			if(strs != null && strs.length == 2) {
@@ -92,7 +92,7 @@ public class EchoHandler extends TextWebSocketHandler {
 	
 	// 1. 모든 알람 갯수 가져오기
 	public void countAppAlarm(String alarm) {
-		System.out.println(alarm);
+		// System.out.println(alarm);
 		
 		TextMessage message = new TextMessage(alarm);
 		
@@ -122,7 +122,7 @@ public class EchoHandler extends TextWebSocketHandler {
 	
 	// 2. 알림 보여주기
 	public void noticeAppAlarm(String alarm) {
-		System.out.println(alarm);
+		// System.out.println(alarm);
 		
 		TextMessage message = new TextMessage(alarm);
 		
