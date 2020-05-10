@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mj.jy.alarm.model.dao.AppAlarmDao">
+	
+	<select id="countAppAlarm" resultType="_int">
+		SELECT COUNT(*)
+		FROM ALARM A
+		WHERE RECIEVER_NO = #{memberNo} AND STATUS = 'N'
+	</select>
+	
+	<select id="findEmpNo" resultType="_int">
+		SELECT EMP_NO
+		FROM MEMBER M
+		WHERE MEMBER_NO = #{memberNo}
+	</select>
+	
+	<select id="eachAppAlarm" resultType="CountTypeDto">
+		SELECT "TYPE", COUNT(*) "COUNT"
+		FROM ALARM A
+		WHERE STATUS = 'N' AND RECIEVER_NO=#{memberNo}
+		GROUP BY TYPE
+	</select>
+	
+	<update id="readSendAppAlarm">
+		UPDATE ALARM
+		SET STATUS='Y'
+		WHERE RECIEVER_NO = #{memberNo}
+		    AND TYPE= 5
+	</update>
+	
+	<update id="readRecieveAppAlarm">
+		UPDATE ALARM
+		SET STATUS='Y'
+		WHERE RECIEVER_NO = #{memberNo}
+		    AND TYPE= 6
+	</update>
+	
+	<insert id="insertAppAlarm">
+		INSERT INTO ALARM
+		VALUES (SEQ_ALA.nextval, #{senderNo}, DEFAULT, 0, #{type}, #{recieverNo})
+	</insert>
+</mapper>

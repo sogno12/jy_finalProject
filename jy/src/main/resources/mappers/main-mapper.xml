@@ -2,6 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.mj.jy.common.model.dao.MainDao">
 
+
 	<update id="updateTodo" parameterType="hashMap">
 		UPDATE TODOLIST
 		   SET STATUS=#{status}
@@ -19,5 +20,5 @@
 		 WHERE to_date(TODO_DATE, 'YY/MM/DD') = to_date(SYSDATE, 'YY/MM/DD')
 		 		AND MEMBER_NO=#{memberNo}
 	</select>
-	
+
 </mapper>

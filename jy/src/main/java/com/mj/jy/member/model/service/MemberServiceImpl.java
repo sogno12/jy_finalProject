@@ -1,13 +1,16 @@
 package com.mj.jy.member.model.service;
 
 import java.util.ArrayList;
+import java.util.List;
 
+import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.mj.jy.member.model.dao.MemberDao;
 import com.mj.jy.member.model.vo.Member;
 import com.mj.jy.member.model.vo.MemberDto;
+import com.mj.jy.namecard.model.vo.PageInfo;
 
 @Service("mService")
 public class MemberServiceImpl implements MemberService {
@@ -61,6 +64,24 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public ArrayList<Member> selectListPos() {
 		return mDao.selectListPos();
+	}
+
+	/** sujin1.
+	 *  로그인 회원과 같은 부서원들의 정보
+	 */
+	@Override
+	public List<MemberDto> getListDept(int departmentNo, PageInfo pi) {
+		int offset = pi.getCurrentPage()-1 * pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		return mDao.getListDept(departmentNo, rowBounds);
+	}
+
+	/** sujin2
+	 *	로그인 회원과 같은 부서원들의 정보 갯수
+	 */
+	@Override
+	public int getCountDeptMember(int departmentNo) {
+		return mDao.getCountDeptMember(departmentNo);
 	}
 
 }

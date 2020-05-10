@@ -183,10 +183,13 @@
 	                            <div class="todo-widget scrollable" style="height:450px;" id="todoArea">
 	                                <ul class="list-task todo-list list-group m-b-0" data-role="tasklist">
 
-										
-										
+                                    
+                                    
+                                    
+                                    
+                                    
+									                 </ul>
 
-									</ul>
 	                            </div>
 	                        </div>
 	                    </div>

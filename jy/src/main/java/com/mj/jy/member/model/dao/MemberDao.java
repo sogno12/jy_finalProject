@@ -1,8 +1,10 @@
 package com.mj.jy.member.model.dao;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 
 import com.mj.jy.member.model.vo.Member;
@@ -19,6 +21,9 @@ public interface MemberDao {
 	ArrayList<Member> selectListDept();
 	ArrayList<Member> selectListPos();
 	String searchPwd(String empNo);
+	List<MemberDto> getListDept(int departmentNo, RowBounds rowBounds);
+	int getCountDeptMember(int departmentNo);
+
 	
 	/*
 	 * package com.mj.jy.member.model.dao;

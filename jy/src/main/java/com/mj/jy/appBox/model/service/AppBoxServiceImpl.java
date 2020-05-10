@@ -25,13 +25,15 @@ public class AppBoxServiceImpl implements AppBoxService {
 	
 	@Override
 	public List<SentAppBoxDto> getSentAppBox(int memberNo, PageInfo pi) {
-		RowBounds rowBounds = new RowBounds(pi.getCurrentPage(), pi.getBoardLimit());
+		int offset = pi.getCurrentPage()-1 * pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
 		return appBoxDao.getSentAppBox(memberNo, rowBounds);
 	}
 
 	@Override
 	public List<SentAppBoxDto> getEndSentAppBox(int memberNo, PageInfo pi) {
-		RowBounds rowBounds = new RowBounds(pi.getCurrentPage(), pi.getBoardLimit());
+		int offset = pi.getCurrentPage()-1 * pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
 		return appBoxDao.getEndSentAppBox(memberNo, rowBounds);
 	}
 
@@ -52,13 +54,15 @@ public class AppBoxServiceImpl implements AppBoxService {
 
 	@Override
 	public List<SentAppBoxDto> getReceiveAppBox(int memberNo, PageInfo pi) {
-		RowBounds rowBounds = new RowBounds(pi.getCurrentPage(), pi.getBoardLimit());
+		int offset = pi.getCurrentPage()-1 * pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
 		return appBoxDao.getReceiveAppBox(memberNo, rowBounds);
 	}
 
 	@Override
 	public List<SentAppBoxDto> getEndReceiveAppBox(int memberNo, PageInfo pi) {
-		RowBounds rowBounds = new RowBounds(pi.getCurrentPage(), pi.getBoardLimit());
+		int offset = pi.getCurrentPage()-1 * pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
 		return appBoxDao.getEndReceiveAppBox(memberNo, rowBounds);
 	}
 

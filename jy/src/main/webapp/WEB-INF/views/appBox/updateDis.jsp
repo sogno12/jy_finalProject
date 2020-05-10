@@ -345,23 +345,6 @@
 	<!-- End Page wrapper  -->
 	<!-- ============================================================== -->
 	
-
-     <!-- ============================================================== -->
-    <!-- All Jquery -->
-    <!-- ============================================================== -->
-    <script src="${ pageContext.servletContext.contextPath }/resources/assets/libs/jquery/dist/jquery.min.js"></script>
-    <!-- Bootstrap tether Core JavaScript -->
-    <script src="${ pageContext.servletContext.contextPath }/resources/assets/libs/popper.js/dist/umd/popper.min.js"></script>
-    <script src="${ pageContext.servletContext.contextPath }/resources/assets/libs/bootstrap/dist/js/bootstrap.min.js"></script>
-    <!-- slimscrollbar scrollbar JavaScript -->
-    <script src="${ pageContext.servletContext.contextPath }/resources/assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>
-    <script src="${ pageContext.servletContext.contextPath }/resources/assets/extra-libs/sparkline/sparkline.js"></script>
-    <!--Wave Effects -->
-    <script src="${ pageContext.servletContext.contextPath }/resources/js/waves.js"></script>
-    <!--Menu sidebar -->
-    <script src="${ pageContext.servletContext.contextPath }/resources/js/sidebarmenu.js"></script>
-    <!--Custom JavaScript -->
-    <script src="${ pageContext.servletContext.contextPath }/resources/js/custom.min.js"></script>
     <!-- This Page JS -->
     <script src="${ pageContext.servletContext.contextPath }/resources/assets/libs/inputmask/dist/min/jquery.inputmask.bundle.min.js"></script>
     <script src="${ pageContext.servletContext.contextPath }/resources/js/pages/mask/mask.init.js"></script>
@@ -401,7 +384,7 @@
      *       Submit Table 유효성 검사                *
      ****************************************/
     var re = /^[a-z|A-Z|0-9|가-힣|\s]{3,30}$/
-    var reCon = /^[a-z|A-Z|0-9|가-힣|\s]{3,1000}$/
+    var reCon = /^[a-z|A-Z|0-9|가-힣|./?!@#$%^&*()|\s]{3,1000}$/
     var reNum = /^[0-9]{3,10}$/
     
    	function check(re, what, message){
