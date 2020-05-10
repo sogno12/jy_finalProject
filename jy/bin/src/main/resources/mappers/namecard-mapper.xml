@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="namecardMapper">
+
+	<resultMap id="namecardResultSet" type="Namecard">
+		<id property="namecardNo" column="NAMECARD_NO"/>
+		<result property="memberNo" column="MEMBER_NO"/>
+		<result property="contentType" column="CONTENT_TYPE"/>
+		<result property="reportingDate" column="REPORTING_DATE"/>
+		<result property="processingDate" column="PROCESSING_DATE"/>
+		<result property="status" column="STATUS"/>
+	</resultMap>
+
+	<insert id="insertNamecard" parameterType="Namecard">
+		insert into namecard
+		values(seq_nac.nextval, #{memberNo}, #{contentType}, SYSDATE, default, default)
+	</insert>
+
+	<select id="getNameListCount" resultType="_int">
+		select count(*)
+		from namecard
+	</select>
+	
+	<select id="selectNameList" resultMap="namecardResultSet">
+		select *
+		from namecard
+		order by namecard_no desc
+	</select>
+</mapper>
