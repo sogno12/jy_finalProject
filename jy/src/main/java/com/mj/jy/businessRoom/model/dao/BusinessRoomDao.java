@@ -17,5 +17,7 @@ public interface BusinessRoomDao {
 	
 	ArrayList<BusinessDTO> selectBroomList();
 	
+	int broomUpdate(int meetingNo);
+	
 	
 }

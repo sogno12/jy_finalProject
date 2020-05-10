@@ -1,13 +1,19 @@
 package com.mj.jy.namecard.controller;
 
+import java.io.IOException;
 import java.util.ArrayList;
+
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonIOException;
 import com.mj.jy.businessRoom.model.service.BusinessRoomService;
 import com.mj.jy.businessRoom.model.vo.BusinessDTO;
 import com.mj.jy.namecard.model.service.NamecardService;
@@ -70,9 +76,10 @@ public class NamecardController {
 			@RequestParam(value = "currentPage", required = false, defaultValue = "1") int currentPage) {
 
 		int nameListCount = nService.getNameListCount();
-
+		int broomListCount = nService.getBroomListCount();
 		
 		  PageInfo pi = Pagination.getPageInfo(nameListCount, currentPage, 10, 5);
+		  PageInfo p2 = Pagination.getPageInfo(broomListCount, currentPage, 10, 5);
 		  
 		  ArrayList<Namecard> nlist = nService.selectNameList(pi);
 		 
@@ -81,10 +88,30 @@ public class NamecardController {
 		  
 		
 		  model.addAttribute("pi",pi); 
+		  model.addAttribute("p2",p2);
 		  model.addAttribute("nlist", nlist);
 		  model.addAttribute("blist", blist);
 		 
 		return "convenience/reservation/reservationList";
+	}
+	
+	@RequestMapping(value="nameUpdate.nc")
+	public void nameUpdate(int namecardNo, HttpServletResponse response) throws JsonIOException, IOException {
+		
+		 response.setContentType("application/json; charset=utf-8");
+		
+		int result = nService.nameUpdate(namecardNo);
+	
+		String result2 = "";
+		
+		if(result > 0) {
+			result2 = "1";
+		} else {
+			result2 = "0";
+		}
+		
+		 new Gson().toJson(result2, response.getWriter());
+		
 	}
 
 }

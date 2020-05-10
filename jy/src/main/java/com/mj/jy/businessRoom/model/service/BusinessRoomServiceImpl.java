@@ -59,6 +59,15 @@ public class BusinessRoomServiceImpl implements BusinessRoomService{
 		return bDao.selectBroomList();
 	}
 
+	/**
+	 * 회의실 업데이트
+	 */
+	@Override
+	public int broomUpdate(int meetingNo) {
+		
+		return bDao.broomUpdate(meetingNo);
+	}
+
 	
 	
 

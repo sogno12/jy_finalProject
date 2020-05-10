@@ -56,8 +56,22 @@ public class BusinessRoomController {
 		} else {
 			return "common/errorPage";
 		}
-		
-		
 	}
-
+	  @ResponseBody
+	  @RequestMapping(value="broomUpdate.br", produces="application/json; charset=utf-8")
+	  public String broomUpdate(int meetingNo, Model model) {
+		  
+		  int result = bService.broomUpdate(meetingNo);
+		  
+		  String result2 ="";
+		  
+		  if(result > 0) {
+			  result2 = "1";
+		  } else {
+			  result2 = "0";
+		  }
+		 return new Gson().toJson(result2);
+		  
+	  }
+	 
 }

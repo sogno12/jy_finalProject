@@ -17,10 +17,9 @@ public interface NamecardService {
 	// 명함 신청 서비스
 	int insertNamecard(Namecard n);
 	
-	// 명함 신청 상세조회용 서비스
-	Namecard selectNamecard(int namecardNo);
+	// 명함 업데이트
+	int nameUpdate(int namecardNo);
 	
-	// 명함 신청 삭제용 서비스
-	int deleteNamecard(int namecardNo);
-	
+	// 회의실예약 리스트 총갯수 조회
+	int getBroomListCount();
 }

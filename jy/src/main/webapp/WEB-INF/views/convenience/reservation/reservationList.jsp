@@ -93,6 +93,44 @@
                                 </div>
                             </div>
                         </div> 
+                          
+                        <div id="pagingArea">
+				                <ul class="pagination">
+				                   <c:choose>
+				                		<c:when test="${ p2.currentPage eq 1 }">
+					                    	<li class="badge badge-light disabled"><a class="page-link" href="">Previous</a></li>
+				                		</c:when>
+				                		<c:otherwise>
+				                			<li class="badge badge-light"><a class="page-link" href="reservationList.nc?currentPage=${ p2.currentPage-1 }">Previous</a></li>
+				                		</c:otherwise>
+				                	</c:choose>
+				                    
+				                    <%-- <% for(int p=startPage; p<=endPage; p++) %> --%>
+				                    <c:forEach begin="${ p2.startPage }" end="${ p2.endPage }" var="p"> 
+				                    	
+				                    	<c:choose>
+				                    		<c:when test="${ p2.currentPage ne p }">
+				                    			<li class="badge badge-light"><a class="page-link" href="reservationList.nc?currentPage=${ p }">${ p }</a></li>
+				                    		</c:when>
+				                    		<c:otherwise>
+				                    			<li class="badge badge-light disabled"><a class="page-link" href="">${ p }</a></li>
+				                    		</c:otherwise>
+				                    	</c:choose>
+				                    	
+				                    </c:forEach>
+				                    
+				                    <c:choose>
+				                    	<c:when test="${ p2.currentPage eq p2.maxPage }">
+				                    		<li class="badge badge-light disabled"><a class="page-link" href="">Next</a></li>
+				                    	</c:when>
+				                    	<c:otherwise>
+					                    	<li class="badge badge-light"><a class="page-link" href="reservationList.nc?currentPage=${p2.currentPage+1}">Next</a></li>
+				                    	</c:otherwise>
+				                    </c:choose>
+				                </ul>
+				            </div>
+				           
+				            
                         </div>
 
 
@@ -155,12 +193,7 @@
                                         </table>
                                     </div>
                                 </div>
-                            </div> 
-                            <script>
-                            	$(function(){
-                            		if(".namecardTable tr")
-                            	});
-                            </script>
+                            </div>
                             <div id="pagingArea">
 				                <ul class="pagination">
 				                   <c:choose>

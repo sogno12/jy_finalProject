@@ -31,5 +31,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		JOIN TIME USING(TIME)
 	</select>
 	
+	<update id="broomUpdate" parameterType="BusinessDTO">
+		UPDATE BUSINESS_ROOM
+		SET STATUS_DATE=SYSDATE,
+			STATUS='Y'
+		WHERE MEETING_NO=#{meetingNo}	
+	</update>
+	
 
 </mapper>

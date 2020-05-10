@@ -25,6 +25,7 @@ public class PageInfo {
 		this.pageLimit = pageLimit;
 		this.boardLimit = boardLimit;
 	}
+	
 	public int getListCount() {
 		return listCount;
 	}
@@ -67,12 +68,14 @@ public class PageInfo {
 	public void setBoardLimit(int boardLimit) {
 		this.boardLimit = boardLimit;
 	}
+	
 	@Override
 	public String toString() {
 		return "PageInfo [listCount=" + listCount + ", currentPage=" + currentPage + ", startPage=" + startPage
 				+ ", endPage=" + endPage + ", maxPage=" + maxPage + ", pageLimit=" + pageLimit + ", boardLimit="
-				+ boardLimit + "]";
+				+ boardLimit+ "]";
 	}
+	
 	
 	
 

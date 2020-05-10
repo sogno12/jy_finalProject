@@ -37,5 +37,8 @@ public interface BusinessRoomService {
 	// 회의실 전체 리스트조회
 	ArrayList<BusinessDTO> selectBroomList();
 	
+	// 회의실 업데이트
+	int broomUpdate(int meetingNo);
+	
 	
 }
