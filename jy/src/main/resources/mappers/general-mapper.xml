@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="generalMapper">
+	
+	<resultMap id="generalResultSet" type="NamecardDTO">
+		<id property="namecardNo" column="namecard_no"/>
+		<result property="memberNo" column="member_no"/>
+		<result property="contentType" column="content_type"/>
+		<result property="departmentName" column="department_name"/>
+		<result property="positionName" column="position_name"/>
+		<result property="name" column="member_name"/>
+		<result property="phone" column="phone"/>
+		<result property="email" column="email"/>
+		<result property="empNo" column="emp_no"/>
+	</resultMap>
+
+	<select id="selectncDetail" resultMap="generalResultSet">
+		SELECT NAMECARD_NO, MEMBER_NO, EMP_NO,PHONE,EMAIL,CONTENT_TYPE, M.NAME AS MEMBER_NAME, P.NAME AS POSITION_NAME, D.NAME AS DEPARTMENT_NAME
+		FROM NAMECARD
+		JOIN MEMBER M USING(MEMBER_NO)
+		JOIN POSITION P USING(POSITION_NO)
+		JOIN DEPARTMENT D USING(DEPARTMENT_NO)
+		WHERE NAMECARD_NO=#{namecardNo}
+	</select>
+
+
+</mapper>

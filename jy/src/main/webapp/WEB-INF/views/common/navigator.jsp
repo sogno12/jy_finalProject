@@ -269,7 +269,7 @@
 	                            
 	                            <c:if test="${ loginUser.departmentNo eq 1 }">
 		                            <!-- 총무팀 로그인시 보여지는 메뉴 -->
-		                            <li class="sidebar-item"><a href="hajin_generalAffairs.html" class="sidebar-link"><i class="mdi mdi-alert-octagon"></i><span class="hide-menu"> 총무팀 </span></a></li>
+		                            <li class="sidebar-item"><a href="generalList.ge" class="sidebar-link"><i class="mdi mdi-alert-octagon"></i><span class="hide-menu"> 총무팀 </span></a></li>
 	                            </c:if>
 	                            
 	                            <c:if test="${ loginUser.departmentNo eq 2 }">
@@ -288,7 +288,7 @@
                                <li class="sidebar-item"><a href="sendAppBox.box" class="sidebar-link"><i class="mdi mdi-alert-octagon"></i><span class="hide-menu"> 결재함 </span></a></li>
 	                        </ul>
 	                    </li>
-	                    <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="schedule.sc" aria-expanded="false"><i class="mdi mdi-calendar-check"></i><span class="hide-menu">Schedule</span></a></li>
+	                    <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="calendar.sc" aria-expanded="false"><i class="mdi mdi-calendar-check"></i><span class="hide-menu">Schedule</span></a></li>
 	                    <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="mdi mdi-table-edit"></i><span class="hide-menu">Convenience </span></a>
 	                        <ul aria-expanded="false" class="collapse  first-level">
 	                           <li class="sidebar-item"><a href="namecardForm.nc" class="sidebar-link"><i class="mdi mdi-contact-mail"></i><span class="hide-menu"> 명함 </span></a></li>
@@ -297,7 +297,7 @@
                                <li class="sidebar-item"><a href="reservationList.nc" class="sidebar-link"><i class="mdi mdi-format-list-bulleted"></i><span class="hide-menu"> 예약 내역 </span></a></li>
 	                        </ul>
 	                    </li>
-	                    <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="pys-chat-main.html" aria-expanded="false"><i class="mdi mdi-message-outline"></i><span class="hide-menu">Chat</span></a></li>
+	                    <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="chat.ch" aria-expanded="false"><i class="mdi mdi-message-outline"></i><span class="hide-menu">Chat</span></a></li>
 	                </ul>
 	            </nav>
 	            <!-- End Sidebar navigation -->
