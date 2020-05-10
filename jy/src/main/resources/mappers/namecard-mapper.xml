@@ -23,9 +23,22 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		from namecard
 	</select>
 	
+	<select id="getBroomListCount" resultType="_int">
+		SELECT COUNT(*)
+		FROM BUSINESS_ROOM
+	</select>
+	
 	<select id="selectNameList" resultMap="namecardResultSet">
 		select *
 		from namecard
 		order by namecard_no desc
 	</select>
+	
+	<update id="nameUpdate" parameterType="Namecard">
+	 UPDATE NAMECARD
+	 SET STATUS='Y',
+	     PROCESSING_DATE=SYSDATE
+	 WHERE NAMECARD_NO=#{namecardNo}
+	</update>
+	
 </mapper>

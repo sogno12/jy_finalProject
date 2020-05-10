@@ -205,7 +205,7 @@
 	                            
 	                            <c:if test="${ loginUser.departmentNo eq 1 }">
 		                            <!-- 총무팀 로그인시 보여지는 메뉴 -->
-		                            <li class="sidebar-item"><a href="hajin_generalAffairs.html" class="sidebar-link"><i class="mdi mdi-alert-octagon"></i><span class="hide-menu"> 총무팀 </span></a></li>
+		                            <li class="sidebar-item"><a href="generalList.ge" class="sidebar-link"><i class="mdi mdi-alert-octagon"></i><span class="hide-menu"> 총무팀 </span></a></li>
 	                            </c:if>
 	                            
 	                            <c:if test="${ loginUser.departmentNo eq 2 }">
@@ -229,11 +229,11 @@
 	                        <ul aria-expanded="false" class="collapse  first-level">
 	                           <li class="sidebar-item"><a href="namecardForm.nc" class="sidebar-link"><i class="mdi mdi-contact-mail"></i><span class="hide-menu"> 명함 </span></a></li>
                                <li class="sidebar-item"><a href="businessForm.br" class="sidebar-link"><i class="mdi mdi-timetable"></i><span class="hide-menu"> 회의실 </span></a></li>
-                               <li class="sidebar-item"><a href="hajin_cafe.html" class="sidebar-link"><i class="mdi mdi-coffee-to-go"></i><span class="hide-menu"> 카페테리아 </span></a></li>
+                               <li class="sidebar-item"><a href="cafeTeria.ca" class="sidebar-link"><i class="mdi mdi-coffee-to-go"></i><span class="hide-menu"> 카페테리아 </span></a></li>
                                <li class="sidebar-item"><a href="reservationList.nc" class="sidebar-link"><i class="mdi mdi-format-list-bulleted"></i><span class="hide-menu"> 예약 내역 </span></a></li>
 	                        </ul>
 	                    </li>
-	                    <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="pys-chat-main.html" aria-expanded="false"><i class="mdi mdi-message-outline"></i><span class="hide-menu">Chat</span></a></li>
+	                    <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="chat.ch" aria-expanded="false"><i class="mdi mdi-message-outline"></i><span class="hide-menu">Chat</span></a></li>
 	                </ul>
 	            </nav>
 	            <!-- End Sidebar navigation -->
