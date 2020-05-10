@@ -8,12 +8,13 @@ public class Menu {
 	private String type;
 	private String menuMoney;
 	private int memberNo;
+	private String status;
 	
 	public Menu() {
 		
 	}
 
-	public Menu(int menuNo, String menuName, int count, String type, String menuMoney, int memberNo) {
+	public Menu(int menuNo, String menuName, int count, String type, String menuMoney, int memberNo, String status) {
 		super();
 		this.menuNo = menuNo;
 		this.menuName = menuName;
@@ -21,6 +22,15 @@ public class Menu {
 		this.type = type;
 		this.menuMoney = menuMoney;
 		this.memberNo = memberNo;
+		this.status = status;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
 	}
 
 	public int getMenuNo() {
@@ -74,8 +84,9 @@ public class Menu {
 	@Override
 	public String toString() {
 		return "Menu [menuNo=" + menuNo + ", menuName=" + menuName + ", count=" + count + ", type=" + type
-				+ ", menuMoney=" + menuMoney + ", memberNo=" + memberNo + "]";
+				+ ", menuMoney=" + menuMoney + ", memberNo=" + memberNo + ", status=" + status + "]";
 	}
+
 	
 	
 	
