@@ -211,11 +211,11 @@
     
 		<!-- 웹소켓 사용 라이브러리  -->
 		<dependency>
-			  <groupId>org.springframework</groupId>
-        <artifactId>spring-websocket</artifactId>
-        <version>4.2.4.RELEASE</version>
+	      <groupId>org.springframework</groupId>
+	      <artifactId>spring-websocket</artifactId>
+	      <version>4.2.4.RELEASE</version>
     </dependency>
-		
+
 	</dependencies>
     <build>
         <plugins>

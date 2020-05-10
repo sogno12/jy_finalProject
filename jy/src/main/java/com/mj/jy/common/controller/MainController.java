@@ -45,23 +45,6 @@ public class MainController {
 		return new Gson().toJson(result);
 	}
 	
-	/*
-	@ResponseBody
-	@RequestMapping(value="insert.todo", produces="application/json; charset=utf-8")
-	public String insertTodo(int memberNo, String title, Date todoDate) {
-		
-		HashMap<String, Object> map = new HashMap<String, Object>();
-		
-		map.put("memberNo", memberNo);
-		map.put("title", title);
-		map.put("todoDate", todoDate);
-		
-		int result = mainService.insertTodo(map);
-		
-		return new Gson().toJson(result);
-	}
-	*/
-	
 	// 할 일 등록
 	@ResponseBody
 	@RequestMapping("insert.todo")

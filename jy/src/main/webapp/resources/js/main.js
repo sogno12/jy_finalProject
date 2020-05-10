@@ -1,5 +1,6 @@
 var draggedEventIsAllDay;
 var activeInactiveWeekends = true;
+var memberNo = $("#memberNo");
 
 function getDisplayEventDate(event) {
 
@@ -17,15 +18,17 @@ function getDisplayEventDate(event) {
 }
 
 function filtering(event) {
-  var show_username = true;
+  // var show_username = true;
   var show_type = true;
 
+  /*
   var username = $('input:checkbox.filter:checked').map(function () {
     return $(this).val();
   }).get();
+  */
   var types = $('#type_filter').val();
 
-  show_username = username.indexOf(event.username) >= 0;
+  // show_username = username.indexOf(event.username) >= 0;
 
   if (types && types.length > 0) {
     if (types[0] == "all") {
@@ -35,7 +38,7 @@ function filtering(event) {
     }
   }
 
-  return show_username && show_type;
+  return show_type;
 }
 
 function calDateWhenResize(event) {
@@ -59,8 +62,9 @@ function calDateWhenResize(event) {
 function calDateWhenDragnDrop(event) {
   // 드랍시 수정된 날짜반영
   var newDates = {
-    startDate: '',
-    endDate: ''
+	scheduleNo: event._id,
+    startDate: 'event.start',
+    endDate: 'event.end'
   }
 
   // 날짜 & 시간이 모두 같은 경우
@@ -92,7 +96,7 @@ function calDateWhenDragnDrop(event) {
 
 
 var calendar = $('#calendar').fullCalendar({
-
+	
   eventRender: function (event, element, view) {
 
     //일정에 hover시 요약
@@ -106,8 +110,7 @@ var calendar = $('#calendar').fullCalendar({
       }),
       content: $('<div />', {
           class: 'popoverInfoCalendar'
-        }).append('<p><strong>등록자:</strong> ' + event.username + '</p>')
-        .append('<p><strong>구분:</strong> ' + event.type + '</p>')
+        }).append('<p><strong>구분:</strong> ' + event.type + '</p>')
         .append('<p><strong>시간:</strong> ' + getDisplayEventDate(event) + '</p>')
         .append('<div class="popoverDescCalendar"><strong>설명:</strong> ' + event.description + '</div>'),
       delay: {
@@ -160,17 +163,20 @@ var calendar = $('#calendar').fullCalendar({
     }
   },
 
+  
+  
   /* ****************
    *  일정 받아옴 
    * ************** */
   events: function (start, end, timezone, callback) {
+	  
     $.ajax({
       type: "get",
-      url: "data.json",
-      data: {
-        // 실제 사용시, 날짜를 전달해 일정기간 데이터만 받아오기를 권장
-      },
+      url: "select.sc",
+      data: { memberNo: memberNo.val() },
       success: function (response) {
+    	  
+    	/*
         var fixedDate = response.map(function (array) {
           if (array.allDay && array.start !== array.end) {
             // 이틀 이상 AllDay 일정인 경우 달력에 표기시 하루를 더해야 정상출력
@@ -178,7 +184,27 @@ var calendar = $('#calendar').fullCalendar({
           }
           return array;
         })
-        callback(fixedDate);
+        */
+    	var events=[];
+    	
+    	for(var i=0; i<response.length; i++){
+    		
+    		var evt = {
+    				
+    			"_id": response[i].scheduleNo,
+    			"title": response[i].title,
+    			"description": response[i].content,
+    			"start": response[i].startDate,
+    			"end": response[i].endDate,
+    			"type": response[i].type,
+    			"backgroundColor": response[i].backColor,
+    			"allDay": response[i].allDay
+    		}
+    		
+    		events.push(evt);
+    	}
+    	
+        callback(events);
       }
     });
   },
@@ -235,10 +261,11 @@ var calendar = $('#calendar').fullCalendar({
     //드롭한 일정 업데이트
     $.ajax({
       type: "get",
-      url: "",
-      data: {
-        //...
-      },
+      url: "drag.sc",
+      data: { "scheduleNo": newDates.scheduleNo,
+    	  	  "startDate": newDates.startDate,
+    	  	  "endDate": newDates.endDate
+    	  	},
       success: function (response) {
         alert('수정: ' + newDates.startDate + ' ~ ' + newDates.endDate);
       }
@@ -255,8 +282,8 @@ var calendar = $('#calendar').fullCalendar({
         .addClass("contextOpened")
         .css({
           display: "block",
-          left: e.pageX,
-          top: e.pageY
+          left: e.pageX-200,
+          top: e.pageY-50
         });
       return false;
     });
@@ -325,7 +352,7 @@ var calendar = $('#calendar').fullCalendar({
   },
   eventLimitClick: 'week', //popover
   navLinks: true,
-  defaultDate: moment('2019-05'), //실제 사용시 삭제
+  defaultDate: moment('2020-05'), //실제 사용시 삭제
   timeFormat: 'HH:mm',
   defaultTimedEventDuration: '01:00:00',
   editable: true,

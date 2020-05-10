@@ -2,8 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="scheduleMapper">
 
-	<resultMap type="ScheduleDto" id="scheduleResultSet">
-		<id property="_id" column="schedule_no"/>
+	<resultMap type="Schedule" id="scheduleResultSet">
+		<id property="scheduleNo" column="schedule_no"/>
 		<result property="memberNo" column="member_no"/>
 		<result property="departmentNo" column="department_no"/>
 		<result property="content" column="content"/>
@@ -12,11 +12,39 @@
 		<result property="title" column="title"/>
 		<result property="backColor" column="back_color"/>
 		<result property="allDay" column="all_day"/>
+		<result property="status" column="status"/>
 	</resultMap>
 
-	<insert id="insertSchedule" parameterType="ScheduleDto">
+	<insert id="insertSchedule" parameterType="Schedule">
 		INSERT INTO SCHEDULE
-		VALUES(#{scheduleNo}, #{memberNo}, #{departmentNo}, #{content}, to_date(#{startDate}, 'YYYY/MM/DD HH24:MI:SS'), to_date(#{endDate}, 'YYYY/MM/DD HH24:MI:SS'), #{title}, #{backColor}, #{allDay}, #{type})
+		VALUES(#{scheduleNo}, #{memberNo}, #{departmentNo}, #{content}, to_timestamp(#{startDate}, 'YYYY/MM/DD HH24:MI:SS'), to_timestamp(#{endDate}, 'YYYY/MM/DD HH24:MI:SS'),
+			   #{title}, #{backColor}, #{allDay}, #{type}, default)
 	</insert>
+	
+	<select id="selectSchedule" parameterType="_int" resultMap="scheduleResultSet">
+		SELECT SCHEDULE_NO, MEMBER_NO, DEPARTMENT_NO, CONTENT, START_DATE, END_DATE, TITLE, BACK_COLOR, ALL_DAY, TYPE
+		  FROM SCHEDULE
+		 WHERE MEMBER_NO=#{memberNo} AND STATUS='Y'
+	</select>
+	
+	<update id="drapSchedule" parameterType="hashMap">
+		UPDATE SCHEDULE
+		   SET START_DATE=to_timestamp(#{startDate}, 'YYYY/MM/DD HH24:MI:SS'), END_DATE=to_timestamp(#{endDate}, 'YYYY/MM/DD HH24:MI:SS')
+		 WHERE SCHEDULE_NO=#{scheduleNo}
+	</update>
+	
+	<update id="updateSchedule" parameterType="Schedule">
+		UPDATE SCHEDULE
+		   SET CONTENT=#{content}, TITLE=#{title}, BACK_COLOR=#{backColor}, ALL_DAY=#{allDay}, TYPE=#{type},
+    		   START_DATE=to_timestamp(#{startDate}, 'YYYY/MM/DD HH24:MI:SS'),
+    		   END_DATE=to_timestamp(#{endDate}, 'YYYY/MM/DD HH24:MI:SS')
+		 WHERE SCHEDULE_NO=#{scheduleNo}
+	</update>
+	
+	<update id="deleteSchedule" parameterType="String">
+		UPDATE SCHEDULE
+		   SET STATUS='N'
+		 WHERE SCHEDULE_NO=#{scheduleNo}
+	</update>
 
 </mapper>
