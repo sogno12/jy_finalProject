@@ -47,5 +47,6 @@ public interface ApprovalDao {
 	public int updateDisContent(DisContent disContent);
 	public int deleteDisCon(Integer contentNo);
 	public int changeVacationCount(Map<String, Double> updateVacationCount);
+	public int theFindeSuper(SuperApprovalDto superApprovalDto);
 
 }

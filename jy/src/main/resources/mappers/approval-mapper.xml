@@ -255,4 +255,21 @@
 			WHERE LEAVEDAYS_YEAR = #{leavedaysYear} AND MEMBER_NO =#{memberNo}
 	</update>
 	
+		<select id="theFindeSuper" parameterType="SuperApprovalDto" resultType="_int">
+		SELECT MEMBER_NO
+		FROM <if test="reportNo != 0">
+				REPORT_APP
+				</if>
+				<if test="disbursementNo != 0">
+				DIS_APP
+				</if>
+		WHERE <if test="reportNo != 0">
+				REPORT_NO = #{reportNo} 
+				</if>
+				<if test="disbursementNo != 0">
+				DISBURSEMENT_NO = #{disbursementNo}
+				</if> 
+			 AND STATUS=1
+	</select>
+	
 </mapper>

@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttribute;
 
+import com.mj.jy.alarm.model.service.AppAlarmService;
 import com.mj.jy.appBox.model.service.AppBoxService;
 import com.mj.jy.appBox.model.vo.SentAppBoxDto;
 import com.mj.jy.approval.model.service.ApprovalService;
@@ -18,10 +19,13 @@ public class AppBoxController {
 	
 	private AppBoxService appBoxService;
 	private ApprovalService approvalService;
+	private AppAlarmService appAlarmService;
 	
-	public AppBoxController(AppBoxService appBoxService, ApprovalService approvalService) {
+	public AppBoxController(AppBoxService appBoxService,
+			ApprovalService approvalService, AppAlarmService appAlarmService) {
 		this.appBoxService = appBoxService;
 		this.approvalService = approvalService;
+		this.appAlarmService = appAlarmService;
 	}
 	
 	@GetMapping("sendAppBox.box")
@@ -41,6 +45,11 @@ public class AppBoxController {
 			countNum = 0;
 		}
 		model.addAttribute("countNum", countNum);
+		
+		// 보낸결재함 알림(5) 'N'-> 'Y'
+		appAlarmService.readSendAppAlarm(loginUser.getMemberNo());
+		// 알림함 새로 받기
+		appAlarmService.countAppAlarm(loginUser.getMemberNo());
 
 		return "appBox/sendAppBox";
 	}
@@ -83,6 +92,11 @@ public class AppBoxController {
 			countNum = 0;
 		}
 		model.addAttribute("countNum", countNum);
+		
+		// 받은결재함 알림(6) 'N'-> 'Y'
+		appAlarmService.readRecieveAppAlarm(loginUser.getMemberNo());
+		// 알림함 새로 받기
+		appAlarmService.countAppAlarm(loginUser.getMemberNo());
 		
 		return "appBox/receiveAppBox";
 	}

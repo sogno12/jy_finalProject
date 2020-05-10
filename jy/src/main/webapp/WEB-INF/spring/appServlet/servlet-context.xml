@@ -24,7 +24,6 @@
 	<context:component-scan base-package="com.mj.jy" />
 	
 	<interceptors>
-		
 		<interceptor>
 			<mapping path="/*"/>
 			<exclude-mapping path="/login.me"/>
@@ -32,5 +31,7 @@
 			<beans:bean id="Interceptor" class="com.mj.jy.common.interceptor.Interceptor"/>
 		</interceptor>
 	</interceptors>
+	
+	
 	
 </beans:beans>

@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.mj.jy.alarm.model.service.AppAlarmService;
 import com.mj.jy.member.model.service.MemberService;
 import com.mj.jy.member.model.vo.Member;
 import com.mj.jy.member.model.vo.MemberDto;
@@ -29,6 +30,8 @@ public class MemberController {
 	private MemberService mService;
 	@Autowired
 	private BCryptPasswordEncoder bcryptPasswordEncoder;
+	@Autowired
+	private AppAlarmService appAlarmService;
 	
 	// 로그인
 	@RequestMapping("login.me")
@@ -40,7 +43,13 @@ public class MemberController {
 		
 		if(loginUser != null && bcryptPasswordEncoder.matches(m.getPwd(), loginUser.getPwd())) {
 			
-			session.setAttribute("loginUser", loginUser);			
+			session.setAttribute("loginUser", loginUser);
+			
+			// 세션에 로그인한 회원의 알람 내용 담기
+			String eachAlarms = appAlarmService.eachAppAlarm(loginUser.getMemberNo());
+			String[] eachAlarm = eachAlarms.split(",");
+			session.setAttribute("eachAlarm", eachAlarm);
+			
 			mv.setViewName("redirect:/main.do");
 			
 		} else {
