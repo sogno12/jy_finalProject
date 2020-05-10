@@ -21,7 +21,7 @@
                         <div class="ml-auto text-right">
                             <nav aria-label="breadcrumb">
                                 <ol class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                                    <li class="breadcrumb-item"><a href="main.do">Home</a></li>
                                     <li class="breadcrumb-item active" aria-current="page">Convenience</li>
                                 </ol>
                             </nav>
@@ -41,10 +41,9 @@
                                 <h4 class="card-title">명함 신청</h4>
                                 <hr>
                                   <div class="form-group row">
-                                    <label class="col-md-3">사번</label>
                                     <div class="col-md-9">
                                         <div class="custom-control custom-radio">
-                                            <input type="text" class="col-md-3 m-t-15 form-control" name="memberNo">
+                                            <input type="hidden" class="col-md-3 m-t-15 form-control" name="memberNo" value="${loginUser.memberNo }">
                                         </div>
                                     </div>
                                 </div>
@@ -54,13 +53,13 @@
                                         <div class="custom-control custom-radio">
                                             <input type="radio" class="custom-control-input" id="customControlValidation1" name="contentType" value="namecard1" required>
                                             <label class="custom-control-label" for="customControlValidation1"></label>
-                                            <img src="${ pageContext.servletContext.contextPath }/resources/images/hajin/namecard/NAMECARD2.png" alt="namecard1" width="300px;" height="150px;"/>
+                                            <img src="${ pageContext.servletContext.contextPath }/resources/images/hajin/namecard/NAMECARD1.png" alt="namecard1" width="300px;" height="150px;"/>
                                         </div>
                                         <hr>
                                          <div class="custom-control custom-radio">
                                             <input type="radio" class="custom-control-input" id="customControlValidation2" name="contentType" value="namecard2" required>
                                             <label class="custom-control-label" for="customControlValidation2"></label>
-                                            <img src="${ pageContext.servletContext.contextPath }/resources/images/hajin/namecard/NAMECARD1.png" alt="namecard2" width="300px;" height="150px;"/>
+                                            <img src="${ pageContext.servletContext.contextPath }/resources/images/hajin/namecard/NAMECARD2.png" alt="namecard2" width="300px;" height="150px;"/>
                                         </div>
                                       
                                     </div>
@@ -78,9 +77,9 @@
            		 </div>
         	</form>
         </div>
+    <jsp:include page="../../common/footer.jsp"/>
     </div>
     
-    <jsp:include page="../../common/footer.jsp"/>
     
     </div>
     <script src="../../assets/libs/jquery/dist/jquery.min.js"></script>

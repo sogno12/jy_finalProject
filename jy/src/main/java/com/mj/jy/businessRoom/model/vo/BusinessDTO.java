@@ -12,12 +12,11 @@ public class BusinessDTO {
 	private int roomNo;
 	private int time;
 	private Date reportingDate;
-	private Date hopeDate;
 	private Date statusDate;
 	private int count;
 	private String status;
 	
-	private String hopeDateStr;
+	private String hopeDate;
 	
 	private String roomName;
 	private int roomCount;
@@ -29,7 +28,7 @@ public class BusinessDTO {
 		
 	}
 
-	public BusinessDTO(int meetingNo, int memberNo, int roomNo, int time, Date reportingDate, Date hopeDate,
+	public BusinessDTO(int meetingNo, int memberNo, int roomNo, int time, Date reportingDate, String hopeDate,
 			Date statusDate, int count, String status, String roomName, int roomCount, String position,
 			String timeType) {
 		super();
@@ -88,11 +87,11 @@ public class BusinessDTO {
 		this.reportingDate = reportingDate;
 	}
 
-	public Date getHopeDate() {
+	public String getHopeDate() {
 		return hopeDate;
 	}
 
-	public void setHopeDate(Date hopeDate) {
+	public void setHopeDate(String hopeDate) {
 		this.hopeDate = hopeDate;
 	}
 
@@ -153,13 +152,6 @@ public class BusinessDTO {
 	}
 
 	
-	public String getHopeDateStr() {
-		return hopeDateStr;
-	}
-
-	public void setHopeDateStr(String hopeDateStr) {
-		this.hopeDateStr = hopeDateStr;
-	}
 
 	@Override
 	public String toString() {

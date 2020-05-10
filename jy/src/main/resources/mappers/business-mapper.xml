@@ -9,7 +9,34 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		FROM BUSINESS_ROOM
 		JOIN BUSINESS_INFO USING(ROOM_NO)
 		JOIN TIME USING(TIME)
-		WHERE ROOM_NO = #{roomNo} AND HOPE_DATE = to_date(#{hopeDateStr}, 'MM/DD/YYYY') AND ROOM_COUNT >= #{count}	
+		WHERE ROOM_NO = #{roomNo} AND HOPE_DATE = #{hopeDate}
 	</select>
+	
+	<select id="selectbRoomList" resultType="BusinessDTO">
+		SELECT *
+		FROM BUSINESS_ROOM
+		JOIN BUSINESS_INFO USING(ROOM_NO)
+		WHERE ROOM_NO = #{roomNo}
+	</select>
+	
+	<insert id="insertBroom" parameterType="BusinessDTO">
+		INSERT INTO BUSINESS_ROOM
+		VALUES(SEQ_MET.NEXTVAL, #{memberNo}, #{roomNo}, #{time}, sysdate, #{hopeDate}, null, #{count}, default)
+	</insert>
+	
+	<select id="selectBroomList" resultType="BusinessDTO">
+		SELECT *
+		FROM BUSINESS_ROOM
+		JOIN BUSINESS_INFO USING(ROOM_NO)
+		JOIN TIME USING(TIME)
+	</select>
+	
+	<update id="broomUpdate" parameterType="BusinessDTO">
+		UPDATE BUSINESS_ROOM
+		SET STATUS_DATE=SYSDATE,
+			STATUS='Y'
+		WHERE MEETING_NO=#{meetingNo}	
+	</update>
+	
 
 </mapper>
