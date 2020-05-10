@@ -56,10 +56,8 @@
 					<!-- 일자 클릭시 메뉴오픈 -->
 					<div id="contextMenu" class="dropdown clearfix">
 						<ul class="dropdown-menu dropNewEvent" role="menu" aria-labelledby="dropdownMenu" style="display: block; position: static; margin-bottom: 5px;">
-							<li><a tabindex="-1" href="#">카테고리1</a></li>
-							<li><a tabindex="-1" href="#">카테고리2</a></li>
-							<li><a tabindex="-1" href="#">카테고리3</a></li>
-							<li><a tabindex="-1" href="#">카테고리4</a></li>
+							<li><a tabindex="-1" href="#">부서</a></li>
+							<li><a tabindex="-1" href="#">개인</a></li>
 							<li class="divider"></li>
 							<li><a tabindex="-1" href="#" data-role="close">Close</a></li>
 						</ul>
@@ -175,6 +173,7 @@
 								</div>
 							</div>
 
+							<!-- 
 							<div class="col-lg-6">
 								<label for="calendar_view">등록자별</label>
 								<div class="input-group">
@@ -185,6 +184,7 @@
 									<label class="checkbox-inline"><input class='filter' type="checkbox" value="지효" checked>지효</label>
 								</div>
 							</div>
+							 -->
 
 						</div>
 					</div>

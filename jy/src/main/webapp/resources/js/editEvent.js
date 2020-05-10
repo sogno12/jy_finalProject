@@ -2,7 +2,7 @@
  *  일정 편집
  * ************** */
 var editEvent = function (event, element, view) {
-
+	
     $('#deleteEvent').data('id', event._id); //클릭한 이벤트 ID
 
     $('.popover.fade.top').remove();
@@ -38,7 +38,7 @@ var editEvent = function (event, element, view) {
     //업데이트 버튼 클릭시
     $('#updateEvent').unbind();
     $('#updateEvent').on('click', function () {
-
+    	
         if (editStart.val() > editEnd.val()) {
             alert('끝나는 날짜가 앞설 수 없습니다.');
             return false;
@@ -65,6 +65,8 @@ var editEvent = function (event, element, view) {
             endDate = editEnd.val();
             displayDate = endDate;
         }
+        
+       
 
         eventModal.modal('hide');
 
@@ -81,12 +83,17 @@ var editEvent = function (event, element, view) {
         //일정 업데이트
         $.ajax({
             type: "get",
-            url: "",
-            data: {
-                //...
-            },
+            url: "update.sc",
+            data: { "scheduleNo": event._id,
+            		"allDay": event.allDay,
+            		"title": event.title,
+            		"startDate": event.start,
+            		"endDate": event.end,
+            		"type": event.type,
+            		"backColor": event.backgroundColor,
+            		"content": event.description },
             success: function (response) {
-                alert('수정되었습니다.')
+                alert('수정되었습니다.');
             }
         });
 
@@ -95,20 +102,18 @@ var editEvent = function (event, element, view) {
 
 // 삭제버튼
 $('#deleteEvent').on('click', function () {
-    
+	
     $('#deleteEvent').unbind();
     $("#calendar").fullCalendar('removeEvents', $(this).data('id'));
     eventModal.modal('hide');
-
+    
     //삭제시
     $.ajax({
         type: "get",
-        url: "",
-        data: {
-            //...
-        },
+        url: "delete.sc",
+        data: { "scheduleNo": $(this).data('id') },
         success: function (response) {
-            alert('삭제되었습니다.');
+             alert('삭제되었습니다.');
         }
     });
 

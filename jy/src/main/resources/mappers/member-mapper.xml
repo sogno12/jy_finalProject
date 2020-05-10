@@ -58,7 +58,7 @@
 	
 	<insert id="insertMember" parameterType="Member">
 		INSERT INTO MEMBER
-		VALUES (SEQ_MEM.NEXTVAL, #{departmentNo}, #{positionNo}, #{memberPwd}, 
+		VALUES (SEQ_MEM.NEXTVAL, #{departmentNo}, #{positionNo}, #{pwd}, 
 				#{joinDate}, #{resignDate}, #{promotionDate}, #{memberName},
 				#{rrn}, #{address}, #{phone}, #{email}, default, #{empNo} || SEQ_MEM.CURRVAL)
 	</insert>
