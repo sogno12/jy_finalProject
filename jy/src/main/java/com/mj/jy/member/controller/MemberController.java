@@ -232,7 +232,7 @@ public class MemberController {
 		}
 		PageInfo pi = Pagination.getPageInfo(count, pageIndex, 10, countNum);
 		model.addAttribute("listDept", mService.getListDept(departmentNo, pi));
-		System.out.println(mService.getListDept(departmentNo, pi));
+		// System.out.println(mService.getListDept(departmentNo, pi));
 		if(countNum == count) {
 			countNum = 0;
 		}
