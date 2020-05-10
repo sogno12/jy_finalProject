@@ -370,7 +370,7 @@
          
         function connectWs(){
         	sock = new WebSocket("ws:localhost:"+location.port+"/jy/echo/websocket");
-        	console.log("함수실행");
+        	console.log("소켓실행");
         	socket = sock;
         	
    			sock.onmessage = function(cmd){

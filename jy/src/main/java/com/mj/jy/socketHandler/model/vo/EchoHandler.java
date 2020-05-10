@@ -24,7 +24,7 @@ public class EchoHandler extends TextWebSocketHandler {
 	
 	@Override
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
-		// System.out.println("connet..");
+		System.out.println("connet..");
 		
 		// All	
 		sockets.add(session);
@@ -34,7 +34,7 @@ public class EchoHandler extends TextWebSocketHandler {
 		userSessionsMap.put(empNo, session);
 
 
-		// System.out.println(session.getAttributes());
+		//System.out.println(session.getAttributes());
 	}
 		
 	@Override
