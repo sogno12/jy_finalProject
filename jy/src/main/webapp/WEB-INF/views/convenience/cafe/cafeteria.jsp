@@ -32,6 +32,14 @@
 		display:inline-block;
 	}
 	
+	.orderDetailView{
+		display:inline-block;
+		width:500px;
+		height:400px;
+		padding:10px;
+		background:#EEEEEE;
+		border-radius:5px;
+	}
 
 </style>
 </head>
@@ -447,12 +455,68 @@
 		                            </div>
 		                            <div class="border-top">
 		                                <div class="card-body text-right">
-		                                    <button type="button" class="btn btn-info" id="cafeorder">Order</button>
+		                                    <button onclick="orderDetail(${loginUser.memberNo});" type="button" class="btn btn-info" id="cafeorder" data-toggle="modal" data-target="#detailview">Order</button>
 		                                    <button type="submit" class="btn btn-danger">Cancel</button>
 		                                </div>
 		                            </div>
 		                        </div>
-		         
+		                        
+		                        <script>
+		                        	function orderDetail(memberNo){
+		                        		
+		                        		var memberNo = memberNo;
+		                        		console.log(memberNo);
+		                        		$.ajax({
+		                        			url:"selectCafe.ca",
+		                        			data:{memberNo:memberNo},
+		                        			success:function(list){
+		                        				console.log("성공");
+		                        				
+		                        				var value="";
+		                        				$.each(list, function(i, ca){
+		                        					
+		                        					var money = ca.count * ca.menuMoney;
+		                        					console.log(money);
+		                        					value += "<tr style='height:40px;'>" +
+		                        							"<td style='width:50px'></td>" +
+		                        							"<td><i class='mdi mdi-checkbox-marked-outline'></i></td>" + 
+		                                       				"<td style='width:100px;'>" + ca.menuName + "</td>" +
+		                                       				"<td style='width:50px;'>" + ca.count + "잔" + "</td>" +
+		                                       				"<td style='width:100px;'>" + ca.type + "</td>" +
+		                                       				"<td style='width:100px;'>" + ca.menuMoney + "원 X" + ca.count + "</td>" + 
+		                                       				"</tr>";
+		                                       				
+		                        				});
+		                        				
+		                        				$(".orderDetailView").html(value);
+		                        				
+		                        			},error:function(){
+		                        				console.log("ajax통신실패!");
+		                        			}
+		                        		
+		                        		});
+		                        	}
+		                        
+		                        </script>
+		                        
+		                         <div class="modal" id="detailview">
+		                            <div style="width:900px; height:600px; background:white; margin:auto; margin-top:100px;">
+		                                <div class="card">
+		                                 <form class="form-horizontal">
+	                                        <div class="card-body" style="text-align:center;">
+	                                           <h4 class="card-title"><i class="mdi mdi-check-all">주문 정보</i></h4>
+	                                       		<table class="orderDetailView" style="text-align:center;">
+	                                       			
+	                                       		</table>
+	                                       		<hr>
+	                                       		<button onclick="submitOrder();" type="button" class="btn btn-info">결제 하기</button>
+	                                        </div>
+	                                      </form>
+		                                </div>
+		                             </div>
+		                          </div>
+		                               
+				         
 		                </div>
 		            </div>
 		        </div>
