@@ -18,13 +18,14 @@ public interface MemberDao {
 	ArrayList<Member> selectMemberList();
 	MemberDto selectMember(String empNo);
 	int updateMember(MemberDto m);
-	ArrayList<Member> selectListDept();
-	ArrayList<Member> selectListPos();
+	ArrayList<Member> selectListDept( RowBounds rowBounds);
+	ArrayList<Member> selectListPos( RowBounds rowBounds);
+	int getListCount();
+	ArrayList<MemberDto> receiverList();
 	String searchPwd(String empNo);
 	List<MemberDto> getListDept(int departmentNo, RowBounds rowBounds);
 	int getCountDeptMember(int departmentNo);
-
-	
+  
 	/*
 	 * package com.mj.jy.member.model.dao;
 

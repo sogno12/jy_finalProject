@@ -19,6 +19,8 @@
 <link href="${ pageContext.servletContext.contextPath }/resources/css/style.min.css" rel="stylesheet">
 <!-- Custom CSS -->
 <link href="${ pageContext.servletContext.contextPath }/resources/assets/libs/flot/css/float-chart.css" rel="stylesheet">
+
+
 <title>Insert title here</title>
 </head>
 <body>
@@ -258,13 +260,14 @@
                                <li class="sidebar-item"><a href="commute.me" class="sidebar-link"><i class="mdi mdi-check-circle-outline"></i><span class="hide-menu"> 근태 관리 </span></a></li>
                                <li class="sidebar-item"><a href="addressBook.me" class="sidebar-link"><i class="mdi mdi-contacts"></i><span class="hide-menu"> 주소록 </span></a></li>
                                <li class="sidebar-item"><a href="salary.me" class="sidebar-link"><i class="mdi mdi-calculator"></i><span class="hide-menu"> 급여 정보 </span></a></li>
-                               <li class="sidebar-item"><a href="leave.me" class="sidebar-link"><i class="mdi mdi-airplane"></i><span class="hide-menu"> 휴가 정보 </span></a></li>
+                               <li class="sidebar-item"><a href="leave.lv" class="sidebar-link"><i class="mdi mdi-airplane"></i><span class="hide-menu"> 휴가 정보 </span></a></li>
                                <li class="sidebar-item"><a href="messenger.me" class="sidebar-link"><i class="mdi mdi-email-outline"></i><span class="hide-menu"> 쪽지 </span></a></li>
 	                        </ul> 
 	                    </li>
 	                    <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="mdi mdi-account-multiple"></i><span class="hide-menu">Team </span></a>
 	                        <ul aria-expanded="false" class="collapse  first-level">
-	                            <li class="sidebar-item"><a href="yh-Board.html" class="sidebar-link"><i class="mdi mdi-note-outline"></i><span class="hide-menu"> 사내 게시판 </span></a></li>
+	                     
+	                            <li class="sidebar-item"><a href="board.bd" class="sidebar-link"><i class="mdi mdi-note-outline"></i><span class="hide-menu"> 사내 게시판 </span></a></li>
 	                            <li class="sidebar-item"><a href="teamTable.me" class="sidebar-link"><i class="mdi mdi-sitemap"></i><span class="hide-menu"> 팀 정보 </span></a></li>
 	                            
 	                            <c:if test="${ loginUser.departmentNo eq 1 }">
