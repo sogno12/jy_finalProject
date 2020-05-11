@@ -34,6 +34,12 @@ public class CafeServiceImpl implements CafeService{
 	public List<Menu> selectCafe(int memberNo) {
 		return caDao.selectCafe(sqlSession, memberNo);
 	}
+
+	@Override
+	public int updateCafe(int memberNo) {
+		return caDao.updateCafe(sqlSession, memberNo);
+	}
+	
 	
 	
 

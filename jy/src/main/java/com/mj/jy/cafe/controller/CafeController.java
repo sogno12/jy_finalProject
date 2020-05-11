@@ -318,10 +318,18 @@ public class CafeController {
 		return new Gson().toJson(selectCafe);
 	}
 	
-	public String cafeBtn() {
-		return "convenience/cafe/cafeteria";
+	@RequestMapping("insertCafe.ca")
+	public String updateCafe(int memberNo) {
+		
+		System.out.println("con:" + memberNo);
+		int result = caService.updateCafe(memberNo);
+		
+		if(result > 0) {
+			return "convenience/cafe/cafeteria";
+		}else {
+			return "common/errorPage";
+		}
 	}
-	
 	
 	
 	
