@@ -103,8 +103,8 @@ public class MemberController {
 		if(result > 0) {
 			
 			// 인사카드 등록 후 전체 회원 조회하는 메뉴로 리턴
-			selectMemberList(m, model);
-			return "member/memberListView";
+			 selectMemberList(m, model);
+			return "redirect:memberList.me";
 			
 		} else {
 			return "";
@@ -124,7 +124,7 @@ public class MemberController {
 	// 직원 상세 정보
 	@RequestMapping("select.me")
 	public String selectMember(String empNo, Model model) {
-		
+		// System.out.println(empNo);
 		MemberDto m = mService.selectMember(empNo);
 		model.addAttribute("m", m);
 		return "member/memberDetailView";
@@ -158,8 +158,13 @@ public class MemberController {
 		
 		if(result > 0) {
 			
-			model.addAttribute("empNo", m.getEmpNo());
-			return "redirect:select.me";
+			if(m.getResignDate() == null) {				
+				model.addAttribute("empNo", m.getEmpNo());
+				return "redirect:select.me";
+			} else {
+				return "redirect:memberList.me";
+			}
+			
 			
 		} else {
 			

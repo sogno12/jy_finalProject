@@ -307,7 +307,7 @@
 										}
 										
 								value += "<label class='custom-control-label todo-label' for='customCheck" + obj.todoNo + "'>" +
-											"<span>" + obj.title + "</span>" +
+											"<span class='m-r-30'>" + obj.title + "</span>" +
 											"<span class='badge badge-pill badge-danger float-right'>Today</span>" +
 										"</label>" +
 									"</div>" +
