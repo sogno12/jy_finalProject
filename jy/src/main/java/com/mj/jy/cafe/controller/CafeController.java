@@ -314,11 +314,22 @@ public class CafeController {
 	public String selectCafe(int memberNo) {
 		
 		List<Menu> selectCafe = caService.selectCafe(memberNo);
-		System.out.println(selectCafe);
 		
 		return new Gson().toJson(selectCafe);
 	}
 	
+	@RequestMapping("insertCafe.ca")
+	public String updateCafe(int memberNo) {
+		
+		System.out.println("con:" + memberNo);
+		int result = caService.updateCafe(memberNo);
+		
+		if(result > 0) {
+			return "convenience/cafe/cafeteria";
+		}else {
+			return "common/errorPage";
+		}
+	}
 	
 	
 	

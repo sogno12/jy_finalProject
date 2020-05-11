@@ -2,7 +2,7 @@ package com.mj.jy.namecard.model.service;
 
 import java.util.ArrayList;
 
-import com.mj.jy.businessRoom.model.vo.BusinessRoom;
+import com.mj.jy.businessRoom.model.vo.BusinessDTO;
 import com.mj.jy.namecard.model.vo.Namecard;
 import com.mj.jy.namecard.model.vo.PageInfo;
 
@@ -22,4 +22,6 @@ public interface NamecardService {
 	
 	// 회의실예약 리스트 총갯수 조회
 	int getBroomListCount();
+	
+	ArrayList<BusinessDTO> selectBroomList(PageInfo pi);
 }
