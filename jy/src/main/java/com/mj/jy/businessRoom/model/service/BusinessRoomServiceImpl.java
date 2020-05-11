@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.mj.jy.businessRoom.model.dao.BusinessRoomDao;
 import com.mj.jy.businessRoom.model.vo.BusinessDTO;
 import com.mj.jy.businessRoom.model.vo.BusinessRoom;
+import com.mj.jy.namecard.model.vo.PageInfo;
 
 @Service("bService")
 public class BusinessRoomServiceImpl implements BusinessRoomService{
@@ -59,7 +60,15 @@ public class BusinessRoomServiceImpl implements BusinessRoomService{
 		return bDao.selectBroomList();
 	}
 
-	
+	/**
+	 * 회의실 업데이트
+	 */
+	@Override
+	public int broomUpdate(int meetingNo) {
+		
+		return bDao.broomUpdate(meetingNo);
+	}
+
 	
 
 }

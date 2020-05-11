@@ -53,7 +53,7 @@
                                                 <th scope="col">BUSINESSROOM</th>
                                                 <th scope="col">COUNT</th>
                                                 <th scope="col" colspan="2">RESERVATION</th>
-                                                <th scope="col">REPORTING_DATE</th>
+                                                <th scope="col">REPORTING DATE</th>
                                                 <th colspan="2" scope="col">STATUS</th>
                                                 
                                             </tr>
@@ -73,15 +73,17 @@
                                                 <td>${b.count }명</td>
                                                 <td colspan="2">${b.hopeDate } ${ b.timeType }</td>
                                                 <td>${ b.reportingDate }</td>
-                                                <c:if test="${ b.status eq 'N' }">
-                                                	<td>
-                                               		 <button type="submit" class="submitbtn">승인하기</button>
-                                               		 </td>
-                                               	</c:if>
-                                               	<c:if test="${ b.status eq 'Y' }">
-                                               		<td>승인</td>
-                                               	</c:if>
-                                                <td><button onclick="selectBroom(${b.roomNo});" data-toggle="modal" data-target="#detailview">회의실 정보</button></td> 
+                                                <td>
+                                                	
+                                                	<c:if test="${ b.status eq 'N' }">
+                                               		 	<button onclick="broomSub(${b.meetingNo}, this);" type="submit" class="submitbtn">승인하기</button>
+                                               		</c:if>
+                                               		<c:if test="${ b.status eq 'Y' }">승인</c:if>
+                                                </td>
+                                                <td>
+                                               		&nbsp;&nbsp;&nbsp;
+                                                	<button onclick="selectBroom(${b.roomNo});" data-toggle="modal" data-target="#detailview">회의실 정보</button>
+                                                </td> 
                                             </tr>
                                             </c:forEach>
                                         </tbody>
@@ -89,7 +91,74 @@
                                 </div>
                             </div>
                         </div> 
+                        <div id="pagingArea">
+				                <ul class="pagination">
+				                   <c:choose>
+				                		<c:when test="${ pb.currentPage eq 1 }">
+					                    	<li class="badge badge-light disabled"><a class="page-link" href="">Previous</a></li>
+				                		</c:when>
+				                		<c:otherwise>
+				                			<li class="badge badge-light"><a class="page-link" href="generalList.ge?bcurrentPage=${ pb.currentPage-1 }&ncurrentPage=${ pn.currentPage }">Previous</a></li>
+				                		</c:otherwise>
+				                	</c:choose>
+				                    
+				                    <%-- <% for(int p=startPage; p<=endPage; p++) %> --%>
+				                    <c:forEach begin="${ pb.startPage }" end="${ pb.endPage }" var="p"> 
+				                    	
+				                    	<c:choose>
+				                    		<c:when test="${ pb.currentPage ne p }">
+				                    			<li class="badge badge-light"><a class="page-link" href="generalList.ge?bcurrentPage=${ p }&ncurrentPage=${ pn.currentPage }">${ p }</a></li>
+				                    		</c:when>
+				                    		<c:otherwise>
+				                    			<li class="badge badge-light disabled"><a class="page-link" href="">${ p }</a></li>
+				                    		</c:otherwise>
+				                    	</c:choose>
+				                    	
+				                    </c:forEach>
+				                    
+				                    <c:choose>
+				                    	<c:when test="${ pb.currentPage eq pb.maxPage }">
+				                    		<li class="badge badge-light disabled"><a class="page-link" href="">Next</a></li>
+				                    	</c:when>
+				                    	<c:otherwise>
+					                    	<li class="badge badge-light"><a class="page-link" href="generalList.ge?currentPage=${pb.currentPage+1}&ncurrentPage=${ pn.currentPage }">Next</a></li>
+				                    	</c:otherwise>
+				                    </c:choose>
+				                </ul>
+				            </div>
+                        
+                        
+                        
+                        
                         </div>
+                        
+                        <script>
+                        	function broomSub(meetingNo, tar){
+                        		
+                        	/* 	console.log(roomNo);
+                        		console.log(meetingNo);
+                        		console.log(count);
+                        		console.log(hopeDate);
+                        		console.log(time);
+                        		console.log(reportingDate);  */
+                        		
+                        		
+                        		
+                        		$.ajax({
+                        			url:"broomUpdate.br",
+                        			data:{meetingNo:meetingNo},
+                        			success:function(){
+                        				
+                        				confirm("승인하시겠습니까?");
+                        				$(tar).parent().text("승인");
+                        				
+                        			},error:function(){
+                        				console.log("ajax통신실패");
+                        			}
+                        		}); 
+                        	}
+                        
+                        </script>
 
                         <div class="modal" id="detailview">
                             <div style="width:700px; height:300px; background:white; margin:auto; margin-top:100px;">
@@ -159,7 +228,7 @@
                                 <div class="card-body">
                                     <h4 class="card-title">명함 예약 확인</h4>
                                     <div class="table-responsive">
-                                        <table class="table">
+                                        <table class="table" style="text-align:center;">
                                             <thead class="thead-light">
                                                 <tr>
                                                     <th>
@@ -169,13 +238,13 @@
                                                         </label>
                                                     </th>
                                                     <th scope="col">NO</th>
-                                                    <th scope="col">NameCardType</th>
-                                                    <th scope="col">REPORTINGDATE</th>
-                                                    <th scope="col">PROCESSINGDATE</th>
-                                                    <th scope="col">STATUS</th>
+                                                    <th scope="col">NAMECARD TYPE</th>
+                                                    <th scope="col">REPORTING DATE</th>
+                                                    <th colspan="2" scope="col">STATUS</th>
                                                 </tr>
                                             </thead>
                                             <tbody class="customtable">
+                                            <c:forEach items="${nlist }" var="n">
                                                 <tr>
                                                     <th>
                                                         <label class="customcheckbox">
@@ -183,45 +252,147 @@
                                                             <span class="checkmark"></span>
                                                         </label>
                                                     </th>
-                                                    <td>3</td>
-                                                    <td>YellowType</td>
-                                                    <td>2020-03-18</td>
-                                                    <td>미승인</td>
-                                                    <td><button data-toggle="modal" data-target="#detailviewName">상세보기</button> <button type="submit" class="submitbtn">승인하기</button></td>
+                                                    <td>${n.namecardNo }</td>
+                                                    <td>
+	                                                    <c:if test="${n.contentType eq 'namecard1' }">
+	                                                    	<img src="${ pageContext.servletContext.contextPath }/resources/images/hajin/namecard/NAMECARD1.png" alt="namecard1" width="90px;" height="40px;"/>
+	                                                    </c:if>
+	                                                    <c:if test="${n.contentType eq 'namecard2' }">
+	                                                    	<img src="${ pageContext.servletContext.contextPath }/resources/images/hajin/namecard/NAMECARD2.png" alt="namecard2" width="90px;" height="40px;"/>
+	                                                    </c:if>
+                                                    </td>
+                                                    <td>${n.reportingDate }</td>
+                                                    <td>
+                                                    	<c:if test="${n.status eq 'Y' }">승인</c:if>
+                                                    	<c:if test="${n.status eq 'N' }">
+                                                    		<button onclick="ncSub(${n.namecardNo}, this);" type="submit" class="submitbtn">승인하기</button>
+                                                    	</c:if>
+                                                    </td>
+                                                    <td>
+                                                    	
+                                                    	<button onclick="selectNcDetail(${n.namecardNo});" data-toggle="modal" data-target="#detailviewName">상세보기</button>
+                                                    </td>
                                                 </tr>
-                                                <tr>
-                                                    <th>
-                                                        <label class="customcheckbox">
-                                                            <input type="checkbox" class="listCheckbox" />
-                                                            <span class="checkmark"></span>
-                                                        </label>
-                                                    </th>
-                                                    <td>2</td>
-                                                    <td>YellowType</td>
-                                                    <td>2020-03-18</td>
-                                                    <td>미승인</td>
-                                                    <td><button data-toggle="modal" data-target="#detailviewName">상세보기</button> <button type="submit" class="submitbtn">승인하기</button></td>
-                                                </tr>
-                                                <tr>
-                                                    <th>
-                                                        <label class="customcheckbox">
-                                                            <input type="checkbox" class="listCheckbox" />
-                                                            <span class="checkmark"></span>
-                                                        </label>
-                                                    </th>
-                                                    <td>1</td>
-                                                    <td>YellowType</td>
-                                                    <td>2020-03-18</td>
-                                                    <td>2020-03-25</td>
-                                                    <td style="color:red; font-weight:bold">승인</td>
-                                                </tr>
-                                               
+                                              </c:forEach> 
                                             </tbody>
                                         </table>
                                     </div>
                                 </div>
                             </div> 
+                            <div id="pagingArea">
+				                <ul class="pagination">
+				                   <c:choose>
+				                		<c:when test="${ pn.currentPage eq 1 }">
+					                    	<li class="badge badge-light disabled"><a class="page-link" href="">Previous</a></li>
+				                		</c:when>
+				                		<c:otherwise>
+				                			<li class="badge badge-light"><a class="page-link" href="generalList.ge?ncurrentPage=${ pn.currentPage-1 }&bcurrentPage=${ pb.currentPage }">Previous</a></li>
+				                		</c:otherwise>
+				                	</c:choose>
+				                    
+				                    <%-- <% for(int p=startPage; p<=endPage; p++) %> --%>
+				                    <c:forEach begin="${ pn.startPage }" end="${ pn.endPage }" var="p"> 
+				                    	
+				                    	<c:choose>
+				                    		<c:when test="${ pn.currentPage ne p }">
+				                    			<li class="badge badge-light"><a class="page-link" href="generalList.ge?ncurrentPage=${ p }&bcurrentPage=${ pb.currentPage }">${ p }</a></li>
+				                    		</c:when>
+				                    		<c:otherwise>
+				                    			<li class="badge badge-light disabled"><a class="page-link" href="">${ p }</a></li>
+				                    		</c:otherwise>
+				                    	</c:choose>
+				                    	
+				                    </c:forEach>
+				                    
+				                    <c:choose>
+				                    	<c:when test="${ pn.currentPage eq pn.maxPage }">
+				                    		<li class="badge badge-light disabled"><a class="page-link" href="">Next</a></li>
+				                    	</c:when>
+				                    	<c:otherwise>
+					                    	<li class="badge badge-light"><a class="page-link" href="generalList.ge?ncurrentPage=${pn.currentPage+1}&bcurrentPage=${ pb.currentPage }">Next</a></li>
+				                    	</c:otherwise>
+				                    </c:choose>
+				                </ul>
+				            </div>
+                            
+                            
+                            
+                            
                             </div>
+                            
+                            <script>
+                            
+                            	function selectNcDetail(namecardNo){
+                            		
+                            		var namecardNo = namecardNo;
+                            		 console.log(namecardNo);
+                            		 
+                            		$.ajax({
+                            			url:"namecardDetail.na",
+                            			data:{namecardNo:namecardNo},
+                            			success:function(ge){
+                            				
+                            				$("#namecardNo").text(ge.namecardNo);
+                            				$("#empNo").text(ge.empNo);
+                            				$("#departmentName").text(ge.departmentName);
+                            				$("#positionName").text(ge.positionName);
+                            				$("#memberName").text(ge.name);
+                            				$("#phone").text(ge.phone);
+                            				$("#email").text(ge.email);
+                            				//$("#contentType").text(ge.contentType);
+                            				
+                            				
+                            				
+                            				 var memNo="<c:out value='${ pageContext.servletContext.contextPath }'/>";
+                            				
+                            				var contentType = ge.contentType;
+                            				contentType = contentType.toUpperCase();
+                            				
+                            				var contentType2 = ge.contentType;
+                            				contentType2 = contentType2.toLowerCase();
+                            				
+                            			/* 	console.log(memNo);
+                            				console.log(contentType);
+                            				console.log(contentType2); */
+                            				
+                            				var i = 0;
+                            				
+                            				var i = "<P id='contentType' class='col-sm-3' style='margin:5px;'><img src='" + memNo +  "/resources/images/hajin/namecard/" + 
+                            				contentType + ".png' alt='" + contentType2 + "'width='300px;' height='150px;'/></P>"
+                            				
+                            		
+                            				$("#type").html(i);
+                            						
+                            			}, error:function(){
+                            				console.log("ajax통신실패");
+                            			}
+                            			
+                            		});
+                            	}
+                            	
+                            	function ncSub(namecardNo, tar){
+                            		
+                            		$.ajax({
+                            			url:"nameUpdate.nc",
+                            			data:{namecardNo:namecardNo},
+                            			success:function(){
+                            				
+                            				confirm("승인하시겠습니까?");
+                            				$(tar).parent().text("승인");
+                            				console.log("성공");
+                            				
+                            				
+                            			},error:function(){
+                            				console.log("실패");
+                            			}
+                            		});
+                            	}
+                            	
+                            	
+                            	
+                            	
+                            
+                            </script>
 
                             
                         <div class="modal" id="detailviewName">
@@ -233,56 +404,50 @@
                                             <div class="form-group row">
                                                 <label for="fname" class="col-sm-3 text-right control-label col-form-label">NO</label>
                                                 <div class="col-sm-9">
-                                                    <p class="col-sm-3" style="margin:5px;">1</p>
+                                                    <p id="namecardNo" class="col-sm-3" style="margin:5px;"></p>
                                                 </div>
                                             </div>
 
                                             <div class="form-group row">
                                                 <label for="lname" class="col-sm-3 text-right control-label col-form-label">사번</label>
                                                 <div class="col-sm-9">
-                                                    <P class="col-sm-3" style="margin:5px;">12345</P>
+                                                    <P id="empNo" class="col-sm-3" style="margin:5px;"></P>
                                                 </div>
                                             </div>
                                             <div class="form-group row">
                                                 <label for="email1" class="col-sm-3 text-right control-label col-form-label">부서</label>
                                                 <div class="col-sm-9">
-                                                    <P class="col-sm-3" style="margin:5px;">기획팀</P>
+                                                    <P id="departmentName" class="col-sm-3" style="margin:5px;"></P>
                                                 </div>
                                             </div>
                                             <div class="form-group row">
                                                 <label for="cono1" class="col-sm-3 text-right control-label col-form-label">직급</label>
                                                 <div class="col-sm-9">
-                                                    <P class="col-sm-3" style="margin:5px;">대리</P>
+                                                    <P id="positionName" class="col-sm-3" style="margin:5px;"></P>
                                                 </div>
                                             </div>
                                             <div class="form-group row">
                                                 <label for="lname" class="col-sm-3 text-right control-label col-form-label">사원명</label>
                                                 <div class="col-sm-9">
-                                                    <P class="col-sm-3" style="margin:5px;">홍길동</P>
+                                                    <P id="memberName" class="col-sm-3" style="margin:5px;"></P>
                                                 </div>
                                             </div>
                                             <div class="form-group row">
                                                 <label for="cono1" class="col-sm-3 text-right control-label col-form-label">핸드폰 번호</label>
                                                 <div class="col-sm-9">
-                                                    <P class="col-sm-5" style="margin:5px;">010-0000-0000</P>
+                                                    <P id="phone" class="col-sm-5" style="margin:5px;"></P>
                                                 </div>
                                             </div>
                                             <div class="form-group row">
                                                 <label for="cono1" class="col-sm-3 text-right control-label col-form-label">EMAIL</label>
                                                 <div class="col-sm-9">
-                                                    <P class="col-sm-5" style="margin:5px;">aaa@gmail.com</P>
-                                                </div>
-                                            </div>
-                                            <div class="form-group row">
-                                                <label for="cono1" class="col-sm-3 text-right control-label col-form-label">팩스 번호</label>
-                                                <div class="col-sm-9">
-                                                    <P class="col-sm-3" style="margin:5px;">02-000-0000</P>
+                                                    <P id="email" class="col-sm-5" style="margin:5px;"></P>
                                                 </div>
                                             </div>
                                             <div class="form-group row">
                                                 <label for="cono1" class="col-sm-3 text-right control-label col-form-label">시안</label>
-                                                <div class="col-sm-9">
-                                                    <P class="col-sm-3" style="margin:5px;"><img src="${ pageContext.servletContext.contextPath }/resources/images/hajin/namecard/NAMECARD1.png" alt="namecard1" width="300px;" height="150px;"/></P>
+                                                <div class="col-sm-9" id="type">
+                                                    <P id="contentType" class="col-sm-3" style="margin:5px;"></P>
                                                 </div>
                                             </div>
                                         </div>
@@ -331,11 +496,7 @@
             theme: 'snow'
         });
 
-        $(function(){
-            $(".submitbtn").click(function(){
-                confirm("승인하시겠습니까?");
-            });
-        });
+       
     </script>
 	
 

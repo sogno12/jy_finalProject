@@ -1,6 +1,9 @@
 package com.mj.jy.general.controller;
 
+import java.io.IOException;
 import java.util.ArrayList;
+
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,10 +13,13 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonIOException;
 import com.mj.jy.businessInfo.model.service.BusinessInfoService;
 import com.mj.jy.businessRoom.model.service.BusinessRoomService;
 import com.mj.jy.businessRoom.model.vo.BusinessDTO;
 import com.mj.jy.businessRoom.model.vo.BusinessInfo;
+import com.mj.jy.general.model.service.GeneralService;
+import com.mj.jy.general.model.vo.NamecardDTO;
 import com.mj.jy.namecard.model.service.NamecardService;
 import com.mj.jy.namecard.model.vo.Namecard;
 import com.mj.jy.namecard.model.vo.PageInfo;
@@ -30,23 +36,30 @@ public class GeneralController {
 	@Autowired
 	private BusinessInfoService biService;
 	
+	@Autowired
+	private GeneralService gService;
+	
 	
 	
 	/** 총무팀 예약메인 view
 	 * @return
 	 */
 	@RequestMapping("generalList.ge")
-	public String selectGeList(Model model, @RequestParam(value="currentPage", required=false, defaultValue="1") int currentPage) {
+	public String selectGeList(Model model, 
+			@RequestParam(value="bcurrentPage", required=false, defaultValue="1") int bcurrentPage,
+			@RequestParam(value="ncurrentPage", required=false, defaultValue="1") int ncurrentPage) {
 		
+		int broomListCount = nService.getBroomListCount();
 		int nameListCount = nService.getNameListCount();
 		
-		PageInfo pi = Pagination.getPageInfo(nameListCount, currentPage, 10, 5);
+		PageInfo pn = Pagination.getPageInfo(nameListCount, ncurrentPage, 10, 5);
+		PageInfo pb = Pagination.getPageInfo(nameListCount, bcurrentPage, 10, 5);
 		
-		ArrayList<Namecard> nlist = nService.selectNameList(pi);
+		ArrayList<Namecard> nlist = nService.selectNameList(pn);
+		ArrayList<BusinessDTO> blist = nService.selectBroomList(pb);
 		
-		ArrayList<BusinessDTO> blist = bService.selectBroomList();
-		
-		model.addAttribute("pi", pi);
+		model.addAttribute("pb", pb);
+		model.addAttribute("pn", pn);
 		model.addAttribute("nlist", nlist);
 		model.addAttribute("blist", blist);
 		
@@ -59,8 +72,21 @@ public class GeneralController {
 		
 		BusinessInfo selectbDetailList = biService.selectbDetailList(roomNo);
 		
-		System.out.println(selectbDetailList);
 		return new Gson().toJson(selectbDetailList);
 	}
+	
+	@ResponseBody
+	@RequestMapping(value="namecardDetail.na", produces="application/json; charset=utf-8")
+	public String namecardDetail(int namecardNo, Model model) {
+		
+		NamecardDTO selectncDetailList = gService.selectncDetail(namecardNo);
+		
+		System.out.println(namecardNo);
+		System.out.println(selectncDetailList);
+		return new Gson().toJson(selectncDetailList);
+		
+	}
+	
+	
 
 }
