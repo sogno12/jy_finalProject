@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mj.jy.member.model.dao.MemberDao">
+
+<!--  
+	<resultMap type="Member" id="memberResultSet">
+		<id property="memberNo" column="member_no"/>
+		<result property="departmentNo" column="department_no"/>
+		<result property="positionNo" column="position_no"/>
+		<result property="memberPwd" column="pwd"/>
+		<result property="joinDate" column="join_date"/>
+		<result property="resignDate" column="resign_date"/>
+		<result property="promotionDate" column="promotion_date"/>
+		<result property="memberName" column="name"/>
+		<result property="rrn" column="rrn"/>
+		<result property="address" column="address"/>
+		<result property="phone" column="phone"/>
+		<result property="email" column="email"/>
+		<result property="status" column="status"/>
+		<result property="empNo" column="emp_no"/>
+	</resultMap>
+	
+	<resultMap type="MemberDto" id="memberDtoResultSet">
+		<result property="empNo" column="emp_no"/>
+		<result property="memberName" column="member_name"/>
+		<result property="departmentName" column="dept_name"/>
+		<result property="positionName" column="position_name"/>
+		<result property="phone" column="phone"/>
+		<result property="joinDate" column="join_date"/>
+		<result property="address" column="address"/>
+		<result property="email" column="email"/>
+		<result property="extension" column="extension"/>
+		<result property="rrn" column="rrn"/>
+		<result property="promotionDate" column="promotion_date"/>
+		<result property="resignDate" column="resign_date"/>
+		<result property="departmentNo" column="department_no"/>
+		<result property="positionNo" column="position_no"/>
+		<result property="pwd" column="pwd"/>
+		<result property="memberNo" column="memberNo"/>
+	</resultMap>
+-->
+	
+	<select id="loginMember" parameterType="MemberDto" resultType="MemberDto">
+		SELECT MEMBER_NO, DEPARTMENT_NO, POSITION_NO, D.NAME AS DEPARTMENT_NAME, P.NAME AS POSITION_NAME, 
+			   PWD, JOIN_DATE, RESIGN_DATE, PROMOTION_DATE, M.NAME AS MEMBER_NAME, RRN, ADDRESS,
+			   PHONE, EMAIL, STATUS, EMP_NO, EXTENSION
+  		  FROM MEMBER M
+  		  JOIN DEPARTMENT D USING(DEPARTMENT_NO)
+  		  JOIN POSITION P USING(POSITION_NO)
+ 		 WHERE EMP_NO=#{empNo}
+	</select>
+	
+	<select id="searchPwd" parameterType="Member" resultType="Member">
+		SELECT PWD
+		  FROM MEMBER
+		 WHERE EMP_NO=#{empNo}
+	</select>
+	
+	<insert id="insertMember" parameterType="Member">
+		INSERT INTO MEMBER
+		VALUES (SEQ_MEM.NEXTVAL, #{departmentNo}, #{positionNo}, #{memberPwd}, 
+				#{joinDate}, #{resignDate}, #{promotionDate}, #{memberName},
+				#{rrn}, #{address}, #{phone}, #{email}, default, #{empNo} || SEQ_MEM.CURRVAL)
+	</insert>
+	
+	<select id="selectMemberList" resultType="MemberDto">
+		SELECT EMP_NO, M.NAME AS MEMBER_NAME, D.NAME AS DEPARTMENT_NAME, P.NAME AS POSITION_NAME, PHONE, JOIN_DATE
+		  FROM MEMBER M
+		  JOIN DEPARTMENT D USING(DEPARTMENT_NO)
+		  JOIN POSITION P USING(POSITION_NO)
+		 WHERE STATUS='Y'
+	</select>
+	
+	<select id="selectMember" parameterType="String" resultType="MemberDto">
+		SELECT EMP_NO, M.NAME AS MEMBER_NAME, D.NAME AS DEPARTMENT_NAME, P.NAME AS POSITION_NAME, PHONE, JOIN_DATE, ADDRESS,
+			   EMAIL, EXTENSION, RRN, PROMOTION_DATE, POSITION_NO, DEPARTMENT_NO
+		  FROM MEMBER M
+		  JOIN DEPARTMENT D USING(DEPARTMENT_NO)
+		  JOIN POSITION P USING(POSITION_NO)
+		 WHERE STATUS='Y' AND EMP_NO=#{empNo}
+	</select>
+	
+	<update id="updateMember" parameterType="MemberDto">
+		UPDATE MEMBER
+		   SET NAME=#{memberName}, RRN=#{rrn}, PHONE=#{phone}, EMAIL=#{email}, ADDRESS=#{address}, DEPARTMENT_NO=#{departmentNo}, 
+		   	   POSITION_NO=#{positionNo}, JOIN_DATE=#{joinDate}, PROMOTION_DATE=#{promotionDate}, PWD=#{pwd}
+		<if test="resignDate != null">
+			, RESIGN_DATE=#{resignDate}, STATUS='N'
+		</if>
+		 WHERE EMP_NO=#{empNo}
+	</update>
+	
+	<select id="selectListDept" resultType="MemberDto">
+			SELECT MEMBER_NO, DEPARTMENT_NO, POSITION_NO, D.NAME AS DEPARTMENT_NAME, P.NAME AS POSITION_NAME, 
+	            PWD, JOIN_DATE, RESIGN_DATE, PROMOTION_DATE, M.NAME AS MEMBER_NAME, RRN, ADDRESS,
+	            PHONE, EMAIL, STATUS, EMP_NO, EXTENSION
+	            FROM MEMBER M
+	            JOIN DEPARTMENT D USING(DEPARTMENT_NO)
+	            JOIN POSITION P USING(POSITION_NO)
+	            WHERE STATUS ='Y'
+            ORDER BY Department_NO DESC
+	</select>
+	
+	<select id="selectListPos" resultType="MemberDto">
+			SELECT MEMBER_NO, DEPARTMENT_NO, POSITION_NO, D.NAME AS DEPARTMENT_NAME, P.NAME AS POSITION_NAME, 
+	            PWD, JOIN_DATE, RESIGN_DATE, PROMOTION_DATE, M.NAME AS MEMBER_NAME, RRN, ADDRESS,
+	            PHONE, EMAIL, STATUS, EMP_NO, EXTENSION
+	            FROM MEMBER M
+	            JOIN DEPARTMENT D USING(DEPARTMENT_NO)
+	            JOIN POSITION P USING(POSITION_NO)
+	            WHERE STATUS ='Y'
+            ORDER BY POSITION_NO ASC
+	</select>
+	
+</mapper>

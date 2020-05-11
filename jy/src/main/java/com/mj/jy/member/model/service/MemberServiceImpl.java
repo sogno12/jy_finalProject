@@ -1,6 +1,7 @@
 package com.mj.jy.member.model.service;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.ibatis.session.RowBounds;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,8 +26,8 @@ public class MemberServiceImpl implements MemberService {
 	
 	// 비밀번호 찾기 서비스
 	@Override
-	public Member searchPwd(Member m) {
-		return mDao.searchPwd(m);
+	public String searchPwd(String empNo) {
+		return mDao.searchPwd(empNo);
 	}
 
 	// 인사 카드 등록 서비스
@@ -77,6 +78,24 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public ArrayList<MemberDto> receiverList() {
 		return mDao.receiverList();
+	}
+
+	/** sujin1.
+	 *  로그인 회원과 같은 부서원들의 정보
+	 */
+	@Override
+	public List<MemberDto> getListDept(int departmentNo, PageInfo pi) {
+		int offset = pi.getCurrentPage()-1 * pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		return mDao.getListDept(departmentNo, rowBounds);
+	}
+
+	/** sujin2
+	 *	로그인 회원과 같은 부서원들의 정보 갯수
+	 */
+	@Override
+	public int getCountDeptMember(int departmentNo) {
+		return mDao.getCountDeptMember(departmentNo);
 	}
 
 }

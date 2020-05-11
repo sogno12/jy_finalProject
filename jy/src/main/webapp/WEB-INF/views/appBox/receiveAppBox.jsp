@@ -44,7 +44,7 @@
                         <div class="ml-auto text-right">
                             <nav aria-label="breadcrumb">
                                 <ol class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                                    <li class="breadcrumb-item"><a href="main.do">Home</a></li>
                                     <li class="breadcrumb-item active" aria-current="page">Table</li>
                                 </ol>
                             </nav>
@@ -92,8 +92,10 @@
 											<option value="10" ${ countNum eq 10 ? "selected" : "" }>10개</option>
 											<option value="15" ${ countNum eq 15 ? "selected" : "" }>15개</option>
 											<option value="20" ${ countNum eq 20 ? "selected" : "" }>20개</option>
+											<option value="0" ${ countNum eq 0 ? "selected" : "" }>All</option>
 										</select>
                                     </div>
+                                    <br>
                                     <div class="table-responsive">
                                         <table id="requestedTable" class="table table-hover">
                                             <thead>
@@ -160,22 +162,6 @@
 	<!-- End Page wrapper  -->
 	<!-- ============================================================== -->
 	
-    <!-- ============================================================== -->
-    <!-- All Jquery -->
-    <!-- ============================================================== -->
-    <script src="${ pageContext.servletContext.contextPath }/resources/assets/libs/jquery/dist/jquery.min.js"></script>
-    <!-- Bootstrap tether Core JavaScript -->
-    <script src="${ pageContext.servletContext.contextPath }/resources/assets/libs/popper.js/dist/umd/popper.min.js"></script>
-    <script src="${ pageContext.servletContext.contextPath }/resources/assets/libs/bootstrap/dist/js/bootstrap.min.js"></script>
-    <!-- slimscrollbar scrollbar JavaScript -->
-    <script src="${ pageContext.servletContext.contextPath }/resources/assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>
-    <script src="${ pageContext.servletContext.contextPath }/resources/assets/extra-libs/sparkline/sparkline.js"></script>
-    <!--Wave Effects -->
-    <script src="${ pageContext.servletContext.contextPath }/resources/js/waves.js"></script>
-    <!--Menu sidebar -->
-    <script src="${ pageContext.servletContext.contextPath }/resources/js/sidebarmenu.js"></script>
-    <!--Custom JavaScript -->
-    <script src="${ pageContext.servletContext.contextPath }/resources/js/custom.min.js"></script>
     <!-- This Page JS -->
     <script src="${ pageContext.servletContext.contextPath }/resources/assets/libs/inputmask/dist/min/jquery.inputmask.bundle.min.js"></script>
     <script src="${ pageContext.servletContext.contextPath }/resources/js/pages/mask/mask.init.js"></script>

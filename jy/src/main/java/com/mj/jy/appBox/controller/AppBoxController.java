@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttribute;
 
+import com.mj.jy.alarm.model.service.AppAlarmService;
 import com.mj.jy.appBox.model.service.AppBoxService;
 import com.mj.jy.appBox.model.vo.SentAppBoxDto;
 import com.mj.jy.approval.model.service.ApprovalService;
@@ -18,10 +19,13 @@ public class AppBoxController {
 	
 	private AppBoxService appBoxService;
 	private ApprovalService approvalService;
+	private AppAlarmService appAlarmService;
 	
-	public AppBoxController(AppBoxService appBoxService, ApprovalService approvalService) {
+	public AppBoxController(AppBoxService appBoxService,
+			ApprovalService approvalService, AppAlarmService appAlarmService) {
 		this.appBoxService = appBoxService;
 		this.approvalService = approvalService;
+		this.appAlarmService = appAlarmService;
 	}
 	
 	@GetMapping("sendAppBox.box")
@@ -32,9 +36,20 @@ public class AppBoxController {
 		
 		// 보낸결재함
 		int count = appBoxService.countSendAppBox(loginUser.getMemberNo());
+		if(countNum == 0) {
+			countNum = count;
+		}
 		PageInfo pi = Pagination.getPageInfo(count, pageIndex, 10, countNum);
 		model.addAttribute("sendAppBox", appBoxService.getSentAppBox(loginUser.getMemberNo(), pi));
+		if(countNum == count) {
+			countNum = 0;
+		}
 		model.addAttribute("countNum", countNum);
+		
+		// 보낸결재함 알림(5) 'N'-> 'Y'
+		appAlarmService.readSendAppAlarm(loginUser.getMemberNo());
+		// 알림함 새로 받기
+		appAlarmService.countAppAlarm(loginUser.getMemberNo());
 
 		return "appBox/sendAppBox";
 	}
@@ -47,8 +62,14 @@ public class AppBoxController {
 		
 		// 결재완료함
 		int count = appBoxService.countEndSentAppBox(loginUser.getMemberNo());
+		if(countNum == 0) {
+			countNum = count;
+		}
 		PageInfo pi = Pagination.getPageInfo(count, pageIndex, 10, countNum);
 		model.addAttribute("endSentAppBox", appBoxService.getEndSentAppBox(loginUser.getMemberNo(), pi));
+		if(countNum == count) {
+			countNum = 0;
+		}
 		model.addAttribute("countNum", countNum);
 		
 		return "appBox/endSentAppBox";
@@ -62,9 +83,20 @@ public class AppBoxController {
 		
 		// 승인요청함
 		int count = appBoxService.countReceiveAppBox(loginUser.getMemberNo());
+		if(countNum == 0) {
+			countNum = count;
+		}
 		PageInfo pi = Pagination.getPageInfo(count, pageIndex, 10, countNum);
 		model.addAttribute("receiveAppBox", appBoxService.getReceiveAppBox(loginUser.getMemberNo(), pi));
+		if(countNum == count) {
+			countNum = 0;
+		}
 		model.addAttribute("countNum", countNum);
+		
+		// 받은결재함 알림(6) 'N'-> 'Y'
+		appAlarmService.readRecieveAppAlarm(loginUser.getMemberNo());
+		// 알림함 새로 받기
+		appAlarmService.countAppAlarm(loginUser.getMemberNo());
 		
 		return "appBox/receiveAppBox";
 	}
@@ -77,8 +109,16 @@ public class AppBoxController {
 		
 		// 승인완료함
 		int count = appBoxService.countEndReceiveAppBox(loginUser.getMemberNo());
+		if(countNum == 0) {
+			countNum = count;
+		}
 		PageInfo pi = Pagination.getPageInfo(count, pageIndex, 10, countNum);
 		model.addAttribute("endReceiveAppBox", appBoxService.getEndReceiveAppBox(loginUser.getMemberNo(), pi));
+		
+		System.out.println(appBoxService.getEndReceiveAppBox(loginUser.getMemberNo(), pi));
+		if(countNum == count) {
+			countNum = 0;
+		}
 		model.addAttribute("countNum", countNum);
 
 		return "appBox/endReceiveAppBox";

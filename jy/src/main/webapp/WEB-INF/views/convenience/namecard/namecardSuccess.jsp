@@ -21,7 +21,7 @@
 	                        <div class="ml-auto text-right">
 	                            <nav aria-label="breadcrumb">
 	                                <ol class="breadcrumb">
-	                                    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+	                                    <li class="breadcrumb-item"><a href="main.do">Home</a></li>
 	                                    <li class="breadcrumb-item active" aria-current="page">Convenience</li>
 	                                </ol>
 	                            </nav>
@@ -47,6 +47,7 @@
 				                    </div>
 				            </div>
 					</div>
+					         <jsp:include page="../../common/footer.jsp"/>
 				</div>
 			</div>
 

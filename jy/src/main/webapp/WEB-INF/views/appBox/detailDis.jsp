@@ -30,7 +30,7 @@
                      <div class="ml-auto text-right">
                          <nav aria-label="breadcrumb">
                              <ol class="breadcrumb">
-                                 <li class="breadcrumb-item"><a href="#">Home</a></li>
+                                 <li class="breadcrumb-item"><a href="main.do">Home</a></li>
                                  <li class="breadcrumb-item active" aria-current="page">Form</li>
                              </ol>
                          </nav>
@@ -342,23 +342,6 @@
 	<!-- ============================================================== -->
 	<!-- End Page wrapper  -->
 	<!-- ============================================================== -->
-	
-	<!-- ============================================================== -->
-    <!-- All Jquery -->
-    <!-- ============================================================== -->
-    <script src="${ pageContext.servletContext.contextPath }/resources/assets/libs/jquery/dist/jquery.min.js"></script>
-    <!-- Bootstrap tether Core JavaScript -->
-    <script src="${ pageContext.servletContext.contextPath }/resources/assets/libs/popper.js/dist/umd/popper.min.js"></script>
-    <script src="${ pageContext.servletContext.contextPath }/resources/assets/libs/bootstrap/dist/js/bootstrap.min.js"></script>
-    <!-- slimscrollbar scrollbar JavaScript -->
-    <script src="${ pageContext.servletContext.contextPath }/resources/assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>
-    <script src="${ pageContext.servletContext.contextPath }/resources/assets/extra-libs/sparkline/sparkline.js"></script>
-    <!--Wave Effects -->
-    <script src="${ pageContext.servletContext.contextPath }/resources/js/waves.js"></script>
-    <!--Menu sidebar -->
-    <script src="${ pageContext.servletContext.contextPath }/resources/js/sidebarmenu.js"></script>
-    <!--Custom JavaScript -->
-    <script src="${ pageContext.servletContext.contextPath }/resources/js/custom.min.js"></script>
     <!-- This Page JS -->
     <script src="${ pageContext.servletContext.contextPath }/resources/assets/libs/inputmask/dist/min/jquery.inputmask.bundle.min.js"></script>
     <script src="${ pageContext.servletContext.contextPath }/resources/js/pages/mask/mask.init.js"></script>
@@ -407,11 +390,15 @@
     });
     
     $('#checkBtn').click(function(){
-    	if( ${loginUser.memberNo } == ${oneDis.createBy} && ${oneDis.approvalNo} != 2) {
+    	var memberNo = ${ loginUser.memberNo};
+    	var createBy = ${ oneDis.createBy};
+    	var approvalNo = ${ oneDis.approvalNo };
+    	
+    	if( memberNo == createBy && approvalNo != 2) {
     		location.href='${ pageContext.servletContext.contextPath }/sendAppBox.box';
-    	}else if(  ${loginUser.memberNo} == ${oneDis.createBy} && ${oneDis.approvalNo} == 2 ){
+    	}else if(  memberNo == createBy && approvalNo == 2 ){
     		location.href='${ pageContext.servletContext.contextPath }/endSentAppBox.box';
-    	}else if(  ${loginUser.memberNo} != ${oneDis.createBy} && ${oneDis.approvalNo} != 2 ){
+    	}else if(  memberNo != createBy && approvalNo != 2 ){
     		location.href='${ pageContext.servletContext.contextPath }/receiveAppBox.box';
     	}else {
     		location.href='${ pageContext.servletContext.contextPath }/endReceiveAppBox.box';

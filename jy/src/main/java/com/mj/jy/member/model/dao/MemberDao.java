@@ -1,6 +1,7 @@
 package com.mj.jy.member.model.dao;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.session.RowBounds;
@@ -12,7 +13,6 @@ import com.mj.jy.member.model.vo.MemberDto;
 @Mapper
 public interface MemberDao {
 
-	// 로그
 	MemberDto loginMember(MemberDto m);
 	int insertMember(Member m);
 	ArrayList<Member> selectMemberList();
@@ -20,10 +20,12 @@ public interface MemberDao {
 	int updateMember(MemberDto m);
 	ArrayList<Member> selectListDept( RowBounds rowBounds);
 	ArrayList<Member> selectListPos( RowBounds rowBounds);
-	Member searchPwd(Member m);
 	int getListCount();
 	ArrayList<MemberDto> receiverList();
-	
+	String searchPwd(String empNo);
+	List<MemberDto> getListDept(int departmentNo, RowBounds rowBounds);
+	int getCountDeptMember(int departmentNo);
+  
 	/*
 	 * package com.mj.jy.member.model.dao;
 

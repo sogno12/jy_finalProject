@@ -1,11 +1,9 @@
 package com.mj.jy.member.controller;
 
-import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.json.simple.JSONArray;
@@ -14,9 +12,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.servlet.ModelAndView;
+
+import com.mj.jy.alarm.model.service.AppAlarmService;
 
 import com.mj.jy.member.model.service.MemberService;
 import com.mj.jy.member.model.vo.Member;
@@ -31,6 +34,8 @@ public class MemberController {
 	private MemberService mService;
 	@Autowired
 	private BCryptPasswordEncoder bcryptPasswordEncoder;
+	@Autowired
+	private AppAlarmService appAlarmService;
 	
 	// 로그인
 	@RequestMapping("login.me")
@@ -42,7 +47,13 @@ public class MemberController {
 		
 		if(loginUser != null && bcryptPasswordEncoder.matches(m.getPwd(), loginUser.getPwd())) {
 			
-			session.setAttribute("loginUser", loginUser);			
+			session.setAttribute("loginUser", loginUser);
+			
+			// 세션에 로그인한 회원의 알람 내용 담기
+			String eachAlarms = appAlarmService.eachAppAlarm(loginUser.getMemberNo());
+			String[] eachAlarm = eachAlarms.split(",");
+			session.setAttribute("eachAlarm", eachAlarm);
+			
 			mv.setViewName("redirect:/main.do");
 			
 		} else {
@@ -53,23 +64,23 @@ public class MemberController {
 		return mv;
 	}
 	
-	// @ResponseBody
+	/*
+	// 비밀번호 찾기
+	@ResponseBody
 	@RequestMapping(value="searchPwd.me", produces="application/json; charset=utf-8")
-	public String searchPwd(Member m, Model model, HttpServletResponse response) throws IOException {
+	public String searchPwd(String empNo, Model model, HttpServletResponse response) throws IOException {
 		
-		Member member = mService.searchPwd(m);
+		String pwd = mService.searchPwd(empNo);
 		
-		System.out.println(member);
-		/*
-		if(member != null && bcryptPasswordEncoder.matches(member.getPwd(), m.getPwd())) {
-			model.addAttribute("member", member);			
+		if(pwd != null && bcryptPasswordEncoder.matches(, ())) {
+			// model.addAttribute("member", member);			
 		} else {
 			model.addAttribute("일치하는 회원이 없습니다.");
 		}
 		return new Gson().toJson(m);
-		*/
-		return "";
+	
 	}
+	*/
 	
 	// 로그아웃
 	@RequestMapping("logout.me")
@@ -206,6 +217,27 @@ public class MemberController {
 	public String messenger(Model model) {	
 	   
 		return "member/messenger";
+	}
+	
+	@GetMapping("teamTable.me")
+	public String goTeamMemberTable(@SessionAttribute("loginUser") MemberDto loginUser, Model model,
+			@RequestParam(required = false, defaultValue = "1") int pageIndex, 
+			@RequestParam(required = false, defaultValue = "5") int countNum) {
+		
+		int departmentNo = loginUser.getDepartmentNo();
+		int count = mService.getCountDeptMember(departmentNo);
+		if(countNum == 0) {
+			countNum = count;
+		}
+		PageInfo pi = Pagination.getPageInfo(count, pageIndex, 10, countNum);
+		model.addAttribute("listDept", mService.getListDept(departmentNo, pi));
+		// System.out.println(mService.getListDept(departmentNo, pi));
+		if(countNum == count) {
+			countNum = 0;
+		}
+		model.addAttribute("countNum", countNum);
+		
+		return "member/teamMemberTable";
 	}
 	
 }

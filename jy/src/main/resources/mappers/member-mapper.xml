@@ -50,7 +50,7 @@
  		 WHERE EMP_NO=#{empNo}
 	</select>
 	
-	<select id="searchPwd" parameterType="Member" resultType="Member">
+	<select id="searchPwd" parameterType="String" resultType="String">
 		SELECT PWD
 		  FROM MEMBER
 		 WHERE EMP_NO=#{empNo}
@@ -58,7 +58,7 @@
 	
 	<insert id="insertMember" parameterType="Member">
 		INSERT INTO MEMBER
-		VALUES (SEQ_MEM.NEXTVAL, #{departmentNo}, #{positionNo}, #{memberPwd}, 
+		VALUES (SEQ_MEM.NEXTVAL, #{departmentNo}, #{positionNo}, #{pwd}, 
 				#{joinDate}, #{resignDate}, #{promotionDate}, #{memberName},
 				#{rrn}, #{address}, #{phone}, #{email}, default, #{empNo} || SEQ_MEM.CURRVAL)
 	</insert>
@@ -111,15 +111,39 @@
 	            WHERE STATUS ='Y'
             ORDER BY POSITION_NO ASC
 	</select>
+
 	<select id="getListCount" resultType="_int">
 		SELECT COUNT(*)
 			FROM MEMBER
 	</select>
+
 	<select id="receiverList" resultType="MemberDto">
 			SELECT EMP_NO,M.NAME AS MEMBER_NAME, D.NAME AS DEPARTMENT_NAME, P.NAME AS POSITION_NAME
 	            FROM MEMBER M
 	            JOIN DEPARTMENT D USING(DEPARTMENT_NO)
 	            JOIN POSITION P USING(POSITION_NO)
 	            WHERE STATUS ='Y'
+
+	
+	<select id="getListDept" resultType="MemberDto">
+		SELECT M.NAME AS MEMBER_NAME, D.NAME DEPARTMENT_NAME, P.NAME POSITION_NAME,
+				ADDRESS, PHONE, EMAIL, EMP_NO, EXTENSION
+		FROM MEMBER M
+		JOIN DEPARTMENT D ON M.DEPARTMENT_NO = D.DEPARTMENT_NO
+		JOIN POSITION P ON P.POSITION_NO = M.POSITION_NO
+		WHERE STATUS = 'Y' AND M.DEPARTMENT_NO = #{departmentNo}
+		ORDER BY M.POSITION_NO
+	
+	</select>
+	
+	<select id="getCountDeptMember" resultType="_int">
+		SELECT count(*)
+		FROM MEMBER M
+		JOIN DEPARTMENT D ON M.DEPARTMENT_NO = D.DEPARTMENT_NO
+		JOIN POSITION P ON P.POSITION_NO = M.POSITION_NO
+		WHERE STATUS = 'Y' AND M.DEPARTMENT_NO = #{departmentNo}
+		ORDER BY M.POSITION_NO
+	
+
 	</select>
 </mapper>

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+
 import com.mj.jy.commute.model.service.CommuteService;
 import com.mj.jy.commute.model.vo.CommuteDto;
 import com.mj.jy.commute.model.vo.CommuteViewDto;
@@ -32,6 +33,7 @@ public class CommuteController {
 		return "commute/commuteListView";
 	}
 	
+
 	@ResponseBody
 	@RequestMapping(value="clockIn.co",produces="application/json; charset=utf-8")
 	public String insertCommute(CommuteDto c, HttpSession session, Model model) {
@@ -74,4 +76,5 @@ public class CommuteController {
 		
 	}
 	
+
 }

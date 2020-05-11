@@ -1,6 +1,7 @@
 package com.mj.jy.approval.model.dao;
 
 import java.util.List;
+import java.util.Map;
 
 import com.mj.jy.appBox.model.vo.DisbursementDto;
 import com.mj.jy.appBox.model.vo.ReportDto;
@@ -45,5 +46,7 @@ public interface ApprovalDao {
 	public int updateDis(DisbursementDto disbursementDto);
 	public int updateDisContent(DisContent disContent);
 	public int deleteDisCon(Integer contentNo);
+	public int changeVacationCount(Map<String, Double> updateVacationCount);
+	public int theFindeSuper(SuperApprovalDto superApprovalDto);
 
 }
