@@ -41,4 +41,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	 WHERE NAMECARD_NO=#{namecardNo}
 	</update>
 	
+	
+	<select id="selectBroomList" resultType="BusinessDTO">
+		SELECT *
+		FROM BUSINESS_ROOM
+		JOIN BUSINESS_INFO USING(ROOM_NO)
+		JOIN TIME USING(TIME)
+	</select>
 </mapper>

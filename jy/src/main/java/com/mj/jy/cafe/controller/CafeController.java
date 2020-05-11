@@ -314,9 +314,12 @@ public class CafeController {
 	public String selectCafe(int memberNo) {
 		
 		List<Menu> selectCafe = caService.selectCafe(memberNo);
-		System.out.println(selectCafe);
 		
 		return new Gson().toJson(selectCafe);
+	}
+	
+	public String cafeBtn() {
+		return "convenience/cafe/cafeteria";
 	}
 	
 	

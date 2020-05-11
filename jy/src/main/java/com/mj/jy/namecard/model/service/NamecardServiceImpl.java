@@ -6,6 +6,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.mj.jy.businessRoom.model.vo.BusinessDTO;
 import com.mj.jy.namecard.model.dao.NamecardDao;
 import com.mj.jy.namecard.model.vo.Namecard;
 import com.mj.jy.namecard.model.vo.PageInfo;
@@ -63,6 +64,12 @@ public class NamecardServiceImpl implements NamecardService{
 	@Override
 	public int getBroomListCount() {
 		return nDao.getBroomListCount(sqlSession);
+	}
+
+
+	@Override
+	public ArrayList<BusinessDTO> selectBroomList(PageInfo pi) {
+		return nDao.selectBroomList(sqlSession, pi);
 	}
 
 

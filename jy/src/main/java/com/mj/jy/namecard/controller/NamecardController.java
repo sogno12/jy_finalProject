@@ -73,25 +73,27 @@ public class NamecardController {
 	 */
 	@RequestMapping("reservationList.nc")
 	public String namecardSelectList(Model model,
-			@RequestParam(value = "currentPage", required = false, defaultValue = "1") int currentPage) {
+			@RequestParam(value = "bcurrentPage", required = false, defaultValue = "1") int bcurrentPage,
+			@RequestParam(value = "ncurrentPage", required = false, defaultValue = "1") int ncurrentPage) {
 
-		int nameListCount = nService.getNameListCount();
 		int broomListCount = nService.getBroomListCount();
+		int nameListCount = nService.getNameListCount();
 		
-		  PageInfo pi = Pagination.getPageInfo(nameListCount, currentPage, 10, 5);
-		  PageInfo p2 = Pagination.getPageInfo(broomListCount, currentPage, 10, 5);
+	    PageInfo pb = Pagination.getPageInfo(broomListCount, bcurrentPage, 10, 5);
+	     PageInfo pn = Pagination.getPageInfo(nameListCount, ncurrentPage, 10, 5);
 		  
-		  ArrayList<Namecard> nlist = nService.selectNameList(pi);
+	     ArrayList<BusinessDTO> blist = nService.selectBroomList(pb);
+		  ArrayList<Namecard> nlist = nService.selectNameList(pn);
 		 
 
-		  ArrayList<BusinessDTO> blist = bService.selectBroomList();
 		  
 		
-		  model.addAttribute("pi",pi); 
-		  model.addAttribute("p2",p2);
+		  model.addAttribute("pb",pb); 
+		  model.addAttribute("pn",pn);
 		  model.addAttribute("nlist", nlist);
 		  model.addAttribute("blist", blist);
 		 
+		  System.out.println(nlist);
 		return "convenience/reservation/reservationList";
 	}
 	
