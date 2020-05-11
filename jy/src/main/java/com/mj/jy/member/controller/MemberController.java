@@ -8,18 +8,21 @@ import java.util.ArrayList;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.google.gson.Gson;
 import com.mj.jy.member.model.service.MemberService;
 import com.mj.jy.member.model.vo.Member;
 import com.mj.jy.member.model.vo.MemberDto;
+import com.mj.jy.namecard.model.vo.PageInfo;
+import com.mj.jy.namecard.model.vo.Pagination;
 
 @Controller
 public class MemberController {
@@ -173,6 +176,7 @@ public class MemberController {
 		return "member/myPage";
 	}
 	
+	
 	// 근태관리
 	@RequestMapping("commute.me")
 	public String commute(HttpSession session) {
@@ -181,32 +185,26 @@ public class MemberController {
 	
 	// 주소록
 	@RequestMapping("addressBook.me")
-	public String addressBook(Model model) {
+	public String addressBook(Model model,@RequestParam(value="currentPage", required=false, defaultValue="1") int currentPage) {
 		
-		ArrayList<Member> listDept = mService.selectListDept();
-		ArrayList<Member> listPos = mService.selectListPos();
+		int listCount = mService.getListCount();
+		
+		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 5);
+		
+		ArrayList<Member> listDept = mService.selectListDept(pi);
+		ArrayList<Member> listPos = mService.selectListPos(pi);
 		
 		model.addAttribute("listDept",listDept);
 		model.addAttribute("listPos",listPos);
+		model.addAttribute("pi", pi);
 		
 		return "member/addressBook";
 	}
 	
-	// 급여정보
-	@RequestMapping("salary.me")
-	public String salary(HttpSession session) {
-		return "member/salary";
-	}
-	
-	// 휴가정보
-	@RequestMapping("leave.me")
-	public String leave(HttpSession session) {
-		return "member/vacation";
-	}
-	
 	// 쪽지
 	@RequestMapping("messenger.me")
-	public String messenger(HttpSession session) {
+	public String messenger(Model model) {	
+	   
 		return "member/messenger";
 	}
 	

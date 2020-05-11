@@ -111,5 +111,15 @@
 	            WHERE STATUS ='Y'
             ORDER BY POSITION_NO ASC
 	</select>
-	
+	<select id="getListCount" resultType="_int">
+		SELECT COUNT(*)
+			FROM MEMBER
+	</select>
+	<select id="receiverList" resultType="MemberDto">
+			SELECT EMP_NO,M.NAME AS MEMBER_NAME, D.NAME AS DEPARTMENT_NAME, P.NAME AS POSITION_NAME
+	            FROM MEMBER M
+	            JOIN DEPARTMENT D USING(DEPARTMENT_NO)
+	            JOIN POSITION P USING(POSITION_NO)
+	            WHERE STATUS ='Y'
+	</select>
 </mapper>

@@ -38,6 +38,19 @@ public class SalaryDto {
 		this.payDate = payDate;
 		this.createName = createName;
 	}
+	
+	public SalaryDto(int salaryNo, String empNo, String memberName, String departmentName, String positionName, int stepSum, int positionSum, int sum, Date payDate) {
+		super();
+		this.salaryNo = salaryNo;
+		this.empNo = empNo;
+		this.memberName = memberName;
+		this.departmentName = departmentName; 
+		this.positionName = positionName;
+		this.stepSum = stepSum;
+		this.positionSum = positionSum;
+		this.sum = sum; 
+		this.payDate = payDate;
+	}
 
 	public int getSalaryNo() {
 		return salaryNo;

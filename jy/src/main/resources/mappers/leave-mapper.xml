@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mj.jy.leave.model.dao.LeaveDao">
+
+<select id="selectMyLeave" resultType="LeaveDto">
+
+	SELECT  M.NAME, D.NAME AS DEPARTMENT, GIVEN_DAYS, LEFT_DAYS, VACATIONCOUNT, LEAVEDAYS_YEAR
+		FROM LEAVE_DAYS
+		JOIN MEMBER M USING(MEMBER_NO)
+		JOIN DEPARTMENT D ON( M.DEPARTMENT_NO = D.DEPARTMENT_NO)
+		WHERE M.EMP_NO = #{empNo} AND LEAVEDAYS_YEAR = TO_CHAR(SYSDATE, 'YYYY')
+
+
+	</select>
+	
+	<select id="getLeaveListCount" resultType="_int">
+		SELECT COUNT(*)
+			FROM REPORT 
+			WHERE APPROVAL_NO = 2 AND REPORT_NO= 1 AND CREATE_BY= #{empNo}
+	</select>
+	<select id="selectLeaveList" resultType="LeaveListDto">
+		SELECT BEGIN_DATE,END_DATE,ROUND(MOD(END_DATE - BEGIN_DATE,30)) "DAYS" ,TITLE,CONTENT, "DATE"
+			FROM REPORT
+			JOIN REPORT_APP R USING(REPORT_NO)
+			WHERE R.APPROVAL_NO = 2 AND REPORT_NO = 1 AND CREATE_BY= #{empNo}
+	</select>
+
+</mapper>

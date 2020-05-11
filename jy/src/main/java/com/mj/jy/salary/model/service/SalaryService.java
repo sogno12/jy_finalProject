@@ -11,5 +11,8 @@ public interface SalaryService {
 	
 	// 급여 상세 정보 조회
 	SalaryDto selectSalary(int salaryNo);
+	
+	// 내 급여 상세 정보 조회 
+	SalaryDto selectMySalary(String empNo);
 
 }
