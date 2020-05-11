@@ -109,6 +109,8 @@
                         			url:"broomUpdate.br",
                         			data:{meetingNo:meetingNo},
                         			success:function(){
+                        				
+                        				confirm("승인하시겠습니까?");
                         				$(tar).parent().text("승인");
                         				
                         			},error:function(){
@@ -297,6 +299,7 @@
                             			data:{namecardNo:namecardNo},
                             			success:function(){
                             				
+                            				confirm("승인하시겠습니까?");
                             				$(tar).parent().text("승인");
                             				console.log("성공");
                             				
@@ -415,11 +418,7 @@
             theme: 'snow'
         });
 
-        $(function(){
-            $(".submitbtn").click(function(){
-                confirm("승인하시겠습니까?");
-            });
-        });
+       
     </script>
 	
 

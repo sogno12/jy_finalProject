@@ -5,18 +5,17 @@ public class CafeOrder {
 	private int orderNo;
 	private int memberNo;
 	private int paymentNo;
-	private String money;
 	
 	public CafeOrder() {
 		
 	}
 
-	public CafeOrder(int orderNo, int memberNo, int paymentNo, String money) {
+	public CafeOrder(int orderNo, int memberNo, int paymentNo) {
 		super();
 		this.orderNo = orderNo;
 		this.memberNo = memberNo;
 		this.paymentNo = paymentNo;
-		this.money = money;
+	
 	}
 
 	public int getOrderNo() {
@@ -43,18 +42,11 @@ public class CafeOrder {
 		this.paymentNo = paymentNo;
 	}
 
-	public String getMoney() {
-		return money;
-	}
-
-	public void setMoney(String money) {
-		this.money = money;
-	}
 
 	@Override
 	public String toString() {
-		return "CafeOrder [orderNo=" + orderNo + ", memberNo=" + memberNo + ", paymentNo=" + paymentNo + ", money="
-				+ money + "]";
+		return "CafeOrder [orderNo=" + orderNo + ", memberNo=" + memberNo + ", paymentNo=" + paymentNo + 
+				 "]";
 	}
 	
 	
