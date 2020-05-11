@@ -1,8 +1,14 @@
 package com.mj.jy.chat.model.dao;
 
-import org.springframework.stereotype.Repository;
+import java.util.ArrayList;
 
-@Repository("chatDao")
-public class ChatDao {
+import org.apache.ibatis.annotations.Mapper;
 
+import com.mj.jy.chat.model.vo.Dept;
+
+@Mapper
+public interface ChatDao {
+
+	ArrayList<Dept> selectDept();
+	
 }

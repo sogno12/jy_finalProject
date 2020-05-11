@@ -6,6 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 </head>
 <body>
 
@@ -193,6 +194,8 @@
                         </div>
                         
 
+					<!-- 대화상대 선택 -->
+
                     </div>
                     <div class="col-lg-6">
                         <!-- card new -->
@@ -206,19 +209,53 @@
                                 <div><h5 class="card-title m-b-0">대화상대 선택</h5></div>
 
                                 <br>
-
+                                
+                                <form id="selectMember" method="get">
+                                
+                                <!-- 부서 선택 -->
+                                
                                 <div class="btn-group" style="width:50px; float:left; margin-right:20px;">
-                                    <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">부서</button>
-                                    <div class="dropdown-menu">
-                                        <a class="dropdown-item" href="#">인사팀</a>
-                                        <a class="dropdown-item" href="#">총무부</a>
-                                        <a class="dropdown-item" href="#">영업부</a>
-                                        <a class="dropdown-item" href="#">마케팅부</a>
+                                    <button type="button" class="btn btn-info dropdown-toggle" 
+                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" onclick="selectDept();">부서</button>
+                                    <div class="dropdown-menu" id="selectDept">
+
                                     </div>
                                 </div><!-- /btn-group -->
-                                <input type="text" style="width:100px; float:left; margin:5px" value="">
+                                
+                                <input type="text" style="width:100px; float:left; margin:5px" value="" id="deptInput" name="deptInput">
+                                
+                                <script>
+                                	function selectDept(){
+                                		
+                                		$.ajax({
+                                			url:"dept.ch",
+                                			type:"get",
+                                			success:function(list){
+                                				var value="";
+                                				
+                                				for(var i in list){
+                                					value += "<a class='dropdown-item' href='#' onclick='clickDept(this);'>" + list[i].name + "</a>";
+                                				}
+                                				
+                                				$("#selectDept").html(value);
+                                				
+                                			},
+                                			error:function(){
+                                				console.log("실패");
+                                			}
+                                		});
+                                		
+                                	}
+
+                                	function clickDept(){
+                                		$("#deptInput").val("");
+                                	}
+                                	
+                                </script>
 
                                 <br><br>
+                                
+                                <!-- 이름 선택 -->
 
                                 <div class="btn-group" style="width:50px; float:left; margin-right:20px">
                                     <button type="button" class="btn btn-info dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">이름</button>
@@ -240,8 +277,10 @@
                                         <h5 class="card-title m-b-0"></h5>
                                         <h5 class="card-title m-b-0"></h5>
                                     </div>
-                                    <div style="float:left"><button type="button" class="btn btn-info btn-sm" style="margin-left:40px; margin-bottom:50px;">채팅시작</button></div>
+                                    <div style="float:left"><button type="submit" class="btn btn-info btn-sm" style="margin-left:40px; margin-bottom:50px;">채팅시작</button></div>
                                 </div>
+                                
+                                </form>
 
                             </div>
 

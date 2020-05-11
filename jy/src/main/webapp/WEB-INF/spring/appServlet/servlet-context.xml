@@ -25,10 +25,6 @@
 	
 	<context:component-scan base-package="com.mj.jy" />
 	
-    <websocket:handlers>
-        <websocket:mapping handler="chatHandler" path="/chat-ws"/>
-    </websocket:handlers>
-	
 	<interceptors>
 		
 		<interceptor>

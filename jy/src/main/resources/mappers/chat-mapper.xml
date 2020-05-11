@@ -2,6 +2,18 @@
 <!DOCTYPE mapper 
 PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="chatMapper">
+<mapper namespace="com.mj.jy.chat.model.dao.ChatDao">
+<!-- 
+	<resultMap id="deptResultSet" type="com.mj.jy.chat.model.vo.Dept">
+		<id column="DEPARTMENT_NO" property="deptNo" />
+		<result column="NAME" property="deptName" />
+		<result column="EXTENSION" property="extension" />
+	</resultMap>
+ -->
+	<select id="selectDept" resultType="Dept">
+		SELECT DEPARTMENT_NO, NAME, EXTENSION
+		FROM DEPARTMENT
+	</select>
+	
 
 </mapper>

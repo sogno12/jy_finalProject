@@ -10,11 +10,5 @@
 	<typeAliases>
 		<typeAlias type="com.mj.jy.namecard.model.vo.Namecard" alias="Namecard"/>
 	</typeAliases> 
-	
-	<!-- 
-	<mappers>
-		<mapper resource="/mappers/namecard-mapper.xml"/>
-	</mappers>
-	 -->
 	 
 </configuration>
