@@ -59,7 +59,7 @@ public class EchoHandler extends TextWebSocketHandler {
 				
 				WebSocketSession receiverSession = userSessionsMap.get(receiverEmpNo);
 				
-				if(receiveserSession != null){
+				if(receiverSession != null){
 					if("5".equals(cmd) && receiverSession != null) {
 						TextMessage tmpMsg = new TextMessage("5번 내용 실행");
 						receiverSession.sendMessage(tmpMsg);

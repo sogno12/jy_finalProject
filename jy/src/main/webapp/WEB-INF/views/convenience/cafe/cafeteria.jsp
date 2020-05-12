@@ -465,6 +465,48 @@
 		                        <script>
 		                        var Allmoney;
 		                        
+		                        var memberNo=${loginUser.memberNo};
+	                        	console.log("memberNo" + memberNo);
+	                        	
+	                        	
+	                        	
+	                        	 function submitOrder(moneysss){
+	                        		 console.log(moneysss);
+	                        		 
+			                        IMP.init('imp58841732');  // 가맹점 식별 코드
+
+			                        IMP.request_pay({
+			                           pg : 'inicis', // 결제방식
+			                            pay_method : 'card',	// 결제 수단
+			                            merchant_uid : 'merchant_' + new Date().getTime(),
+			                           name : 'cafeteria',	// order 테이블에 들어갈 주문명 혹은 주문 번호
+			                            amount : moneysss,	// 결제 금액
+			                            buyer_email : '${loginUser.email}',	// 구매자 email
+			                           buyer_name :  '${loginUser.memberName}',	// 구매자 이름
+			                            buyer_tel :  '${loginUser.phone}',	// 구매자 전화번호
+			                            buyer_addr :  '서울시 강남구',	// 구매자 주소
+			                            buyer_postcode :  '234-303',	// 구매자 우편번호
+			                            m_redirect_url : '/khx/payEnd.action'
+			                        }, function(rsp) {
+			                     	if ( rsp.success ) { // 성공시
+			                     		
+			                     		alert("결제가 완료되었습니다.");
+			                     		
+			                     		var msg = '결제가 완료되었습니다.';
+			                     		msg += '고유ID : ' + rsp.imp_uid;
+			                     		msg += '상점 거래ID : ' + rsp.merchant_uid;
+			                     		msg += '결제 금액 : ' + rsp.paid_amount;
+			                     		msg += '카드 승인번호 : ' + rsp.apply_num;
+			                     		
+			                     		location.href="insertCafe.ca?memberNo=" + memberNo;
+			                     		
+			                     	} else { // 실패시
+			                     		var msg = '결제에 실패하였습니다.';
+			                     		msg += '에러내용 : ' + rsp.error_msg;
+			                     	}
+			                     })
+			                    }
+		                        
 		                        	function orderDetail(memberNo){
 		                       
 		                        		var memberNo = memberNo;
@@ -507,47 +549,7 @@
 		                        		});
 		                        	}
 		                        	
-		                        	var memberNo=${loginUser.memberNo};
-		                        	console.log("memberNo" + memberNo);
 		                        	
-		                        	
-		                        	
-		                        	 function submitOrder(moneysss){
-		                        		 console.log(moneysss);
-		                        		 
-				                        IMP.init('imp58841732');  // 가맹점 식별 코드
-
-				                        IMP.request_pay({
-				                           pg : 'inicis', // 결제방식
-				                            pay_method : 'card',	// 결제 수단
-				                            merchant_uid : 'merchant_' + new Date().getTime(),
-				                           name : 'cafeteria',	// order 테이블에 들어갈 주문명 혹은 주문 번호
-				                            amount : moneysss,	// 결제 금액
-				                            buyer_email : '${loginUser.email}',	// 구매자 email
-				                           buyer_name :  '${loginUser.memberName}',	// 구매자 이름
-				                            buyer_tel :  '${loginUser.phone}',	// 구매자 전화번호
-				                            buyer_addr :  '서울시 강남구',	// 구매자 주소
-				                            buyer_postcode :  '234-303',	// 구매자 우편번호
-				                            m_redirect_url : '/khx/payEnd.action'
-				                        }, function(rsp) {
-				                     	if ( rsp.success ) { // 성공시
-				                     		
-				                     		alert("결제가 완료되었습니다.");
-				                     		
-				                     		var msg = '결제가 완료되었습니다.';
-				                     		msg += '고유ID : ' + rsp.imp_uid;
-				                     		msg += '상점 거래ID : ' + rsp.merchant_uid;
-				                     		msg += '결제 금액 : ' + rsp.paid_amount;
-				                     		msg += '카드 승인번호 : ' + rsp.apply_num;
-				                     		
-				                     		location.href="insertCafe.ca?memberNo=" + memberNo;
-				                     		
-				                     	} else { // 실패시
-				                     		var msg = '결제에 실패하였습니다.';
-				                     		msg += '에러내용 : ' + rsp.error_msg;
-				                     	}
-				                     })
-				                    }
 				                        
 		                        	
 		                        </script>

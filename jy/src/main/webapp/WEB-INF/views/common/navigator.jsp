@@ -372,7 +372,7 @@
         });
          
         function connectWs(){
-        	sock = new WebSocket("ws:localhost:"+location.port+"/jy/echo/websocket");
+        	sock = new WebSocket("ws:localhost:9999/jy/echo/websocket");
         	console.log("함수실행");
         	socket = sock;
         	
