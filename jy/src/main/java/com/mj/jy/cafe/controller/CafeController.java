@@ -321,7 +321,6 @@ public class CafeController {
 	@RequestMapping("insertCafe.ca")
 	public String updateCafe(int memberNo) {
 		
-		System.out.println("con:" + memberNo);
 		int result = caService.updateCafe(memberNo);
 		
 		if(result > 0) {

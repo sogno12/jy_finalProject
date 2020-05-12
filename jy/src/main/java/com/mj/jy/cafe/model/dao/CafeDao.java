@@ -22,7 +22,6 @@ public class CafeDao {
 
 	public int updateCafe(SqlSessionTemplate sqlSession, int memberNo) {
 		
-		System.out.println(memberNo);
 		return sqlSession.insert("cafeMapper.updateCafe", memberNo);
 	}
 }
