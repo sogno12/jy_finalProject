@@ -59,12 +59,14 @@ public class EchoHandler extends TextWebSocketHandler {
 				
 				WebSocketSession receiverSession = userSessionsMap.get(receiverEmpNo);
 				
-				if("5".equals(cmd) && receiverSession != null) {
-					TextMessage tmpMsg = new TextMessage("5번 내용 실행");
-					receiverSession.sendMessage(tmpMsg);
-				} else if ("6".equals(cmd) && receiverSession != null) {
-					TextMessage tmpMsg = new TextMessage("6번 내용 실행");
-					receiverSession.sendMessage(tmpMsg);
+				if(receiveserSession != null){
+					if("5".equals(cmd) && receiverSession != null) {
+						TextMessage tmpMsg = new TextMessage("5번 내용 실행");
+						receiverSession.sendMessage(tmpMsg);
+					} else if ("6".equals(cmd) && receiverSession != null) {
+						TextMessage tmpMsg = new TextMessage("6번 내용 실행");
+						receiverSession.sendMessage(tmpMsg);
+					}
 				}
 			}
 		}
