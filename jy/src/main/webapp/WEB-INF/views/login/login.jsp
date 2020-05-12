@@ -82,9 +82,6 @@
                     </form>
                 </div>
                 
-                
-                
-                
                 <div id="recoverform">
                     <div class="text-center">
                         <span class="text-white">아이디를 입력하세요.</span>
@@ -97,37 +94,19 @@
                                 <div class="input-group-prepend">
                                     <span class="input-group-text bg-danger text-white" id="basic-addon1"><i class="ti-email"></i></span>
                                 </div>
-                                <input type="text" class="form-control form-control-lg" placeholder="ID" id="empNo" name="empNo" aria-describedby="basic-addon1">
+                                <input type="text" class="form-control form-control-lg" placeholder="ID" id="pwdNo" name="pwdNo" aria-describedby="basic-addon1">
                             </div>
                             <!-- pwd -->
                             <div class="row m-t-20 p-t-20 border-top border-secondary">
                                 <div class="col-12">
                                     <a class="btn btn-success" href="#" id="to-login" name="action">로그인하기</a>
-                                    <button class="btn btn-info float-right" type="button" name="action" id="searchBtn" data-toggle="modal">확인</button>
+                                    <button class="btn btn-info float-right" onclick="searchPwd();" type="submit" id="searchBtn">확인</button>
                                 </div>
                             </div>
                         </form>
                     </div>
                 </div>
                 
-                
-                <div id="pwdModal" class="modal fade" role="dialog">
-                	<div class="modal-dialog modal-sm">
-                		<!-- Modal content-->
-					    <div class="modal-content">
-					    	<div class="modal-header">
-					      		<button type="button" class="close" data-dismiss="modal">x</button>
-					        	<h4><b>비밀번호</b></h4>
-					      	</div>
-					      	<div class="modal-body">
-					      	</div>
-					      	<div class="modal-footer">
-					        	<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-					      	</div>
-					    </div>
-					
-					 </div>
-				</div>
             </div>
         </div>
         <!-- ============================================================== -->
@@ -174,19 +153,6 @@
 	        $("#loginform").fadeIn();
 	    });
 	    
-	    $('#searchBtn').click(function(){
-	    	$.ajax({
-	    		type:"POST",
-	    		url:"searchPwd.me",
-	    		data:{empNo:$("#empNo").val()},
-	    		success:function(pwd){
-	    			console.log(pwd);
-	    			// $(".modal-body").text(data);
-	    		}, error:function(){
-	    			console.log("ajax 통신 실패");
-	    		}
-	    	});
-	    });
     </script>
 </body>
 </html>

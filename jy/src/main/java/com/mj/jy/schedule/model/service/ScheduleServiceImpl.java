@@ -32,8 +32,8 @@ public class ScheduleServiceImpl implements ScheduleService {
 
 	// 일정 드래그앤드롭
 	@Override
-	public int drapSchedule(HashMap map) {
-		return scDao.drapSchedule(sqlSession, map);
+	public int dragSchedule(HashMap map) {
+		return scDao.dragSchedule(sqlSession, map);
 	}
 
 	// 일정 수정

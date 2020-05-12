@@ -43,14 +43,15 @@ function filtering(event) {
 
 function calDateWhenResize(event) {
 
-  var newDates = {
-    startDate: '',
-    endDate: ''
-  };
+	var newDates = {
+		scheduleNo: event._id,
+	    startDate: 'event.start',
+	    endDate: 'event.end'
+	 }
 
   if (event.allDay) {
     newDates.startDate = moment(event.start._d).format('YYYY-MM-DD');
-    newDates.endDate = moment(event.end._d).subtract(1, 'days').format('YYYY-MM-DD');
+    newDates.endDate = moment(event.end._d).format('YYYY-MM-DD');
   } else {
     newDates.startDate = moment(event.start._d).format('YYYY-MM-DD HH:mm');
     newDates.endDate = moment(event.end._d).format('YYYY-MM-DD HH:mm');
@@ -82,7 +83,7 @@ function calDateWhenDragnDrop(event) {
   //2일이상 all day
   else if (event.allDay && event.end !== null) {
     newDates.startDate = moment(event.start._d).format('YYYY-MM-DD');
-    newDates.endDate = moment(event.end._d).subtract(1, 'days').format('YYYY-MM-DD');
+    newDates.endDate = moment(event.end._d).format('YYYY-MM-DD');
   }
 
   //all day가 아님
@@ -201,6 +202,12 @@ var calendar = $('#calendar').fullCalendar({
     			"allDay": response[i].allDay
     		}
     		
+    		if(evt.allDay == "true") {
+    			evt.allDay = true;
+    		} else {
+    			evt.allDay = false;
+    		}
+    		// console.log(evt);
     		events.push(evt);
     	}
     	
@@ -226,13 +233,12 @@ var calendar = $('#calendar').fullCalendar({
     //리사이즈한 일정 업데이트
     $.ajax({
       type: "get",
-      url: "",
-      data: {
-        //id: event._id,
-        //....
-      },
+      url: "resize.sc",
+      data: { "scheduleNo": newDates.scheduleNo,
+    	  	  "startDate": newDates.startDate,
+    	  	  "endDate": newDates.endDate},
       success: function (response) {
-        alert('수정: ' + newDates.startDate + ' ~ ' + newDates.endDate);
+        // alert('수정: ' + newDates.startDate + ' ~ ' + newDates.endDate);
       }
     });
 
@@ -267,7 +273,7 @@ var calendar = $('#calendar').fullCalendar({
     	  	  "endDate": newDates.endDate
     	  	},
       success: function (response) {
-        alert('수정: ' + newDates.startDate + ' ~ ' + newDates.endDate);
+        // alert('수정: ' + newDates.startDate + ' ~ ' + newDates.endDate);
       }
     });
 

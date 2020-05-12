@@ -50,24 +50,6 @@ public class MemberController {
 		return mv;
 	}
 	
-	/*
-	// 비밀번호 찾기
-	@ResponseBody
-	@RequestMapping(value="searchPwd.me", produces="application/json; charset=utf-8")
-	public String searchPwd(String empNo, Model model, HttpServletResponse response) throws IOException {
-		
-		String pwd = mService.searchPwd(empNo);
-		
-		if(pwd != null && bcryptPasswordEncoder.matches(, ())) {
-			// model.addAttribute("member", member);			
-		} else {
-			model.addAttribute("일치하는 회원이 없습니다.");
-		}
-		return new Gson().toJson(m);
-	
-	}
-	*/
-	
 	// 로그아웃
 	@RequestMapping("logout.me")
 	public String logoutMember(HttpSession session) {

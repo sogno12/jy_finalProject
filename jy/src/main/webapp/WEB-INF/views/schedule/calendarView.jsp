@@ -51,7 +51,7 @@
 				<!-- ============================================================== -->
 				<!-- Start Page Content -->
 				<!-- ============================================================== -->
-				<div class="container">
+				<div class="container" style="margin-left:130px;">
 
 					<!-- 일자 클릭시 메뉴오픈 -->
 					<div id="contextMenu" class="dropdown clearfix">

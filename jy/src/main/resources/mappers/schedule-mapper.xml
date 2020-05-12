@@ -27,7 +27,7 @@
 		 WHERE MEMBER_NO=#{memberNo} AND STATUS='Y'
 	</select>
 	
-	<update id="drapSchedule" parameterType="hashMap">
+	<update id="dragSchedule" parameterType="hashMap">
 		UPDATE SCHEDULE
 		   SET START_DATE=to_timestamp(#{startDate}, 'YYYY/MM/DD HH24:MI:SS'), END_DATE=to_timestamp(#{endDate}, 'YYYY/MM/DD HH24:MI:SS')
 		 WHERE SCHEDULE_NO=#{scheduleNo}
