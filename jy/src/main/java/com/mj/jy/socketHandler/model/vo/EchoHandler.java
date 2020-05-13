@@ -18,13 +18,12 @@ public class EchoHandler extends TextWebSocketHandler {
 	/* 에코 서버 */
 	// All
 	List<WebSocketSession> sockets = new ArrayList<>();
-	
 	Map<String, WebSocketSession> userSessionsMap = new HashMap<>();
-
+	
 	
 	@Override
 	public void afterConnectionEstablished(WebSocketSession session) throws Exception {
-		// System.out.println("connet..");
+		System.out.println("connet..");
 		
 		// All	
 		sockets.add(session);
@@ -34,7 +33,7 @@ public class EchoHandler extends TextWebSocketHandler {
 		userSessionsMap.put(empNo, session);
 
 
-		// System.out.println(session.getAttributes());
+		//System.out.println(session.getAttributes());
 	}
 		
 	@Override
@@ -76,7 +75,7 @@ public class EchoHandler extends TextWebSocketHandler {
 	@Override
 	public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
 		System.out.println("close..");
-		userSessionsMap.remove(session.getId());
+		userSessionsMap.remove(getEmpNo(session));
 		sockets.remove(session);
 	}
 	
@@ -110,11 +109,14 @@ public class EchoHandler extends TextWebSocketHandler {
 			
 				WebSocketSession receiverSession = userSessionsMap.get(receiverEmpNo);
 				
+				
 				try {
+					if(receiverSession != null) {
 					TextMessage tmpMsg = new TextMessage(cmd);
 					
 					receiverSession.sendMessage(tmpMsg);
 					
+					}
 				}catch(IOException e) {
 					System.out.println("echoHandler Error"+e);
 				}
@@ -154,5 +156,37 @@ public class EchoHandler extends TextWebSocketHandler {
 			}
 		}
 		
+	}
+	
+	// 3. 채팅알람
+	public void chatterAlarm(String alarm) {
+		TextMessage message = new TextMessage(alarm);
+		
+		//protocol
+		String msg = message.getPayload();
+		if(!StringUtils.isEmpty(msg)) {
+			String[] strs = msg.split(",");;
+			
+			if(strs != null && strs.length ==3) {
+				String cmd = strs[0];
+				String receiverEmpNo = strs[1];
+				String senderMemName = strs[2];
+				
+				WebSocketSession receiverSession = userSessionsMap.get(receiverEmpNo);
+				
+				try {
+					if(receiverSession != null) {
+						TextMessage tmpMsg = new TextMessage(cmd+","+senderMemName);
+						receiverSession.sendMessage(tmpMsg);
+					}
+				}catch(IOException e) {
+					System.out.println("echoHandler Error"+e);
+				}
+			}
+		}
+	}
+	
+	public Map getUserMap() {
+		return userSessionsMap;
 	}
 }
