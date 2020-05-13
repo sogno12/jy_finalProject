@@ -8,7 +8,7 @@
 		WHERE RECIEVER_NO = #{memberNo} AND STATUS = 'N'
 	</select>
 	
-	<select id="findEmpNo" resultType="_int">
+	<select id="findEmpNo" resultType="String">
 		SELECT EMP_NO
 		FROM MEMBER M
 		WHERE MEMBER_NO = #{memberNo}

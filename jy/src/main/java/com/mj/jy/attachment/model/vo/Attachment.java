@@ -2,6 +2,9 @@ package com.mj.jy.attachment.model.vo;
 
 import java.util.Date;
 
+import org.apache.ibatis.type.Alias;
+
+@Alias("Attachment")
 public class Attachment {
 
 	private int attachmentNo;
