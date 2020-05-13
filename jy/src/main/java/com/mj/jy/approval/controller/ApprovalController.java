@@ -91,10 +91,10 @@ public class ApprovalController {
 		if(appResult> 0) {
 			session.setAttribute("appMsg", "보고서 등록 성공!");
 			// 보고서 결재요청 알람 등록 --> supervisor
-			appAlarmService.insertAppAlarm(loginUser.getMemberNo(), Integer.parseInt(superArray[superArray.length-1]), "5");
+			appAlarmService.insertAppAlarm(loginUser.getMemberNo(), Integer.parseInt(superArray[superArray.length-1]), "6");
 			// 보고서 등록 알람 -> 웹소켓  (알람업뎃+알람표시)
 			appAlarmService.countAppAlarm(Integer.parseInt(superArray[superArray.length-1]));
-			appAlarmService.noticeAppAlarm(Integer.parseInt(superArray[superArray.length-1]), "5");
+			appAlarmService.noticeAppAlarm(Integer.parseInt(superArray[superArray.length-1]), "6");
 		}else {
 			session.setAttribute("appMsg", "보고서 등록 실패");
 		}
@@ -138,10 +138,10 @@ public class ApprovalController {
 		if(appResult> 0) {
 			session.setAttribute("appMsg", "결재서 등록 완료");
 			// 결재서 결재요청 알람 등록 --> supervisor
-			appAlarmService.insertAppAlarm(loginUser.getMemberNo(), Integer.parseInt(superArray[superArray.length-1]), "5");
+			appAlarmService.insertAppAlarm(loginUser.getMemberNo(), Integer.parseInt(superArray[superArray.length-1]), "6");
 			// 결재서 등록 완료 알람 -> 웹소켓
 			appAlarmService.countAppAlarm(Integer.parseInt(superArray[superArray.length-1]));
-			appAlarmService.noticeAppAlarm(Integer.parseInt(superArray[superArray.length-1]), "5");
+			appAlarmService.noticeAppAlarm(Integer.parseInt(superArray[superArray.length-1]), "6");
 		}else {
 			session.setAttribute("appMsg", "결재서 등록 실패");
 		}
@@ -232,7 +232,7 @@ public class ApprovalController {
 			session.setAttribute("appMsg", "결재상태 변경 완료");
 			// 결재 작성자에게 알림
 			appAlarmService.countAppAlarm(approvalService.getOneReport(no).getCreateBy());
-			appAlarmService.noticeAppAlarm(approvalService.getOneReport(no).getCreateBy(), "6");
+			appAlarmService.noticeAppAlarm(approvalService.getOneReport(no).getCreateBy(), "5");
 		}else {
 			session.setAttribute("appMsg", "결재상태 변경 실패");
 		}
@@ -250,7 +250,7 @@ public class ApprovalController {
 			session.setAttribute("appMsg", "결재상태 변경 완료");
 			// 결재 작성자에게 알림
 			appAlarmService.countAppAlarm(approvalService.getOneDis(no).getCreateBy());
-			appAlarmService.noticeAppAlarm(approvalService.getOneDis(no).getCreateBy(), "6");
+			appAlarmService.noticeAppAlarm(approvalService.getOneDis(no).getCreateBy(), "5");
 		}else {
 			session.setAttribute("appMsg", "결재상태 변경 실패");
 		}

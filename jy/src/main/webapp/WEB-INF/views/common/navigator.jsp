@@ -135,7 +135,7 @@
 	                                            </div>
 	                                        </a>
 	                                        <!-- 결재변경 -->
-	                                        <a href="javascript:void(0)" class="link border-top">
+	                                        <a href="sendAppBox.box" class="link border-top">
 	                                            <div class="d-flex no-block align-items-center p-10">
 	                                                <span class="btn btn-danger btn-circle"><i class="fa fa-link"></i></span>
 	                                                <div class="m-l-10">
@@ -145,7 +145,7 @@
 	                                            </div>
 	                                        </a>
 	                                        <!-- 대기결재 -->
-	                                        <a href="javascript:void(0)" class="link border-top">
+	                                        <a href="receiveAppBox.box" class="link border-top">
 	                                            <div class="d-flex no-block align-items-center p-10">
 	                                                <span class="btn btn-danger btn-circle"><i class="fa fa-link"></i></span>
 	                                                <div class="m-l-10">
@@ -302,7 +302,7 @@
                                <li class="sidebar-item"><a href="reservationList.nc" class="sidebar-link"><i class="mdi mdi-format-list-bulleted"></i><span class="hide-menu"> 예약 내역 </span></a></li>
 	                        </ul>
 	                    </li>
-	                    <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="chat.ch" aria-expanded="false"><i class="mdi mdi-message-outline"></i><span class="hide-menu">Chat</span></a></li>
+	                    <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="chatter.ch" aria-expanded="false"><i class="mdi mdi-message-outline"></i><span class="hide-menu">Chat</span></a></li>
 	                </ul>
 	            </nav>
 	            <!-- End Sidebar navigation -->
@@ -374,7 +374,7 @@
         });
          
         function connectWs(){
-        	sock = new WebSocket("ws:localhost:"+location.port+"/jy/echo/websocket");
+        	sock = new WebSocket("ws://localhost:"+location.port+"/jy/echo/websocket");
         	console.log("소켓실행");
         	socket = sock;
         	
@@ -384,9 +384,22 @@
    					//alert('알림갯수 함수 실행');
    					readAlarms();
    				} else if(cmd.data == 5) {
-   					alertify.alert("결재서가 갱신되었습니다.");	
-   				} else if(cmd.data == 6){
    					alertify.alert("결재 상태가 변경되었습니다.");	
+   				} else if(cmd.data == 6){
+   					alertify.alert("새 결재서가 대기중입니다.");	
+   				} else {
+   					var data = cmd.data;
+   					
+   					var idx = data.indexOf(",");
+   					var no = data.substring(0, idx);
+   					var text = data.substring(idx+1);
+   					
+   					console.log(no);
+   					console.log(text);
+   					
+   					if(no == 7){
+   						alertify.alert(text+"님이 채팅메세지를 보냈습니다.");
+   					}
    				}
    				
    			};
