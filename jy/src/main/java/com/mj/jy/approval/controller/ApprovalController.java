@@ -129,10 +129,6 @@ public class ApprovalController {
 			changeName = saveFile(file, request, folderNo);
 		}
 		
-		// System.out.println("disbursement: "+disbursement);
-		// System.out.println("originName: "+originName);
-		// System.out.println("changeName: "+changeName);
-		
 		int appResult = approvalService.enrollDisbursement(disbursement, new Attachment(originName, changeName, folderNo), superArray, disContents);
 		
 		if(appResult> 0) {

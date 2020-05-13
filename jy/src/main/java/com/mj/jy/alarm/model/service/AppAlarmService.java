@@ -5,7 +5,7 @@ public interface AppAlarmService {
 	/** sujin1. 해당직원의 모든 알람 갯수 가져오기
 	 * @return
 	 */
-	int countAppAlarm(int memberNo);
+	String countAppAlarm(int memberNo);
 
 	/** sujin3. empNo에 따른 6가지 알림 갯수 각각 가져오기
 	 * @param empNo

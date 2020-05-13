@@ -21,15 +21,16 @@ public class AppAlarmServiceImpl implements AppAlarmService {
 	}
 	
 	@Override
-	public int countAppAlarm(int memberNo) {
+	public String countAppAlarm(int memberNo) {
 		
 		// H1. 전체 알람 갯수 치환해주기 (navi-ajax) - protocol: cmd, 받는사람
 		String cmd = "0";
-		int recieverEmpNo = appAlramDao.findEmpNo(memberNo);
+		String recieverEmpNo = appAlramDao.findEmpNo(memberNo);
 		
 		String countAlarm = cmd+","+recieverEmpNo;
 		
 		handler.countAppAlarm(countAlarm);
+		
 		
 		return recieverEmpNo;
 	}
@@ -39,7 +40,7 @@ public class AppAlarmServiceImpl implements AppAlarmService {
 	public void noticeAppAlarm(int memberNo, String type) {
 		// H2. 상황별 알림 보내기 (+타입 붙여서)
 		String cmd = type;
-		int recieverEmpNo = appAlramDao.findEmpNo(memberNo);
+		String recieverEmpNo = appAlramDao.findEmpNo(memberNo);
 		
 		String noticeAlarm = cmd+","+recieverEmpNo;
 		
