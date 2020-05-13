@@ -158,15 +158,12 @@
 	                    <li class="nav-item dropdown">
 	                        <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark pro-pic" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="${ pageContext.servletContext.contextPath }/resources/images/users/1.jpg" alt="user" class="rounded-circle" width="31"></a>
 	                        <div class="dropdown-menu dropdown-menu-right user-dd animated">
-	                            <a class="dropdown-item" href="javascript:void(0)"><i class="ti-user m-r-5 m-l-5"></i> My Profile</a>
-	                            <a class="dropdown-item" href="javascript:void(0)"><i class="ti-wallet m-r-5 m-l-5"></i> My Balance</a>
-	                            <a class="dropdown-item" href="javascript:void(0)"><i class="ti-email m-r-5 m-l-5"></i> Inbox</a>
+	                            <a class="dropdown-item" href="myInfo.me"><i class="ti-user m-r-5 m-l-5"></i> My Profile</a>
+	                            <a class="dropdown-item" href="messenger.me"><i class="ti-email m-r-5 m-l-5"></i> Inbox</a>
 	                            <div class="dropdown-divider"></div>
-	                            <a class="dropdown-item" href="javascript:void(0)"><i class="ti-settings m-r-5 m-l-5"></i> Account Setting</a>
+	                            <a class="dropdown-item" href="sendAppBox.box"><i class="ti-settings m-r-5 m-l-5"></i> Electronic Approval</a>
 	                            <div class="dropdown-divider"></div>
 	                            <a class="dropdown-item" href="logout.me"><i class="fa fa-power-off m-r-5 m-l-5"></i> Logout</a>
-	                            <div class="dropdown-divider"></div>
-	                            <div class="p-l-30 p-10"><a href="javascript:void(0)" class="btn btn-sm btn-success btn-rounded">View Profile</a></div>
 	                        </div>
 	                    </li>
 	                    <!-- ============================================================== -->
@@ -214,6 +211,7 @@
 		                            <li class="sidebar-item"><a href="salaryList.sa" class="sidebar-link"><i class="mdi mdi-alert-octagon"></i><span class="hide-menu"> 급여 관리 </span></a></li>
 		                            <li class="sidebar-item"><a href="enrollForm.me" class="sidebar-link"><i class="mdi mdi-alert-octagon"></i><span class="hide-menu"> 인사 관리 </span></a></li>
 		                            <li class="sidebar-item"><a href="commuteList.co" class="sidebar-link"><i class="mdi mdi-alert-octagon"></i><span class="hide-menu"> 근태 관리 </span></a></li>
+		                            <li class="sidebar-item"><a href="commuteChart.co" class="sidebar-link"><i class="mdi mdi-alert-octagon"></i><span class="hide-menu"> 월별 지각 현황 </span></a></li>
 	                            </c:if>
 	                        </ul>
 	                    </li>
@@ -267,10 +265,6 @@
     <script src="${ pageContext.servletContext.contextPath }/resources/assets/libs/flot.tooltip/js/jquery.flot.tooltip.min.js"></script>
     <script src="${ pageContext.servletContext.contextPath }/resources/js/pages/chart/chart-page-init.js"></script>
     <script>
-        function goProfile(){
-            location.href="yh-myprofile.html";
-        }
-        
         function goMyRequest(){
             location.href="#myRequestTableForm";
         }

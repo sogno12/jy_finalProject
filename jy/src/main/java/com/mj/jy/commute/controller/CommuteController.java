@@ -16,6 +16,11 @@ public class CommuteController {
 	@Autowired
 	private CommuteService cService;
 	
+	@RequestMapping("commuteChart.co")
+	public String goChart() {
+		return "commute/commuteChart";
+	}
+	
 	@RequestMapping("commuteList.co")
 	public String selectCommuteList(Model model) {
 		

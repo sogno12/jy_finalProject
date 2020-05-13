@@ -24,6 +24,7 @@ public class SalaryController {
 		ArrayList<SalaryDto> list = saService.selectSalaryList();
 		
 		model.addAttribute("list", list);
+		
 		return "salary/salaryListView";
 	}
 	
@@ -31,9 +32,11 @@ public class SalaryController {
 	@RequestMapping("select.sa")
 	public String selectSalary(int salaryNo, Model model) {
 		
+		// System.out.println(salaryNo);
 		SalaryDto sa = saService.selectSalary(salaryNo);
 		
 		model.addAttribute("sa", sa);
+		
 		return "salary/salaryDetailView";
 	}
 }
