@@ -56,14 +56,28 @@ public class MemberServiceImpl implements MemberService {
 	
 	// 부서별 주소록
 	@Override
-	public ArrayList<Member> selectListDept() {
-		return mDao.selectListDept();
+	public ArrayList<Member> selectListDept(PageInfo pi) {
+		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		return mDao.selectListDept(rowBounds);
 	}
 
 	// 직급별 주소록
 	@Override
-	public ArrayList<Member> selectListPos() {
-		return mDao.selectListPos();
+	public ArrayList<Member> selectListPos(PageInfo pi) {
+		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		return mDao.selectListPos(rowBounds);
+	}
+
+	@Override
+	public int getListCount() {
+		return mDao.getListCount();
+	}
+
+	@Override
+	public ArrayList<MemberDto> receiverList() {
+		return mDao.receiverList();
 	}
 
 	/** sujin1.

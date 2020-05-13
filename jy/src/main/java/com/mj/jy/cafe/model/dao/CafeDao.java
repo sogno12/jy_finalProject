@@ -1,5 +1,7 @@
 package com.mj.jy.cafe.model.dao;
 
+import java.util.List;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
@@ -12,5 +14,14 @@ public class CafeDao {
 		
 		return sqlSession.insert("cafeMapper.insertMenu", m);
 	}
+	
+	public List<Menu> selectCafe(SqlSessionTemplate sqlSession, int memberNo){
+		
+		return sqlSession.selectList("cafeMapper.selectCafe", memberNo);
+	}
 
+	public int updateCafe(SqlSessionTemplate sqlSession, int memberNo) {
+		
+		return sqlSession.insert("cafeMapper.updateCafe", memberNo);
+	}
 }

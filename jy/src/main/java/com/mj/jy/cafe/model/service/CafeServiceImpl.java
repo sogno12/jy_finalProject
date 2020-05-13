@@ -1,5 +1,7 @@
 package com.mj.jy.cafe.model.service;
 
+import java.util.List;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -24,5 +26,21 @@ public class CafeServiceImpl implements CafeService{
 		
 		return caDao.insertMenu(sqlSession, m);
 	}
+
+	/**
+	 * 주문 리스트 조회
+	 */
+	@Override
+	public List<Menu> selectCafe(int memberNo) {
+		return caDao.selectCafe(sqlSession, memberNo);
+	}
+
+	@Override
+	public int updateCafe(int memberNo) {
+		return caDao.updateCafe(sqlSession, memberNo);
+	}
+	
+	
+	
 
 }

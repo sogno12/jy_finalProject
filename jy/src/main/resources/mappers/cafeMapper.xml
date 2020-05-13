@@ -19,4 +19,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	
 	</insert>
 
+	<select id="selectCafe" resultMap="cafeResultSet">
+	SELECT *
+	FROM MENU
+	WHERE MEMBER_NO=#{memberNo} AND STATUS='N'
+	</select>
+	
+	<update id="updateCafe" parameterType="Menu">
+	 UPDATE MENU
+	 SET STATUS='Y'
+	 WHERE MEMBER_NO=#{memberNo}
+	</update>
 </mapper>

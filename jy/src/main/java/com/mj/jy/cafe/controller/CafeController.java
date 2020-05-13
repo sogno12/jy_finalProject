@@ -1,10 +1,14 @@
 package com.mj.jy.cafe.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.google.gson.Gson;
 import com.mj.jy.cafe.model.service.CafeService;
 import com.mj.jy.cafe.model.vo.Menu;
 
@@ -305,7 +309,26 @@ public class CafeController {
 			}
 		}
 	
+	@ResponseBody
+	@RequestMapping(value="selectCafe.ca", produces="application/json; charset=utf-8")
+	public String selectCafe(int memberNo) {
+		
+		List<Menu> selectCafe = caService.selectCafe(memberNo);
+		
+		return new Gson().toJson(selectCafe);
+	}
 	
+	@RequestMapping("insertCafe.ca")
+	public String updateCafe(int memberNo) {
+		
+		int result = caService.updateCafe(memberNo);
+		
+		if(result > 0) {
+			return "convenience/cafe/cafeteria";
+		}else {
+			return "common/errorPage";
+		}
+	}
 	
 	
 	

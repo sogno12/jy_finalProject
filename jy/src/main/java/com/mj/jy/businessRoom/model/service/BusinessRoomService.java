@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import com.mj.jy.businessRoom.model.vo.BusinessDTO;
 import com.mj.jy.businessRoom.model.vo.BusinessRoom;
+import com.mj.jy.namecard.model.vo.PageInfo;
 
 
 public interface BusinessRoomService {
@@ -39,6 +40,7 @@ public interface BusinessRoomService {
 	
 	// 회의실 업데이트
 	int broomUpdate(int meetingNo);
+	
 	
 	
 }

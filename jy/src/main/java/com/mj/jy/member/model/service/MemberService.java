@@ -28,10 +28,17 @@ public interface MemberService {
 	int updateMember(MemberDto m);
 	
 	// 부서별 주소록
-	ArrayList<Member> selectListDept();
+	ArrayList<Member> selectListDept(PageInfo pi);
 	
 	// 직급별 주소록
-	ArrayList<Member> selectListPos();
+	ArrayList<Member> selectListPos(PageInfo pi);
+	
+	// 수신자 검색
+	ArrayList<MemberDto> receiverList();
+	
+	//페이지 수 
+	int getListCount();
+
 
 	/** sujin1.
 	 * @param departmentNo 로그인 유저 부서번호

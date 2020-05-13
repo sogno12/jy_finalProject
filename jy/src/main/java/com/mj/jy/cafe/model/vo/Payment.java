@@ -5,16 +5,27 @@ public class Payment {
 	private int paymentNo;
 	private String status;
 	private String statusDate;
+	private String money;
+	
 	
 	public Payment() {
 		
 	}
 
-	public Payment(int paymentNo, String status, String statusDate) {
+	public Payment(int paymentNo, String status, String statusDate, String money) {
 		super();
 		this.paymentNo = paymentNo;
 		this.status = status;
 		this.statusDate = statusDate;
+		this.money = money;
+	}
+
+	public String getMoney() {
+		return money;
+	}
+
+	public void setMoney(String money) {
+		this.money = money;
 	}
 
 	public int getPaymentNo() {
@@ -43,7 +54,8 @@ public class Payment {
 
 	@Override
 	public String toString() {
-		return "Payment [paymentNo=" + paymentNo + ", status=" + status + ", statusDate=" + statusDate + "]";
+		return "Payment [paymentNo=" + paymentNo + ", status=" + status + ", statusDate=" + statusDate + ",money=" +
+	money + "]";
 	}
 	
 

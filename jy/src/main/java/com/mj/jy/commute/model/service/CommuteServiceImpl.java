@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.mj.jy.commute.model.dao.CommuteDao;
 import com.mj.jy.commute.model.vo.CommuteDto;
+import com.mj.jy.commute.model.vo.CommuteViewDto;
 
 
 @Service("cService")
@@ -20,4 +21,21 @@ public class CommuteServiceImpl implements CommuteService {
 	public ArrayList<CommuteDto> selectCommuteList() {
 		return cDao.selectCommuteList();
 	}
+
+	@Override
+	public int insertCommute(CommuteDto c) {
+		return cDao.insertCommute(c);
+}
+
+	@Override
+	public CommuteViewDto selectClock(String empNo) {
+		return cDao.selectClock(empNo);
+	}
+
+	@Override
+	public int insertquit(CommuteDto c) {
+		return cDao.insertquit(c);
+	}
+	
+	
 }

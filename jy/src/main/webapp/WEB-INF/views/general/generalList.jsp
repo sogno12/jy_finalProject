@@ -91,6 +91,45 @@
                                 </div>
                             </div>
                         </div> 
+                        <div id="pagingArea">
+				                <ul class="pagination">
+				                   <c:choose>
+				                		<c:when test="${ pb.currentPage eq 1 }">
+					                    	<li class="badge badge-light disabled"><a class="page-link" href="">Previous</a></li>
+				                		</c:when>
+				                		<c:otherwise>
+				                			<li class="badge badge-light"><a class="page-link" href="generalList.ge?bcurrentPage=${ pb.currentPage-1 }&ncurrentPage=${ pn.currentPage }">Previous</a></li>
+				                		</c:otherwise>
+				                	</c:choose>
+				                    
+				                    <%-- <% for(int p=startPage; p<=endPage; p++) %> --%>
+				                    <c:forEach begin="${ pb.startPage }" end="${ pb.endPage }" var="p"> 
+				                    	
+				                    	<c:choose>
+				                    		<c:when test="${ pb.currentPage ne p }">
+				                    			<li class="badge badge-light"><a class="page-link" href="generalList.ge?bcurrentPage=${ p }&ncurrentPage=${ pn.currentPage }">${ p }</a></li>
+				                    		</c:when>
+				                    		<c:otherwise>
+				                    			<li class="badge badge-light disabled"><a class="page-link" href="">${ p }</a></li>
+				                    		</c:otherwise>
+				                    	</c:choose>
+				                    	
+				                    </c:forEach>
+				                    
+				                    <c:choose>
+				                    	<c:when test="${ pb.currentPage eq pb.maxPage }">
+				                    		<li class="badge badge-light disabled"><a class="page-link" href="">Next</a></li>
+				                    	</c:when>
+				                    	<c:otherwise>
+					                    	<li class="badge badge-light"><a class="page-link" href="generalList.ge?currentPage=${pb.currentPage+1}&ncurrentPage=${ pn.currentPage }">Next</a></li>
+				                    	</c:otherwise>
+				                    </c:choose>
+				                </ul>
+				            </div>
+                        
+                        
+                        
+                        
                         </div>
                         
                         <script>
@@ -109,6 +148,8 @@
                         			url:"broomUpdate.br",
                         			data:{meetingNo:meetingNo},
                         			success:function(){
+                        				
+                        				confirm("승인하시겠습니까?");
                         				$(tar).parent().text("승인");
                         				
                         			},error:function(){
@@ -238,6 +279,45 @@
                                     </div>
                                 </div>
                             </div> 
+                            <div id="pagingArea">
+				                <ul class="pagination">
+				                   <c:choose>
+				                		<c:when test="${ pn.currentPage eq 1 }">
+					                    	<li class="badge badge-light disabled"><a class="page-link" href="">Previous</a></li>
+				                		</c:when>
+				                		<c:otherwise>
+				                			<li class="badge badge-light"><a class="page-link" href="generalList.ge?ncurrentPage=${ pn.currentPage-1 }&bcurrentPage=${ pb.currentPage }">Previous</a></li>
+				                		</c:otherwise>
+				                	</c:choose>
+				                    
+				                    <%-- <% for(int p=startPage; p<=endPage; p++) %> --%>
+				                    <c:forEach begin="${ pn.startPage }" end="${ pn.endPage }" var="p"> 
+				                    	
+				                    	<c:choose>
+				                    		<c:when test="${ pn.currentPage ne p }">
+				                    			<li class="badge badge-light"><a class="page-link" href="generalList.ge?ncurrentPage=${ p }&bcurrentPage=${ pb.currentPage }">${ p }</a></li>
+				                    		</c:when>
+				                    		<c:otherwise>
+				                    			<li class="badge badge-light disabled"><a class="page-link" href="">${ p }</a></li>
+				                    		</c:otherwise>
+				                    	</c:choose>
+				                    	
+				                    </c:forEach>
+				                    
+				                    <c:choose>
+				                    	<c:when test="${ pn.currentPage eq pn.maxPage }">
+				                    		<li class="badge badge-light disabled"><a class="page-link" href="">Next</a></li>
+				                    	</c:when>
+				                    	<c:otherwise>
+					                    	<li class="badge badge-light"><a class="page-link" href="generalList.ge?ncurrentPage=${pn.currentPage+1}&bcurrentPage=${ pb.currentPage }">Next</a></li>
+				                    	</c:otherwise>
+				                    </c:choose>
+				                </ul>
+				            </div>
+                            
+                            
+                            
+                            
                             </div>
                             
                             <script>
@@ -297,6 +377,7 @@
                             			data:{namecardNo:namecardNo},
                             			success:function(){
                             				
+                            				confirm("승인하시겠습니까?");
                             				$(tar).parent().text("승인");
                             				console.log("성공");
                             				
@@ -415,11 +496,7 @@
             theme: 'snow'
         });
 
-        $(function(){
-            $(".submitbtn").click(function(){
-                confirm("승인하시겠습니까?");
-            });
-        });
+       
     </script>
 	
 

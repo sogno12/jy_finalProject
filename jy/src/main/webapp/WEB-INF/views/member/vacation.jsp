@@ -56,7 +56,7 @@
                             <!-- Nav tabs -->
                             <ul class="nav nav-tabs" role="tablist">
                                 <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#home" role="tab"><span class="hidden-sm-up"></span> <span class="hidden-xs-down">연차</span></a> </li>
-                                <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#profile" role="tab"><span class="hidden-sm-up"></span> <span class="hidden-xs-down">사용한 연차</span></a> </li>
+                                <li class="nav-item"> <a class="nav-link" id="leaveList" data-toggle="tab" href="#profile" role="tab"><span class="hidden-sm-up"></span> <span class="hidden-xs-down">사용한 연차</span></a> </li>
                                 
                             </ul>
                             <!-- Tab panes -->
@@ -72,21 +72,25 @@
                                                   <tbody>
                                                     <tr>
                                                       <th scope="row" style="padding-left: 100px;">이름</th>
-                                                      <td style="padding-left: 100px;">이요한</td>
+                                                      <td style="padding-left: 100px;">${lv.name }</td>
                                                     
                                                     </tr>
                                                     <tr>
                                                       <th scope="row" style="padding-left: 100px;">부서</th>
-                                                      <td style="padding-left: 100px;">인사과</td>
+                                                      <td style="padding-left: 100px;">${lv.department }</td>
                                                      
+                                                    </tr>
+                                                     <tr>
+                                                        <th scope="row" style="padding-left: 100px;">년도</th>
+                                                        <td style="padding-left: 100px;">${lv.leaveYear }</td>
                                                     </tr>
                                                     <tr>
                                                         <th scope="row" style="padding-left: 100px;">지급된 연차</th>
-                                                        <td style="padding-left: 100px;">40일</td>
+                                                        <td style="padding-left: 100px;">${lv.givenDay }&nbsp;일</td>
                                                     </tr>
                                                     <tr>
                                                         <th scope="row" style="padding-left: 100px;">남은 연차</th>
-                                                        <td style="padding-left: 100px;">30일</td>
+                                                        <td style="padding-left: 100px;">${lv.leftDay }&nbsp;일</td>
                                                     </tr>
                                                     <tr>
                                                         <th scope="row" style="padding-left: 100px;">연차신청</th>
@@ -100,6 +104,7 @@
                                     </div>
                                 </div>
                                 <div class="tab-pane  p-20" id="profile" role="tabpanel">
+                                	
                                     <div class="p-20" style="padding-top: 0px;padding-left: 0px;padding-bottom: 0px;padding-right: 0px;">
                  
                                         <p>
@@ -117,63 +122,52 @@
                                                     <th>결재 날짜</th>
                                                 </strong>
                                                 </tr>
+                                             
+                                             <c:forEach items="${ llist }" var="l">
                                                 <tr>
-                                                    <td style="padding-left: 100px;">02/04/2019~02/06/2019</td>
-                                                    <td style="padding-right: 100px;">3일</td>
-                                                    <td style="padding-right: 300px;">아파서 그랬어요</td>
-                                                    <td>02/04/2019</td>
+                                                    <td style="padding-left: 100px;">${l.beginDate } ~ ${l.endDate }</td>
+                                                    <td style="padding-right: 100px;">${l.days }일</td>
+                                                    <td style="padding-right: 300px;">${l.content }</td>
+                                                    <td>${l.date }</td>
+                                                 
                                                 </tr>
-                                                <tr>
-                                                    <td style="padding-left: 100px;">02/04/2019~02/06/2019</td>
-                                                    <td style="padding-right: 100px;">3일</td>
-                                                    <td style="padding-right: 300px;">아파서 그랬어요</td>
-                                                    <td>02/04/2019</td>
-                                                </tr>
-                                                <tr>
-                                                    <td style="padding-left: 100px;">02/04/2019~02/06/2019</td>
-                                                    <td style="padding-right: 100px;">3일</td>
-                                                    <td style="padding-right: 300px;">아파서 그랬어요</td>
-                                                    <td>02/04/2019</td>
-                                                </tr>
-                                                <tr>
-                                                    <td style="padding-left: 100px;">02/04/2019~02/06/2019</td>
-                                                    <td style="padding-right: 100px;">3일</td>
-                                                    <td style="padding-right: 300px;">아파서 그랬어요</td>
-                                                    <td>02/04/2019</td>
-                                                </tr>
-                                                <tr>
-                                                    <td style="padding-left: 100px;">02/04/2019~02/06/2019</td>
-                                                    <td style="padding-right: 100px;">3일</td>
-                                                    <td style="padding-right: 300px;">아파서 그랬어요</td>
-                                                    <td>02/04/2019</td>
-                                                </tr>
-                                                <tr>
-                                                    <td style="padding-left: 100px;">02/04/2019~02/06/2019</td>
-                                                    <td style="padding-right: 100px;">3일</td>
-                                                    <td style="padding-right: 300px;">아파서 그랬어요</td>
-                                                    <td>02/04/2019</td>
-                                                </tr>
-                                                <tr>
-                                                    <td style="padding-left: 100px;">02/04/2019~02/06/2019</td>
-                                                    <td style="padding-right: 100px;">3일</td>
-                                                    <td style="padding-right: 300px;">아파서 그랬어요</td>
-                                                    <td>02/04/2019</td>
-                                                </tr>
-                                                <tr>
-                                                    <td style="padding-left: 100px;">02/04/2019~02/06/2019</td>
-                                                    <td style="padding-right: 100px;">3일</td>
-                                                    <td style="padding-right: 300px;">아파서 그랬어요</td>
-                                                    <td>02/04/2019</td>
-                                                </tr>
+                                                </c:forEach>
+                                               
                                             </tbody>
                                             </table>
-                                            <ul style="margin-left: 35%;" class="pagination">
+                                            
+                                 <ul style="margin-left: 35%;" class="pagination">
+                                   <c:choose>
+                					<c:when test="${ pi.currentPage eq 1 }">
                                                 <li class="paginate_button page-item previous disabled" id="zero_config_previous"><a href="#" aria-controls="zero_config" data-dt-idx="0" tabindex="0" class="page-link">Previous</a></li>
-                                                <li class="paginate_button page-item active"><a href="#" aria-controls="zero_config" data-dt-idx="1" tabindex="0" class="page-link">1</a></li><li class="paginate_button page-item "><a href="#" aria-controls="zero_config" data-dt-idx="2" tabindex="0" class="page-link">2</a></li>
-                                                <li class="paginate_button page-item "><a href="#" aria-controls="zero_config" data-dt-idx="3" tabindex="0" class="page-link">3</a></li><li class="paginate_button page-item "><a href="#" aria-controls="zero_config" data-dt-idx="4" tabindex="0" class="page-link">4</a></li>
-                                                <li class="paginate_button page-item "><a href="#" aria-controls="zero_config" data-dt-idx="5" tabindex="0" class="page-link">5</a></li>
-                                                <li class="paginate_button page-item "><a href="#" aria-controls="zero_config" data-dt-idx="6" tabindex="0" class="page-link">6</a></li>
-                                                <li class="paginate_button page-item next" id="zero_config_next"><a href="#" aria-controls="zero_config" data-dt-idx="7" tabindex="0" class="page-link">Next</a></li>
+                                  	</c:when>
+                					<c:otherwise>
+                                                <li class="paginate_button page-item previous disabled" id="zero_config_previous"><a href="leave.lv?currentPage=${ pi.currentPage-1 }" aria-controls="zero_config" data-dt-idx="0" tabindex="0" class="page-link">Previous</a></li>
+                                         </c:otherwise>
+                                   </c:choose>
+                                   
+                                    <c:forEach begin="${ pi.startPage }" end="${ pi.endPage }" var="p"> 
+                                 
+                                    <c:choose>
+                    				<c:when test="${ pi.currentPage ne p }">
+                                                <li class="paginate_button page-item active"><a href="leave.lv?currentPage=${ p }" aria-controls="zero_config" data-dt-idx="1" tabindex="0" class="page-link">${ p }</a></li>
+                                    	</c:when>
+                    				<c:otherwise>
+                                                <li class="paginate_button page-item "><a href="" aria-controls="zero_config" data-dt-idx="3" tabindex="0" class="page-link">${ p }</a></li>
+                                    </c:otherwise>
+                                    </c:choose>
+                                    
+                                    </c:forEach>
+                                    
+                                    <c:choose>
+                                       	<c:when test="${ pi.currentPage eq pi.maxPage }">     										
+                                                <li class="paginate_button page-item next" id="zero_config_next"><a href="" aria-controls="zero_config" data-dt-idx="7" tabindex="0" class="page-link">Next</a></li>
+                                        </c:when>
+                                        <c:otherwise>
+                                        	   
+                                                <li class="paginate_button page-item next" id="zero_config_next"><a href="leave.lv?currentPage=${pi.currentPage + 1 }" aria-controls="zero_config" data-dt-idx="7" tabindex="0" class="page-link">Next</a></li>
+                                        </c:otherwise>
+                                        </c:choose>
                                             </ul>
                                         </p>
                                     </div>
@@ -198,6 +192,7 @@
 		<jsp:include page="../common/footer.jsp"/>
 		</div>
 	</div>
+	
 
 </body>
 </html>
