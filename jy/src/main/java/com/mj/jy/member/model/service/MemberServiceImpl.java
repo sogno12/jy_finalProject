@@ -56,17 +56,17 @@ public class MemberServiceImpl implements MemberService {
 	
 	// 부서별 주소록
 	@Override
-	public ArrayList<Member> selectListDept(PageInfo pi) {
-		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
-		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+	public ArrayList<Member> selectListDept(PageInfo pi1) {
+		int offset = (pi1.getCurrentPage() - 1) * pi1.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi1.getBoardLimit());
 		return mDao.selectListDept(rowBounds);
 	}
 
 	// 직급별 주소록
 	@Override
-	public ArrayList<Member> selectListPos(PageInfo pi) {
-		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
-		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+	public ArrayList<Member> selectListPos(PageInfo pi2) {
+		int offset = (pi2.getCurrentPage() - 1) * pi2.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi2.getBoardLimit());
 		return mDao.selectListPos(rowBounds);
 	}
 
@@ -97,5 +97,21 @@ public class MemberServiceImpl implements MemberService {
 	public int getCountDeptMember(int departmentNo) {
 		return mDao.getCountDeptMember(departmentNo);
 	}
+
+	@Override
+	public int findMemberNo(Member mem) {
+		// TODO Auto-generated method stub
+		return mDao.findMemberNo(mem);
+	}
+
+
+
+	
+
+
+
+
+	
+
 
 }

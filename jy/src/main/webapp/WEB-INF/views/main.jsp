@@ -43,7 +43,9 @@
 	                <!-- Column -->
 	                <div class="col-md-6 col-lg-2 col-xlg-3">
 	                    <div class="card card-hover">
-	                        <div class="box bg-cyan text-center" style="cursor: pointer;" onclick="location.href='myInfo.me';">
+
+	                        <div class="box bg-cyan text-center" style="cursor: pointer;"onclick="window.location.href='myInfo.me'">
+
 	                            <h1 class="font-light text-white"><i class="mdi mdi-account-card-details"></i></h1>
 	                            <h6 class="text-white">내 정보</h6>
 	                        </div>
@@ -70,7 +72,7 @@
 	                <!-- Column -->
 	                <div class="col-md-6 col-lg-2 col-xlg-3">
 	                    <div class="card card-hover">
-	                        <div class="box bg-danger text-center" style="cursor: pointer;" onclick="goToWork();">
+	                        <div class="box bg-danger text-center" style="cursor: pointer;" onclick="window.location.href='commute.me'">
 	                            <h1 class="font-light text-white"><i class="mdi mdi-tie"></i></h1>
 	                            <h6 class="text-white">출근</h6>
 	                        </div>
@@ -79,7 +81,7 @@
 	                <!-- Column -->
 	                <div class="col-md-6 col-lg-2 col-xlg-3">
 	                    <div class="card card-hover">
-	                        <div class="box bg-info text-center" style="cursor: pointer;" onclick="leaveWork();">
+	                        <div class="box bg-info text-center" style="cursor: pointer;" onclick="window.location.href='commute.me'">
 	                            <h1 class="font-light text-white"><i class="mdi mdi-heart-outline"></i></h1>
 	                            <h6 class="text-white">퇴근</h6>
 	                        </div>

@@ -24,6 +24,7 @@ public interface MemberDao {
 	ArrayList<MemberDto> receiverList();
 	List<MemberDto> getListDept(int departmentNo, RowBounds rowBounds);
 	int getCountDeptMember(int departmentNo);
+	int findMemberNo(Member mem);
   
 	/*
 	 * package com.mj.jy.member.model.dao;

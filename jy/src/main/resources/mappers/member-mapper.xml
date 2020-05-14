@@ -138,7 +138,11 @@
 		JOIN POSITION P ON P.POSITION_NO = M.POSITION_NO
 		WHERE STATUS = 'Y' AND M.DEPARTMENT_NO = #{departmentNo}
 		ORDER BY M.POSITION_NO
+	</select>
 	
-
+	<select id="findMemberNo"  resultType="int">	
+		SELECT MEMBER_NO
+		FROM MEMBER
+		WHERE EMP_NO = #{empNo}
 	</select>
 </mapper>

@@ -6,9 +6,36 @@
 	INSERT INTO ATTACHMENT VALUES(SEQ_ATT.NEXTVAL, SYSDATE, #{originName}, #{updateName}, #{folderNo})
 	</insert>
 	
-	<insert id="insertMessage" parameterType="Messenger">
+	<insert id="insertMessage1" parameterType="Messenger">
+	INSERT INTO MESSENGER (MESSAGE_NO, ATTACHMENT_NO, SENDER_NO, RECEIVER_NO, TITLE, SEND_TIME, CONTENT, STATUS) 
+		VALUES(SEQ_MES.NEXTVAL,NULL, #{senderNo}, #{receiverNo}, #{title}, SYSDATE, #{content}, 'Y')
+	</insert>
+	
+	<insert id="insertMessage2" parameterType="Messenger">
 	INSERT INTO MESSENGER (MESSAGE_NO, ATTACHMENT_NO, SENDER_NO, RECEIVER_NO, TITLE, SEND_TIME, CONTENT, STATUS) 
 		VALUES(SEQ_MES.NEXTVAL, SEQ_ATT.CURRVAL, #{senderNo}, #{receiverNo}, #{title}, SYSDATE, #{content}, 'Y')
 	</insert>
+	
+	<select id="selectMgList" resultType="Messenger">	
+	SELECT MESSAGE_NO,M.NAME AS name, D.NAME AS departmentName ,MEMBER_NO,TITLE, SEND_TIME, RECEIVE_TIME, CONTENT, ORIGIN_NAME, UPDATE_NAME
+        FROM MESSENGER S
+        JOIN MEMBER M ON S.SENDER_NO = M.EMP_NO
+        JOIN DEPARTMENT D ON M.DEPARTMENT_NO = D.DEPARTMENT_NO
+        LEFT JOIN ATTACHMENT A ON S.ATTACHMENT_NO =  A.ATTACHMENT_NO
+        WHERE RECEIVER_NO = #{empNo} AND S.STATUS= 'Y'
+        ORDER BY RECEIVE_TIME DESC
+	</select>
+	
+	<update id="readMessage" parameterType="Messenger">
+		UPDATE MESSENGER
+		SET RECEIVE_TIME = #{receiveTime}
+		WHERE MESSAGE_NO = #{messageNo}
+	</update>
+	
+	<update id="deleteMessage" parameterType="Messenger">
+		UPDATE MESSENGER
+		SET STATUS = 'N'
+		WHERE MESSAGE_NO = #{msgNo}
+	</update>
 	
 </mapper>

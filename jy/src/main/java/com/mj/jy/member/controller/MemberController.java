@@ -6,8 +6,6 @@ import java.util.ArrayList;
 
 import javax.servlet.http.HttpSession;
 
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -15,15 +13,15 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
 import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.mj.jy.alarm.model.service.AppAlarmService;
-
 import com.mj.jy.member.model.service.MemberService;
 import com.mj.jy.member.model.vo.Member;
 import com.mj.jy.member.model.vo.MemberDto;
+import com.mj.jy.messenger.model.service.MessengerService;
+import com.mj.jy.messenger.model.vo.Messenger;
 import com.mj.jy.namecard.model.vo.PageInfo;
 import com.mj.jy.namecard.model.vo.Pagination;
 
@@ -32,6 +30,8 @@ public class MemberController {
 
 	@Autowired
 	private MemberService mService;
+	@Autowired
+	private MessengerService mgService;
 	@Autowired
 	private BCryptPasswordEncoder bcryptPasswordEncoder;
 	@Autowired
@@ -187,22 +187,30 @@ public class MemberController {
 		
 		int listCount = mService.getListCount();
 		
-		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 5);
+		PageInfo pi1 = Pagination.getPageInfo(listCount, currentPage, 10, 5);
+		PageInfo pi2 = Pagination.getPageInfo(listCount, currentPage, 10, 5);
 		
-		ArrayList<Member> listDept = mService.selectListDept(pi);
-		ArrayList<Member> listPos = mService.selectListPos(pi);
+		ArrayList<Member> listDept = mService.selectListDept(pi1);
+		ArrayList<Member> listPos = mService.selectListPos(pi2);
 		
 		model.addAttribute("listDept",listDept);
 		model.addAttribute("listPos",listPos);
-		model.addAttribute("pi", pi);
+		model.addAttribute("pi1", pi1);
+		model.addAttribute("pi2", pi2);
 		
 		return "member/addressBook";
 	}
 	
 	// 쪽지
 	@RequestMapping("messenger.me")
-	public String messenger(Model model) {	
+	public String messenger(@SessionAttribute("loginUser") MemberDto loginUser, Model model) {	
 	   
+		String empNo = loginUser.getEmpNo();
+		
+		ArrayList<Messenger> list = mgService.selectMgList(empNo);
+		
+		model.addAttribute("list" , list);
+		
 		return "member/messenger";
 	}
 	
