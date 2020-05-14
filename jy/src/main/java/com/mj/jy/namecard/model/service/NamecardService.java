@@ -24,4 +24,7 @@ public interface NamecardService {
 	int getBroomListCount();
 	
 	ArrayList<BusinessDTO> selectBroomList(PageInfo pi);
+
+	// 명함 알람 업데이트
+	int updateNameAlarm(int namecardNo);
 }

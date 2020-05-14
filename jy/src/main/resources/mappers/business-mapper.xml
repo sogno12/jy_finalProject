@@ -20,8 +20,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</select>
 	
 	<insert id="insertBroom" parameterType="BusinessDTO">
+		<selectKey keyProperty="meetingNo" resultType="_int" order="BEFORE">
+			select SEQ_MET.nextval From dual
+		</selectKey> 
 		INSERT INTO BUSINESS_ROOM
-		VALUES(SEQ_MET.NEXTVAL, #{memberNo}, #{roomNo}, #{time}, sysdate, #{hopeDate}, null, #{count}, default)
+		VALUES(#{meetingNo}, #{memberNo}, #{roomNo}, #{time}, sysdate, #{hopeDate}, null, #{count}, default)
 	</insert>
 	
 	<select id="selectBroomList" resultType="BusinessDTO">
@@ -36,6 +39,12 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		SET STATUS_DATE=SYSDATE,
 			STATUS='Y'
 		WHERE MEETING_NO=#{meetingNo}	
+	</update>
+	
+	<update id="updateBroomAlarm" parameterType="_int">
+	 UPDATE Alarm
+	 SET STATUS='N'
+	 WHERE SENDER_NO=#{meetindNo}
 	</update>
 	
 

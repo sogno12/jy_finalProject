@@ -14,8 +14,11 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 	</resultMap>
 
 	<insert id="insertNamecard" parameterType="Namecard">
+		<selectKey keyProperty="namecardNo" resultType="_int" order="BEFORE">
+			select seq_nac.nextval From dual
+		</selectKey> 
 		insert into namecard
-		values(seq_nac.nextval, #{memberNo}, #{contentType}, SYSDATE, default, default)
+		values(#{namecardNo}, #{memberNo}, #{contentType}, SYSDATE, default, default)
 	</insert>
 
 	<select id="getNameListCount" resultType="_int">
@@ -48,4 +51,10 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		JOIN BUSINESS_INFO USING(ROOM_NO)
 		JOIN TIME USING(TIME)
 	</select>
+	
+	<update id="updateNameAlarm" parameterType="_int">
+	 UPDATE Alarm
+	 SET STATUS='N'
+	 WHERE SENDER_NO=#{namecardNo}
+	</update>
 </mapper>

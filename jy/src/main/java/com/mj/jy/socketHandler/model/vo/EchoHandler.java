@@ -108,9 +108,11 @@ public class EchoHandler extends TextWebSocketHandler {
 				String cmd = strs[0];
 				String receiverEmpNo = strs[1];
 			
+				
 				WebSocketSession receiverSession = userSessionsMap.get(receiverEmpNo);
 				
 				try {
+					
 					TextMessage tmpMsg = new TextMessage(cmd);
 					
 					receiverSession.sendMessage(tmpMsg);

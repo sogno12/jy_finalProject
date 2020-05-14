@@ -372,7 +372,7 @@
         });
          
         function connectWs(){
-        	sock = new WebSocket("ws:localhost:9999/jy/echo/websocket");
+        	sock = new WebSocket("ws://localhost:"+location.port+"/jy/echo/websocket");
         	console.log("함수실행");
         	socket = sock;
         	
@@ -380,7 +380,7 @@
    				// alert(cmd.data);
    				if(cmd.data == 0){
    					//alert('알림갯수 함수 실행');
-   					readAlarms();
+   					readAlarms(); 
    				} else if(cmd.data == 5) {
    					alert("결재서가 갱신되었습니다.");	
    				} else if(cmd.data == 6){
