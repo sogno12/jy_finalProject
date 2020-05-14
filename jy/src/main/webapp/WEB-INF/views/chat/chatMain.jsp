@@ -11,7 +11,7 @@
 <body>
 
 	
-	    <div id="main-wrapper">
+	<div id="main-wrapper">
 		
 		<jsp:include page="../common/navigator.jsp"/>
         
@@ -307,6 +307,7 @@
         <!-- ============================================================== -->
         <!-- End Page wrapper  -->
         <!-- ============================================================== -->
+    </div>
     </div>
 
 </body>
