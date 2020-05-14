@@ -23,12 +23,6 @@ public class MemberServiceImpl implements MemberService {
 	public MemberDto loginMember(MemberDto m) {
 		return mDao.loginMember(m);
 	}
-	
-	// 비밀번호 찾기 서비스
-	@Override
-	public String searchPwd(String empNo) {
-		return mDao.searchPwd(empNo);
-	}
 
 	// 인사 카드 등록 서비스
 	@Override
