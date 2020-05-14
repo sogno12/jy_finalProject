@@ -115,7 +115,7 @@
 	                                            </div>
 	                                        </a>
 	                                        <!-- 쪽지 -->
-	                                        <a href="javascript:void(0)" class="link border-top">
+	                                        <a href="messenger.me" class="link border-top">
 	                                            <div class="d-flex no-block align-items-center p-10">
 	                                                <span class="btn btn-info btn-circle"><i class="fas fa-comment-alt"></i></span>
 	                                                <div class="m-l-10">
