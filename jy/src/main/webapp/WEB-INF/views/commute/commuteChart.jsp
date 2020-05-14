@@ -71,6 +71,6 @@
 	</div>
 	
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
-	<script src="${ pageContext.servletContext.contextPath }/resources/assets/chart-bar-demo.js"></script>
+	<script src="${ pageContext.servletContext.contextPath }/resources/assets/libs/chart/chart-bar-demo.js"></script>
 </body>
 </html>
