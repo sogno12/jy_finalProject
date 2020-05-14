@@ -8,7 +8,7 @@ public class LeaveDto {
 	public String name;
 	public String department;
 	private int leavedaysYear;
-	private String empNo;
+	private int empNo;
 	private int givenDays;
 	private int leftDays;
 	private int vacationcount;
@@ -19,7 +19,7 @@ public class LeaveDto {
 	}
 	
 	
-	public LeaveDto(String name, String department, int leaveYear, String empNo, int givenDay, int leftDay,
+	public LeaveDto(String name, String department, int leaveYear, int empNo, int givenDay, int leftDay,
 			int vacationcount) {
 		super();
 		this.name = name;
@@ -48,10 +48,10 @@ public class LeaveDto {
 	public void setLeaveYear(int leavedaysYear) {
 		this.leavedaysYear = leavedaysYear;
 	}
-	public String getEmpNo() {
+	public int getEmpNo() {
 		return empNo;
 	}
-	public void setEmpNo(String empNo) {
+	public void setEmpNo(int empNo) {
 		this.empNo = empNo;
 	}
 	public int getGivenDay() {

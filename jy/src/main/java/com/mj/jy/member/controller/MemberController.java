@@ -209,7 +209,16 @@ public class MemberController {
 		
 		ArrayList<Messenger> list = mgService.selectMgList(empNo);
 		
+		
+		Member mem = new Member();
+		mem.setEmpNo(empNo);
+	 	
+	 	int recieverNo = mService.findMemberNo(mem);
+	 	
+		mgService.readDone(recieverNo);
 		model.addAttribute("list" , list);
+		
+		
 		
 		return "member/messenger";
 	}
