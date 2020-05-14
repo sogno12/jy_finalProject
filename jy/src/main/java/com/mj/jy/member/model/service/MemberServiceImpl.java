@@ -23,7 +23,7 @@ public class MemberServiceImpl implements MemberService {
 	public MemberDto loginMember(MemberDto m) {
 		return mDao.loginMember(m);
 	}
-
+  
 	// 인사 카드 등록 서비스
 	@Override
 	public int insertMember(Member m) {

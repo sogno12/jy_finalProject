@@ -222,6 +222,7 @@
 			type:"post",
 			success: function(c){
 	
+				console.log(c);
 				var valueT="";
 				var valueM = "";
 				var valueD = "";

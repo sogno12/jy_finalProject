@@ -28,18 +28,17 @@ public class LeaveController {
 	// 나의 휴가조회
 	@RequestMapping("leave.lv")
 	public String selectLeave(HttpSession session, Model model,@RequestParam(value="currentPage", required=false, defaultValue="1") int currentPage) {
-		String empNo = ((MemberDto)session.getAttribute("loginUser")).getEmpNo();
+		int empNo = ((MemberDto)session.getAttribute("loginUser")).getMemberNo();
 		
 		LeaveDto lv = lService.selectMyLeave(empNo);
-		
-		int listCount = lService.getListCount();
-		currentPage = 0;
-		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 5);
-		ArrayList<LeaveListDto> llist = lService.selectLeaveList(empNo,pi);
-		
 		lv.setEmpNo(empNo);
+		
+		
+		ArrayList<LeaveListDto> llist = lService.selectLeaveList(empNo);
+		
+		
+		
 		model.addAttribute("lv", lv);
-		model.addAttribute("pi", pi);
 		model.addAttribute("llist", llist);
 		
 		return "member/vacation";
