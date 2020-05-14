@@ -160,7 +160,7 @@ public class ApprovalServiceImpl implements ApprovalService {
 				// 4_2. 새 상위결재자에게 알람
 				int theFindSuper = theFindeSuper(superApprovalDto);
 				appAlarmService.countAppAlarm(theFindSuper);
-				appAlarmService.noticeAppAlarm(theFindSuper, "5");
+				appAlarmService.noticeAppAlarm(theFindSuper, "6");
 			}else { // 4. 상위결재자가 없으면 휴가서의 경우 휴가 날짜 빼주기
 				ReportDto reportDto = getOneReport(superApprovalDto.getReportNo());
 				
@@ -223,7 +223,7 @@ public class ApprovalServiceImpl implements ApprovalService {
 				// 4_2. 새 상위결재자에게 알람
 				int theFindSuper = theFindeSuper(superApprovalDto);
 				appAlarmService.countAppAlarm(theFindSuper);
-				appAlarmService.noticeAppAlarm(theFindSuper, "5");
+				appAlarmService.noticeAppAlarm(theFindSuper, "6");
 			}
 		}
 			
