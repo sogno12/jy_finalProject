@@ -14,6 +14,7 @@ import com.google.gson.Gson;
 import com.mj.jy.common.model.service.MainService;
 import com.mj.jy.todolist.model.vo.TodoList;
 
+
 @Controller
 public class MainController {
 
@@ -23,7 +24,7 @@ public class MainController {
 	// 메인화면(공지사항, 결재 진행사항, todolist)
 	@RequestMapping("main.do")
 	public String goMain(Model model) {
-		
+
 		return "main";
 	}
 	

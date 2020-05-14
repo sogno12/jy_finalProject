@@ -182,11 +182,8 @@
 	                            <h4 class="card-title"><i class="mdi mdi-border-color">To Do List<a href="javascript:void(0)" data-toggle="modal" data-target="#add-new-todo" class="m-l-20" style="color: palevioletred;">+</a></i></h4>
 	                            <div class="todo-widget scrollable" style="height:450px;" id="todoArea">
 	                                <ul class="list-task todo-list list-group m-b-0" data-role="tasklist">
-
-										
-										
-
-									</ul>
+       
+									                 </ul>
 	                            </div>
 	                        </div>
 	                    </div>

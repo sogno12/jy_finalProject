@@ -88,7 +88,7 @@ public class ScheduleController {
 	// 일정 수정
 	@RequestMapping("update.sc")
 	public String updateSchedule(Schedule event) {
-		
+
 		// System.out.println(event);
 		
 		int result = scService.updateSchedule(event);
@@ -110,6 +110,5 @@ public class ScheduleController {
 		
 		return "";
 	}
-
 	
 }

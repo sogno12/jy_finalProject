@@ -75,4 +75,14 @@
 		VALUES (SEQ_CIR_LIST.nextval, #{circularNo}, #{memberNo}, DEFAULT)
 	</insert>
 	
+	<select id="needRadingList" parameterType="circularDto" resultType="Reading">
+		SELECT M.MEMBER_NO, M.NAME, D.NAME "DE_NAME"
+		FROM MEMBER M
+		JOIN DEPARTMENT D ON M.DEPARTMENT_NO=D.DEPARTMENT_NO 
+		<if test="target != 0">
+		WHERE M.DEPARTMENT_NO = #{target}
+		</if>
+		ORDER BY M.POSITION_NO
+	</select>
+	
 </mapper>

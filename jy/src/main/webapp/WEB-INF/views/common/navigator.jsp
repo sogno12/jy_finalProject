@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<c:url var="root" value="/" />
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,10 +19,16 @@
 <link href="${ pageContext.servletContext.contextPath }/resources/css/style.min.css" rel="stylesheet">
 <!-- Custom CSS -->
 <link href="${ pageContext.servletContext.contextPath }/resources/assets/libs/flot/css/float-chart.css" rel="stylesheet">
+
+<!-- alertifyJs -->
+<script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css"/>
+
+
+
 <title>Insert title here</title>
 </head>
 <body>
-	
 		<!-- ============================================================== -->
 	    <!-- Topbar header - style you can find in pages.scss -->
 	    <!-- ============================================================== -->
@@ -29,7 +36,7 @@
 	        <nav class="navbar top-navbar navbar-expand-md navbar-dark">
 	            <div class="navbar-header" data-logobg="skin5">
 	                <!-- This is for the sidebar toggle which is visible on mobile only -->
-	                <a class="nav-toggler waves-effect waves-light d-block d-md-none" href="javascript:void(0)"><i class="ti-menu ti-close"></i></a>
+	                <a class="nav-toggler waves-effect waves-light d-block d-md-none" href="main.do"><i class="ti-menu ti-close"></i></a>
 	                <!-- ============================================================== -->
 	                <!-- Logo -->
 	                <!-- ============================================================== -->
@@ -41,9 +48,11 @@
 	                        <img src="${ pageContext.servletContext.contextPath }/resources/images/logo-icon.png" alt="homepage" class="light-logo"/>
 	                        
 	                        <!-- Logo text -->
-	                        <span class="logo-text" style="margin-left: 20px; vertical-align: middle;">
-	                            J&Y CO.
-	                        </span>
+	                        
+	                        	<span class="logo-text" style="margin-left: 20px; vertical-align: middle;">
+	                            	J&Y CO.
+	                        	</span>
+	                        
 	                       
 	                    </b>
 	                    <!--End Logo icon -->
@@ -83,11 +92,73 @@
 	                    <li class="nav-item dropdown">
 	                        <a class="nav-link dropdown-toggle waves-effect waves-dark" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="mdi mdi-bell font-24"></i>
 	                        </a>
-	                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-	                            <a class="dropdown-item" href="#">Action</a>
-	                            <a class="dropdown-item" href="#">Another action</a>
-	                            <div class="dropdown-divider"></div>
-	                            <a class="dropdown-item" href="#">Something else here</a>
+	                         <div class="dropdown-menu dropdown-menu-right mailbox animated bounceInDown" aria-labelledby="2" >
+	                            <ul class="list-style-none">
+	                                <li>
+	                                    <div class="" id="alarm">
+	                                         <!-- 회의실 -->
+	                                        <a href="javascript:void(0)" class="link border-top">
+	                                            <div class="d-flex no-block align-items-center p-10">
+	                                                <span class="btn btn-success btn-circle"><i class="ti-calendar"></i></span>
+	                                                <div class="m-l-10">
+	                                                    <h5 class="m-b-0">회의실</h5> 
+	                                                    <span class="mail-desc">${eachAlarm[1]}개의 신규알람</span> 
+	                                                </div>
+	                                            </div>
+	                                        </a>
+	                                        <!-- 명함 -->
+	                                        <a href="javascript:void(0)" class="link border-top">
+	                                            <div class="d-flex no-block align-items-center p-10">
+	                                                <span class="btn btn-info btn-circle"><i class="ti-settings"></i></span>
+	                                                <div class="m-l-10">
+	                                                    <h5 class="m-b-0">명함</h5> 
+	                                                    <span class="mail-desc">${eachAlarm[2]}개의 신규알람</span> 
+	                                                </div>
+	                                            </div>
+	                                        </a>
+	                                        <!-- 카페 -->
+	                                        <a href="javascript:void(0)" class="link border-top">
+	                                            <div class="d-flex no-block align-items-center p-10">
+	                                                <span class="btn btn-primary btn-circle"><i class="ti-user"></i></span>
+	                                                <div class="m-l-10">
+	                                                    <h5 class="m-b-0">카페</h5> 
+	                                                    <span class="mail-desc">${eachAlarm[3]}개의 신규알람</span> 
+	                                                </div>
+	                                            </div>
+	                                        </a>
+	                                        <!-- 쪽지 -->
+	                                        <a href="javascript:void(0)" class="link border-top">
+	                                            <div class="d-flex no-block align-items-center p-10">
+	                                                <span class="btn btn-danger btn-circle"><i class="fa fa-link"></i></span>
+	                                                <div class="m-l-10">
+	                                                    <h5 class="m-b-0">쪽지</h5> 
+	                                                    <span class="mail-desc">${eachAlarm[4]}개의 신규알람</span> 
+	                                                </div>
+	                                            </div>
+	                                        </a>
+	                                        <!-- 결재변경 -->
+	                                        <a href="sendAppBox.box" class="link border-top">
+	                                            <div class="d-flex no-block align-items-center p-10">
+	                                                <span class="btn btn-danger btn-circle"><i class="fa fa-link"></i></span>
+	                                                <div class="m-l-10">
+	                                                    <h5 class="m-b-0">결재변경</h5> 
+	                                                    <span class="mail-desc">${eachAlarm[5]}개의 신규알람</span> 
+	                                                </div>
+	                                            </div>
+	                                        </a>
+	                                        <!-- 대기결재 -->
+	                                        <a href="receiveAppBox.box" class="link border-top">
+	                                            <div class="d-flex no-block align-items-center p-10">
+	                                                <span class="btn btn-danger btn-circle"><i class="fa fa-link"></i></span>
+	                                                <div class="m-l-10">
+	                                                    <h5 class="m-b-0">대기결재</h5> 
+	                                                    <span class="mail-desc">${eachAlarm[6]}개의 신규알람</span> 
+	                                                </div>
+	                                            </div>
+	                                        </a>
+	                                    </div>
+	                                </li>
+	                            </ul>
 	                        </div>
 	                    </li>
 	                    <!-- ============================================================== -->
@@ -191,14 +262,15 @@
                                <li class="sidebar-item"><a href="commute.me" class="sidebar-link"><i class="mdi mdi-check-circle-outline"></i><span class="hide-menu"> 근태 관리 </span></a></li>
                                <li class="sidebar-item"><a href="addressBook.me" class="sidebar-link"><i class="mdi mdi-contacts"></i><span class="hide-menu"> 주소록 </span></a></li>
                                <li class="sidebar-item"><a href="salary.me" class="sidebar-link"><i class="mdi mdi-calculator"></i><span class="hide-menu"> 급여 정보 </span></a></li>
-                               <li class="sidebar-item"><a href="leave.me" class="sidebar-link"><i class="mdi mdi-airplane"></i><span class="hide-menu"> 휴가 정보 </span></a></li>
+                               <li class="sidebar-item"><a href="leave.lv" class="sidebar-link"><i class="mdi mdi-airplane"></i><span class="hide-menu"> 휴가 정보 </span></a></li>
                                <li class="sidebar-item"><a href="messenger.me" class="sidebar-link"><i class="mdi mdi-email-outline"></i><span class="hide-menu"> 쪽지 </span></a></li>
 	                        </ul> 
 	                    </li>
 	                    <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="mdi mdi-account-multiple"></i><span class="hide-menu">Team </span></a>
 	                        <ul aria-expanded="false" class="collapse  first-level">
-	                            <li class="sidebar-item"><a href="yh-Board.html" class="sidebar-link"><i class="mdi mdi-note-outline"></i><span class="hide-menu"> 사내 게시판 </span></a></li>
-	                            <li class="sidebar-item"><a href="sujin-teamTable.html" class="sidebar-link"><i class="mdi mdi-sitemap"></i><span class="hide-menu"> 팀 정보 </span></a></li>
+	                     
+	                            <li class="sidebar-item"><a href="board.bd" class="sidebar-link"><i class="mdi mdi-note-outline"></i><span class="hide-menu"> 사내 게시판 </span></a></li>
+	                            <li class="sidebar-item"><a href="teamTable.me" class="sidebar-link"><i class="mdi mdi-sitemap"></i><span class="hide-menu"> 팀 정보 </span></a></li>
 	                            
 	                            <c:if test="${ loginUser.departmentNo eq 1 }">
 		                            <!-- 총무팀 로그인시 보여지는 메뉴 -->
@@ -231,7 +303,7 @@
                                <li class="sidebar-item"><a href="reservationList.nc" class="sidebar-link"><i class="mdi mdi-format-list-bulleted"></i><span class="hide-menu"> 예약 내역 </span></a></li>
 	                        </ul>
 	                    </li>
-	                    <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="pys-chat-main.html" aria-expanded="false"><i class="mdi mdi-message-outline"></i><span class="hide-menu">Chat</span></a></li>
+	                    <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="chatter.ch" aria-expanded="false"><i class="mdi mdi-message-outline"></i><span class="hide-menu">Chat</span></a></li>
 	                </ul>
 	            </nav>
 	            <!-- End Sidebar navigation -->
@@ -266,7 +338,8 @@
     <script src="${ pageContext.servletContext.contextPath }/resources/js/pages/chart/chart-page-init.js"></script>
     <script>
         function goMyRequest(){
-            location.href="#myRequestTableForm";
+            location.href="sendAppBox.box";
+  
         }
 
         function goCafe(){
@@ -280,6 +353,74 @@
         function leaveWork(){
             alert("퇴근 확인되었습니다.");
         }
-    </script>
+        
+     </script>
+  
+        
+	
+	<script type="text/javascript">
+	   /***********************/
+       /* Web Socket // Sujin */
+       /***********************/
+	       
+        var socket = null
+        
+        $(document).ready(function(){
+        	connectWs();
+        	readAlarms();
+        });
+         
+        function connectWs(){
+        	sock = new WebSocket("ws://localhost:"+location.port+"/jy/echo/websocket");
+        	console.log("소켓실행");
+        	socket = sock;
+        	
+   			sock.onmessage = function(cmd){
+   				// alert(cmd.data);
+   				if(cmd.data == 0){
+   					//alert('알림갯수 함수 실행');
+   					readAlarms();
+   				} else if(cmd.data == 5) {
+   					alertify.alert("결재 상태가 변경되었습니다.");	
+   				} else if(cmd.data == 6){
+   					alertify.alert("새 결재서가 대기중입니다.");	
+   				} else {
+   					var data = cmd.data;
+   					
+   					var idx = data.indexOf(",");
+   					var no = data.substring(0, idx);
+   					var text = data.substring(idx+1);
+   					
+   					console.log(no);
+   					console.log(text);
+   					
+   					if(no == 7){
+   						alertify.alert(text+"님이 채팅메세지를 보냈습니다.");
+   					}
+   				}
+   				
+   			};
+        };
+        
+   		// 1. 각각의 알림갯수 가져오기	
+   		function readAlarms(){
+   			$.ajax({
+   				url:'readAlarms.do',
+   				type:'get',
+   				success:function(text){
+   	   				let $alarm = $('div#alarm');
+   	   				$alarm.html(text.data);
+   				}, error:function(err){
+   					console.log(err);
+   				}
+   				
+   			});
+   		};
+   			
+   		
+        
+        
+        
+    	</script>
 </body>
 </html>

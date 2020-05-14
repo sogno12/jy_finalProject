@@ -19,5 +19,5 @@
 		 WHERE to_date(TODO_DATE, 'YY/MM/DD') = to_date(SYSDATE, 'YY/MM/DD')
 		 		AND MEMBER_NO=#{memberNo}
 	</select>
-	
+
 </mapper>

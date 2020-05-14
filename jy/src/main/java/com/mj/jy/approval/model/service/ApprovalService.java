@@ -114,4 +114,17 @@ public interface ApprovalService {
 	 * @return
 	 */
 	int deleteDis(int disbursementNo);
+
+
+	/** sujin15. oneReport 찾기
+	 * @param reportNo
+	 * @return
+	 */
+	ReportDto getOneReport(int reportNo);
+	
+	/** sujin16. ondDis 찾기
+	 * @param disbursementNo
+	 * @return
+	 */
+	DisbursementDto getOneDis(int disbursementNo);
 }

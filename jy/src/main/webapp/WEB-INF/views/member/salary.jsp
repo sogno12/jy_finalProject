@@ -61,37 +61,37 @@
                                   <tbody>
                                     <tr>
                                       <th scope="row" style="padding-left: 100px;">이름</th>
-                                      <td style="padding-left: 100px;">이요한</td>
+                                      <td style="padding-left: 100px;">${s.memberName}</td>
                                     
                                     </tr>
                                     <tr>
                                       <th scope="row" style="padding-left: 100px;">부서</th>
-                                      <td style="padding-left: 100px;">인사과</td>
+                                      <td style="padding-left: 100px;">${s.departmentName }</td>
                                      
                                     </tr>
                                     <tr>
                                         <th scope="row" style="padding-left: 100px;">직급</th>
-                                        <td style="padding-left: 100px;">과장</td>
+                                        <td style="padding-left: 100px;">${s.positionName }</td>
                                     </tr>
                                     <tr>
                                         <th scope="row" style="padding-left: 100px;">호봉</th>
-                                        <td style="padding-left: 100px;">4호봉</td>
+                                        <td style="padding-left: 100px;">${s.grade}</td>
                                     </tr>
                                     <tr>
                                         <th scope="row" style="padding-left: 100px;">급여</th>
-                                        <td style="padding-left: 100px;">5,000,000원</td>
+                                        <td style="padding-left: 100px;">${s.stepSum}</td>
                                     </tr>
                                     <tr>
-                                        <th scope="row" style="padding-left: 100px;">성과금</th>
-                                        <td style="padding-left: 100px;">2,000,000원</td>
+                                        <th scope="row" style="padding-left: 100px;">직책금</th>
+                                        <td style="padding-left: 100px;">${s.positionSum }</td>
                                     </tr>
                                     <tr>
-                                        <th scope="row" style="padding-left: 100px;" >최종금액</th>
-                                        <td style="padding-left: 100px;">7,000,000원</td>
+                                        <th scope="row" style="padding-left: 100px;" >실 지급액</th>
+                                        <td style="padding-left: 100px;">${s.sum }</td>
                                     </tr>
                                     <tr>
                                         <th scope="row" style="padding-left: 100px;">지급 받은 날짜</th>
-                                        <td style="padding-left: 100px;">02/24/2020</td>
+                                        <td style="padding-left: 100px;">${s.payDate }</td>
                                     </tr>
                                   </tbody>
                             </table>

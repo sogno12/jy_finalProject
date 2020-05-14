@@ -192,16 +192,6 @@
 	                                           <!-- reasonBox - Ajax -->
                                            
                                         </div>
-                                        <div class="col-md-6" id="selectHalf" style="display:none">
-                                             <div class="custom-control custom-radio" style="display:none">
-                                                <input type="radio" class="custom-control-input" id="customControlValidation2" name="radio-stacked" required>
-                                                <label class="custom-control-label" for="customControlValidation2">오전</label>
-                                            </div>
-                                             <div class="custom-control custom-radio" style="display: inline-block">
-                                                <input type="radio" class="custom-control-input" id="customControlValidation3" name="radio-stacked" required>
-                                                <label class="custom-control-label" for="customControlValidation3">오후</label>
-                                            </div>
-                                        </div>
                                     </div>
                                         
                                     
@@ -574,22 +564,6 @@
 	<!-- ============================================================== -->
 	
 
-    <!-- ============================================================== -->
-    <!-- All Jquery -->
-    <!-- ============================================================== -->
-    <script src="${ pageContext.servletContext.contextPath }/resources/assets/libs/jquery/dist/jquery.min.js"></script>
-    <!-- Bootstrap tether Core JavaScript -->
-    <script src="${ pageContext.servletContext.contextPath }/resources/assets/libs/popper.js/dist/umd/popper.min.js"></script>
-    <script src="${ pageContext.servletContext.contextPath }/resources/assets/libs/bootstrap/dist/js/bootstrap.min.js"></script>
-    <!-- slimscrollbar scrollbar JavaScript -->
-    <script src="${ pageContext.servletContext.contextPath }/resources/assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>
-    <script src="${ pageContext.servletContext.contextPath }/resources/assets/extra-libs/sparkline/sparkline.js"></script>
-    <!--Wave Effects -->
-    <script src="${ pageContext.servletContext.contextPath }/resources/js/waves.js"></script>
-    <!--Menu sidebar -->
-    <script src="${ pageContext.servletContext.contextPath }/resources/js/sidebarmenu.js"></script>
-    <!--Custom JavaScript -->
-    <script src="${ pageContext.servletContext.contextPath }/resources/js/custom.min.js"></script>
     <!-- This Page JS -->
     <script src="${ pageContext.servletContext.contextPath }/resources/assets/libs/inputmask/dist/min/jquery.inputmask.bundle.min.js"></script>
     <script src="${ pageContext.servletContext.contextPath }/resources/js/pages/mask/mask.init.js"></script>
@@ -601,7 +575,6 @@
     <script src="${ pageContext.servletContext.contextPath }/resources/assets/libs/jquery-minicolors/jquery.minicolors.min.js"></script>
     <script src="${ pageContext.servletContext.contextPath }/resources/assets/libs/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
     <script src="${ pageContext.servletContext.contextPath }/resources/assets/libs/quill/dist/quill.min.js"></script>
-
 
     <!-- Page (+sujin)-->
     <script src="${ pageContext.servletContext.contextPath }/resources//assets/extra-libs/multicheck/datatable-checkbox-init.js"></script>
@@ -700,6 +673,18 @@
    	})
    
     
+    /* 반차의 경우 EndDate 작성 불가하도록 */
+    //$("#reason").on('change', function(){
+    $("#reasonList").on('change', '#reason', function(){
+		var reason = document.getElementById("reason");
+		
+		if(reason.options[reason.selectedIndex].value == 2){
+    		$('#endDate1').attr('disabled', true);
+    	} else{
+    		$('#endDate1').attr('disabled', false);
+    	}
+	});
+   	
     
     /* select Approval reason Ajax */
     
@@ -796,8 +781,8 @@
     /****************************************
      *       Submit Table 유효성 검사                *
      ****************************************/
-    var re = /^[a-z|A-Z|0-9|가-힣|\s]{3,30}$/
-    var reCon = /^[a-z|A-Z|0-9|가-힣|\s]{3,1000}$/
+    var re = /^[a-z|A-Z|0-9|가-힣|./?!@#$%^&*()|\s]{3,30}$/
+    var reCon = /^[a-z|A-Z|0-9|가-힣|./?!@#$%^&*()|\s]{3,1000}$/
     var reNum = /^[0-9]{3,10}$/
     
    	function check(re, what, message){
@@ -956,6 +941,9 @@
          "lengthMenu": [[5, 10, 15, -1], [5, 10, 15, "All"]]
      });
         
+    
+    
+    
     </script>
     
 </div>

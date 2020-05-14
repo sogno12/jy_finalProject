@@ -15,6 +15,7 @@ public interface CircularDao {
 	public List<Reading> cirReadingList(int circularNo);
 	public int readOrNot(Reading reading);
 	public int insertReadInfo(Reading reading);
+	public List<Reading> needRadingList(CircularDto circularDto);
 	
 	
 	

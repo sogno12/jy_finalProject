@@ -25,4 +25,10 @@ public class SalaryServiceImpl implements SalaryService {
 	public SalaryDto selectSalary(int salaryNo) {
 		return saDao.selectSalary(salaryNo);
 	}
+	
+	// 나의 급여 조회
+	@Override
+	public SalaryDto selectMySalary(String empNo) {
+		return saDao.selectMySalary(empNo);
+	}
 }

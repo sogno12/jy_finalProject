@@ -84,6 +84,7 @@ function calDateWhenDragnDrop(event) {
   else if (event.allDay && event.end !== null) {
     newDates.startDate = moment(event.start._d).format('YYYY-MM-DD');
     newDates.endDate = moment(event.end._d).format('YYYY-MM-DD');
+
   }
 
   //all day가 아님
@@ -201,13 +202,6 @@ var calendar = $('#calendar').fullCalendar({
     			"backgroundColor": response[i].backColor,
     			"allDay": response[i].allDay
     		}
-    		
-    		if(evt.allDay == "true") {
-    			evt.allDay = true;
-    		} else {
-    			evt.allDay = false;
-    		}
-    		// console.log(evt);
     		events.push(evt);
     	}
     	

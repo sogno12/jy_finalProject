@@ -1,5 +1,7 @@
 package com.mj.jy.circular.controller;
 
+import java.util.List;
+
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -76,10 +78,13 @@ public class CircularController {
 			cirService.insertReadInfo(reading);
 		}
 		
+		List<Reading> notReadingList= cirService.notReadingList(circularNo);
+		
 		//One Circular Info
 		//One Circular Reader List
 		model.addAttribute("cirOneInfo", cirService.cirOneInfo(circularNo))
-		  .addAttribute("cirReadingList", cirService.cirReadingList(circularNo));
+		  .addAttribute("cirReadingList", cirService.cirReadingList(circularNo))
+		  .addAttribute("notReadingList", cirService.notReadingList(circularNo));
 		
 		return "circular/circularOneView";
 	}
