@@ -1,6 +1,7 @@
 package com.mj.jy.commute.controller;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.servlet.http.HttpSession;
 
@@ -94,8 +95,14 @@ public class CommuteController {
 		ArrayList<CommuteChart> glist = cService.gChartData();
 		ArrayList<CommuteChart> hlist = cService.hChartData();
 		
+		HashMap<String, Object> map = new HashMap<String, Object>();
 		
-		return "";
+		map.put("glist", glist);
+		map.put("hlist", hlist);
+		
+		// System.out.println(map);
+		
+		return new Gson().toJson(map);
 	}
 	
 
