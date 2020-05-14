@@ -65,6 +65,9 @@ public class EchoHandler extends TextWebSocketHandler {
 				} else if ("6".equals(cmd) && receiverSession != null) {
 					TextMessage tmpMsg = new TextMessage("6번 내용 실행");
 					receiverSession.sendMessage(tmpMsg);
+				} else if ("4".equals(cmd) && receiverSession != null) {
+					TextMessage tmpMsg = new TextMessage("4번 내용 실행");
+					receiverSession.sendMessage(tmpMsg);
 				}
 			}
 		}
@@ -105,14 +108,15 @@ public class EchoHandler extends TextWebSocketHandler {
 			if(strs != null && strs.length == 2) {
 				String cmd = strs[0];
 				String receiverEmpNo = strs[1];
-			
+				
 				WebSocketSession receiverSession = userSessionsMap.get(receiverEmpNo);
 				
 				try {
+					if(receiverSession != null) {
 					TextMessage tmpMsg = new TextMessage(cmd);
 					
 					receiverSession.sendMessage(tmpMsg);
-					
+					}
 				}catch(IOException e) {
 					System.out.println("echoHandler Error"+e);
 				}
@@ -145,7 +149,10 @@ public class EchoHandler extends TextWebSocketHandler {
 					} else if ("6".equals(cmd) && receiverSession != null) {
 						TextMessage tmpMsg = new TextMessage(cmd);
 						receiverSession.sendMessage(tmpMsg);
-					}
+					} else if ("4".equals(cmd) && receiverSession != null) {
+						TextMessage tmpMsg = new TextMessage(cmd);
+						receiverSession.sendMessage(tmpMsg);
+					} 
 				}catch(IOException e) {
 					System.out.println("echoHandler Error"+e);
 				}

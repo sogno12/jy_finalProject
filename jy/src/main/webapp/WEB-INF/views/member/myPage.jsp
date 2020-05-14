@@ -85,10 +85,7 @@
                                         <th scope="row" style="padding-left: 100px;">주소</th>
                                         <td style="padding-left: 100px;">${loginUser.address }</td>
                                     </tr>
-                                    <tr>
-                                        <th scope="row" style="padding-left: 100px;">나의정보 수정</th>
-                                        <td style="padding-left: 100px;"> <button class="badge badge-primary">인사과에 문의하기</button></td>
-                                    </tr>
+                                    
                                   </tbody>
                             </table>
                         </div>

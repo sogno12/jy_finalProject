@@ -99,10 +99,8 @@
                                                 <div class="modal-body">
                                                 <ul>
                                                     <li>02/23/2020</li>
-                                                    <li>02/23/2020</li>
-                                                    <li>02/23/2020</li>
-                                                    <li>02/23/2020</li>
-                                                    <li>02/23/2020</li>
+                                                    <li>02/20/2020</li>
+                                                    <li>03/20/2020</li>                             
                                                 </ul>
                                                 </div>
                                                 <div class="modal-footer">
@@ -264,7 +262,7 @@
 			
 			 }else{
 				 
-				 valueQ += "clockIn";
+				 valueQ += "Clock Out";
 				 $("#clockOut").prop('disabled', false);
 			
 			 }
@@ -287,11 +285,12 @@
 				 valuetd += c.tardycount + '번';
 			
 			 }
-			 
+		
+ 			
+			 valueA += '<br>' + "<button class='badge badge-primary' data-toggle='modal' data-target='#exampleModal'>" + "결근 조회" + "</button>" ;
 			 valueM += c.name;
 			 valueD += c.department;
 			 
-			// valueA += c.absence + '일' ; /* "<button class="badge badge-primary" data-toggle="modal" data-target="#exampleModal">" + "결근 조회" + "</button>" */
 			 
 			 
 			 $("#attended").html(valueT);

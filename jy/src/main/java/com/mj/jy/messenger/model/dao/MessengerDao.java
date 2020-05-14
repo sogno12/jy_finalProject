@@ -1,5 +1,7 @@
 package com.mj.jy.messenger.model.dao;
 
+import java.util.ArrayList;
+
 import org.apache.ibatis.annotations.Mapper;
 
 import com.mj.jy.attachment.model.vo.Attachment;
@@ -9,5 +11,9 @@ import com.mj.jy.messenger.model.vo.Messenger;
 public interface MessengerDao {
 
 	int insertAttachment(Attachment a);
-	int insertMessage(Messenger m);
+	int insertMessage1(Messenger m);
+	int insertMessage2(Messenger m);
+	ArrayList<Messenger> selectMgList(String empNo);
+	int readMessage(Messenger m);
+	int deleteMessage(int msgNo);
 }

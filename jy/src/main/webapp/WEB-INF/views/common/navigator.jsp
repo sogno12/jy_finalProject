@@ -19,7 +19,8 @@
 <link href="${ pageContext.servletContext.contextPath }/resources/css/style.min.css" rel="stylesheet">
 <!-- Custom CSS -->
 <link href="${ pageContext.servletContext.contextPath }/resources/assets/libs/flot/css/float-chart.css" rel="stylesheet">
-
+<script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
+<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css"/>
 
 <title>Insert title here</title>
 </head>
@@ -385,6 +386,8 @@
    					alert("결재서가 갱신되었습니다.");	
    				} else if(cmd.data == 6){
    					alert("결재 상태가 변경되었습니다.");	
+   				} else if(cmd.data == 4){
+   					alert("쪽지 왔습니다.");
    				}
    				
    			};

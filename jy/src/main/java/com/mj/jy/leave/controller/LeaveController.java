@@ -33,7 +33,7 @@ public class LeaveController {
 		LeaveDto lv = lService.selectMyLeave(empNo);
 		
 		int listCount = lService.getListCount();
-		
+		currentPage = 0;
 		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, 10, 5);
 		ArrayList<LeaveListDto> llist = lService.selectLeaveList(empNo,pi);
 		

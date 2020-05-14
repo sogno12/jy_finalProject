@@ -39,7 +39,6 @@ public interface MemberService {
 	//페이지 수 
 	int getListCount();
 
-
 	/** sujin1.
 	 * @param departmentNo 로그인 유저 부서번호
 	 * @return
@@ -51,5 +50,8 @@ public interface MemberService {
 	 * @return
 	 */
 	int getCountDeptMember(int departmentNo);
+
+
+	int findMemberNo(Member mem);
 
 }

@@ -24,7 +24,7 @@
 	<select id="selectSchedule" parameterType="_int" resultMap="scheduleResultSet">
 		SELECT SCHEDULE_NO, MEMBER_NO, DEPARTMENT_NO, CONTENT, START_DATE, END_DATE, TITLE, BACK_COLOR, ALL_DAY, TYPE
 		  FROM SCHEDULE
-		 WHERE MEMBER_NO=#{memberNo} AND STATUS='Y'
+		 WHERE MEMBER_NO=#{memberNo} <!-- AND STATUS='Y' -->
 	</select>
 	
 	<update id="drapSchedule" parameterType="hashMap">
