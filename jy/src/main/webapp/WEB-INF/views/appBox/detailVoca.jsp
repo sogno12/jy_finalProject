@@ -216,7 +216,11 @@
                                                     	<c:if test="${ loginUser.memberNo eq oneReport.createBy && oneReport.approvalNo eq 3 }">
                                                         	<button type="button" class="btn btn-warning" id="updateBtn">수정</button>
                                                         </c:if>
-                                                        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#Modal4">결재</button>
+                                                        <c:forEach var="s" items="${ supervisers }">
+                                                        	<c:if test="${ s.name eq loginUser.memberName }">
+                                                        		<button type="button" class="btn btn-success" data-toggle="modal" data-target="#Modal4">결재</button>
+												        	</c:if>
+												      	</c:forEach>
                                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                                     </div>
                                                 </div>

@@ -75,16 +75,14 @@
                                                         <table id="CircularModal1" class="table text-center">
                                                         <thead>
                                                             <tr>
-                                                            <th scope="col">#</th>
-                                                            <th scope="col">조회자</th>
-                                                            <th scope="col">부서</th>
-                                                            <th scope="col">조회일시</th>
+	                                                            <th scope="col">조회자</th>
+	                                                            <th scope="col">부서</th>
+	                                                            <th scope="col">조회일시</th>
                                                             </tr>
                                                         </thead>
                                                         <tbody>
                                                         	<c:forEach var="cr" items="${cirReadingList}">
 	                                                        	<tr>
-		                                                            <th scope="row">1</th>
 		                                                            <td>${cr.name}</td>
 		                                                            <td>${cr.deName}</td>
 		                                                            <td><fmt:formatDate value="${cr.date}" pattern="MM/dd HH:mm"/></td>
@@ -116,32 +114,19 @@
                                                         <table id="CircularModal2" class="table text-center">
                                                         <thead>
                                                             <tr>
-                                                            <th scope="col">#</th>
-                                                            <th scope="col">조회자</th>
-                                                            <th scope="col">부서</th>
-                                                            <th scope="col">조회일시</th>
+	                                                            <th scope="col">대상</th>
+	                                                            <th scope="col">부서</th>
+	                                                            <th scope="col">조회일시</th>
                                                             </tr>
                                                         </thead>
                                                         <tbody>
-                                                            <tr>
-	                                                            <th scope="row">1</th>
-	                                                            <td>Mark</td>
-	                                                            <td>행정부</td>
-	                                                            <td>미열람</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <th scope="row">2</th>
-                                                                <td>Ted</td>
-                                                                <td>기획부</td>
-                                                                <td>미열람</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <th scope="row">3</th>
-                                                                <td>Fred</td>
-                                                                <td>인사부</td>
-                                                                <td>미열람</td>
-                                                            </tr>
-                                                            
+                                                        	<c:forEach var="nr" items="${notReadingList}">
+	                                                        	<tr>
+		                                                            <td>${nr.name}</td>
+		                                                            <td>${nr.deName}</td>
+		                                                            <td>미열람</td>
+	                                                            </tr>
+                                                        	</c:forEach>
                                                         </tbody>
                                                         </table>
                                                     </div>

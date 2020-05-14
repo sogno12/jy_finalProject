@@ -46,6 +46,17 @@
 	      </websocket:handshake-interceptors>
 		
 	    <websocket:sockjs/>
-	 </websocket:handlers>	
+	 </websocket:handlers>
+	 
+	 <bean id="chatterHandler" class="com.mj.jy.socketHandler.model.vo.ChatterHandler" />
+	<websocket:handlers>
+		<websocket:mapping handler="chatterHandler" path="/chatter" />
+		<websocket:handshake-interceptors>
+	         <bean class="org.springframework.web.socket.server.support.HttpSessionHandshakeInterceptor"/>
+	      </websocket:handshake-interceptors>
+		
+	    <websocket:sockjs/>
+	 </websocket:handlers>
+	 	
 		
 </beans>

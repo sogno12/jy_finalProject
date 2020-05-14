@@ -36,4 +36,11 @@ public interface CircularService {
 	 */
 	int insertReadInfo(Reading reading);
 
+	/** sujin6. 열람하지 않은 회원들의 정보
+	 * @param circularNo
+	 * @param memberNo
+	 * @return
+	 */
+	List<Reading> notReadingList(int circularNo);
+
 }
