@@ -237,6 +237,8 @@
 			}
            //console.log(reformMsg);
            $('.chatter ul').append(reformMsg);
+           
+           $('.chatter ul').scrollTop($('.chatter ul')[0].scrollHeight);
             
         }
 
@@ -293,7 +295,7 @@
         	textarea.value = '';
         })
         
-        $('.chatter').scrollTop($('.chatter')[0].scrollHeight);
+        
         
         
     })

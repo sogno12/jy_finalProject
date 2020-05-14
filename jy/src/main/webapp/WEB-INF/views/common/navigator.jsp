@@ -97,7 +97,7 @@
 	                                         <!-- 회의실 -->
 	                                        <a href="javascript:void(0)" class="link border-top">
 	                                            <div class="d-flex no-block align-items-center p-10">
-	                                                <span class="btn btn-success btn-circle"><i class="ti-calendar"></i></span>
+	                                                <span class="btn btn-warning btn-circle"><i class="fas fa-laptop"></i></span>
 	                                                <div class="m-l-10">
 	                                                    <h5 class="m-b-0">회의실</h5> 
 	                                                    <span class="mail-desc">${eachAlarm[1]}개의 신규알람</span> 
@@ -107,27 +107,17 @@
 	                                        <!-- 명함 -->
 	                                        <a href="javascript:void(0)" class="link border-top">
 	                                            <div class="d-flex no-block align-items-center p-10">
-	                                                <span class="btn btn-info btn-circle"><i class="ti-settings"></i></span>
+	                                                <span class="btn btn-danger btn-circle"><i class="fas fa-badge"></i></span>
 	                                                <div class="m-l-10">
 	                                                    <h5 class="m-b-0">명함</h5> 
 	                                                    <span class="mail-desc">${eachAlarm[2]}개의 신규알람</span> 
 	                                                </div>
 	                                            </div>
 	                                        </a>
-	                                        <!-- 카페 -->
-	                                        <a href="javascript:void(0)" class="link border-top">
-	                                            <div class="d-flex no-block align-items-center p-10">
-	                                                <span class="btn btn-primary btn-circle"><i class="ti-user"></i></span>
-	                                                <div class="m-l-10">
-	                                                    <h5 class="m-b-0">카페</h5> 
-	                                                    <span class="mail-desc">${eachAlarm[3]}개의 신규알람</span> 
-	                                                </div>
-	                                            </div>
-	                                        </a>
 	                                        <!-- 쪽지 -->
 	                                        <a href="javascript:void(0)" class="link border-top">
 	                                            <div class="d-flex no-block align-items-center p-10">
-	                                                <span class="btn btn-danger btn-circle"><i class="fa fa-link"></i></span>
+	                                                <span class="btn btn-info btn-circle"><i class="fas fa-comment-alt"></i></span>
 	                                                <div class="m-l-10">
 	                                                    <h5 class="m-b-0">쪽지</h5> 
 	                                                    <span class="mail-desc">${eachAlarm[4]}개의 신규알람</span> 
@@ -137,7 +127,7 @@
 	                                        <!-- 결재변경 -->
 	                                        <a href="sendAppBox.box" class="link border-top">
 	                                            <div class="d-flex no-block align-items-center p-10">
-	                                                <span class="btn btn-danger btn-circle"><i class="fa fa-link"></i></span>
+	                                                <span class="btn btn-success btn-circle"><i class="fas fa-clipboard-check"></i></span>
 	                                                <div class="m-l-10">
 	                                                    <h5 class="m-b-0">결재변경</h5> 
 	                                                    <span class="mail-desc">${eachAlarm[5]}개의 신규알람</span> 
@@ -147,7 +137,7 @@
 	                                        <!-- 대기결재 -->
 	                                        <a href="receiveAppBox.box" class="link border-top">
 	                                            <div class="d-flex no-block align-items-center p-10">
-	                                                <span class="btn btn-danger btn-circle"><i class="fa fa-link"></i></span>
+	                                                <span class="btn btn-primary btn-circle"><i class="fas fa-notes-medical"></i></span>
 	                                                <div class="m-l-10">
 	                                                    <h5 class="m-b-0">대기결재</h5> 
 	                                                    <span class="mail-desc">${eachAlarm[6]}개의 신규알람</span> 
@@ -173,42 +163,12 @@
 	                                <li>
 	                                    <div class="">
 	                                         <!-- Message -->
-	                                        <a href="javascript:void(0)" class="link border-top">
+	                                        <a href="chatter.ch" class="link border-top">
 	                                            <div class="d-flex no-block align-items-center p-10">
-	                                                <span class="btn btn-success btn-circle"><i class="ti-calendar"></i></span>
+	                                                <span class="btn btn-outline-info btn-circle"><i class="fas fa-angle-double-right"></i></span>
 	                                                <div class="m-l-10">
-	                                                    <h5 class="m-b-0">Event today</h5> 
-	                                                    <span class="mail-desc">Just a reminder that event</span> 
-	                                                </div>
-	                                            </div>
-	                                        </a>
-	                                        <!-- Message -->
-	                                        <a href="javascript:void(0)" class="link border-top">
-	                                            <div class="d-flex no-block align-items-center p-10">
-	                                                <span class="btn btn-info btn-circle"><i class="ti-settings"></i></span>
-	                                                <div class="m-l-10">
-	                                                    <h5 class="m-b-0">Settings</h5> 
-	                                                    <span class="mail-desc">You can customize this template</span> 
-	                                                </div>
-	                                            </div>
-	                                        </a>
-	                                        <!-- Message -->
-	                                        <a href="javascript:void(0)" class="link border-top">
-	                                            <div class="d-flex no-block align-items-center p-10">
-	                                                <span class="btn btn-primary btn-circle"><i class="ti-user"></i></span>
-	                                                <div class="m-l-10">
-	                                                    <h5 class="m-b-0">Pavan kumar</h5> 
-	                                                    <span class="mail-desc">Just see the my admin!</span> 
-	                                                </div>
-	                                            </div>
-	                                        </a>
-	                                        <!-- Message -->
-	                                        <a href="javascript:void(0)" class="link border-top">
-	                                            <div class="d-flex no-block align-items-center p-10">
-	                                                <span class="btn btn-danger btn-circle"><i class="fa fa-link"></i></span>
-	                                                <div class="m-l-10">
-	                                                    <h5 class="m-b-0">Luanch Admin</h5> 
-	                                                    <span class="mail-desc">Just see the my new admin!</span> 
+	                                                    <h5 class="m-b-0">Chat Alarm</h5> 
+	                                                    <span class="mail-desc">None: 챗으로 이동</span> 
 	                                                </div>
 	                                            </div>
 	                                        </a>
