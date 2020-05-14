@@ -1,3 +1,4 @@
+
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="scheduleMapper">
@@ -16,18 +17,18 @@
 	</resultMap>
 
 	<insert id="insertSchedule" parameterType="Schedule">
-		INSERT INTO SCHEDULE
-		VALUES(#{scheduleNo}, #{memberNo}, #{departmentNo}, #{content}, to_timestamp(#{startDate}, 'YYYY/MM/DD HH24:MI:SS'), to_timestamp(#{endDate}, 'YYYY/MM/DD HH24:MI:SS'),
-			   #{title}, #{backColor}, #{allDay}, #{type}, default)
+		INSERT INTO SCHEDULE(SCHEDULE_NO, MEMBER_NO, DEPARTMENT_NO, CONTENT, START_DATE, END_DATE, TITLE, BACK_COLOR, ALL_DAY, TYPE, STATUS)
+      	VALUES(#{scheduleNo}, #{memberNo}, #{departmentNo}, #{content}, to_timestamp(#{startDate}, 'YYYY/MM/DD HH24:MI:SS'), to_timestamp(#{endDate}, 'YYYY/MM/DD HH24:MI:SS'),
+            #{title}, #{backColor}, #{allDay}, #{type}, default)
 	</insert>
 	
 	<select id="selectSchedule" parameterType="_int" resultMap="scheduleResultSet">
 		SELECT SCHEDULE_NO, MEMBER_NO, DEPARTMENT_NO, CONTENT, START_DATE, END_DATE, TITLE, BACK_COLOR, ALL_DAY, TYPE
 		  FROM SCHEDULE
-		 WHERE MEMBER_NO=#{memberNo} <!-- AND STATUS='Y' -->
+		 WHERE MEMBER_NO=#{memberNo} AND STATUS='Y'
 	</select>
 	
-	<update id="drapSchedule" parameterType="hashMap">
+	<update id="dragSchedule" parameterType="hashMap">
 		UPDATE SCHEDULE
 		   SET START_DATE=to_timestamp(#{startDate}, 'YYYY/MM/DD HH24:MI:SS'), END_DATE=to_timestamp(#{endDate}, 'YYYY/MM/DD HH24:MI:SS')
 		 WHERE SCHEDULE_NO=#{scheduleNo}
@@ -46,5 +47,6 @@
 		   SET STATUS='N'
 		 WHERE SCHEDULE_NO=#{scheduleNo}
 	</update>
+
 
 </mapper>

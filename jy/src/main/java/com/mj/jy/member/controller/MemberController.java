@@ -63,25 +63,7 @@ public class MemberController {
 		
 		return mv;
 	}
-	
-	/*
-	// 비밀번호 찾기
-	@ResponseBody
-	@RequestMapping(value="searchPwd.me", produces="application/json; charset=utf-8")
-	public String searchPwd(String empNo, Model model, HttpServletResponse response) throws IOException {
-		
-		String pwd = mService.searchPwd(empNo);
-		
-		if(pwd != null && bcryptPasswordEncoder.matches(, ())) {
-			// model.addAttribute("member", member);			
-		} else {
-			model.addAttribute("일치하는 회원이 없습니다.");
-		}
-		return new Gson().toJson(m);
-	
-	}
-	*/
-	
+
 	// 로그아웃
 	@RequestMapping("logout.me")
 	public String logoutMember(HttpSession session) {
@@ -117,8 +99,8 @@ public class MemberController {
 		if(result > 0) {
 			
 			// 인사카드 등록 후 전체 회원 조회하는 메뉴로 리턴
-			selectMemberList(m, model);
-			return "member/memberListView";
+			 selectMemberList(m, model);
+			return "redirect:memberList.me";
 			
 		} else {
 			return "";
@@ -138,7 +120,7 @@ public class MemberController {
 	// 직원 상세 정보
 	@RequestMapping("select.me")
 	public String selectMember(String empNo, Model model) {
-		
+		// System.out.println(empNo);
 		MemberDto m = mService.selectMember(empNo);
 		model.addAttribute("m", m);
 		return "member/memberDetailView";
@@ -172,8 +154,13 @@ public class MemberController {
 		
 		if(result > 0) {
 			
-			model.addAttribute("empNo", m.getEmpNo());
-			return "redirect:select.me";
+			if(m.getResignDate() == null) {				
+				model.addAttribute("empNo", m.getEmpNo());
+				return "redirect:select.me";
+			} else {
+				return "redirect:memberList.me";
+			}
+			
 			
 		} else {
 			

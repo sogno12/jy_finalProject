@@ -19,8 +19,12 @@
 <link href="${ pageContext.servletContext.contextPath }/resources/css/style.min.css" rel="stylesheet">
 <!-- Custom CSS -->
 <link href="${ pageContext.servletContext.contextPath }/resources/assets/libs/flot/css/float-chart.css" rel="stylesheet">
+
+<!-- alertifyJs -->
 <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/alertify.min.js"></script>
 <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.13.1/build/css/alertify.min.css"/>
+
+
 
 <title>Insert title here</title>
 </head>
@@ -133,7 +137,7 @@
 	                                            </div>
 	                                        </a>
 	                                        <!-- 결재변경 -->
-	                                        <a href="javascript:void(0)" class="link border-top">
+	                                        <a href="sendAppBox.box" class="link border-top">
 	                                            <div class="d-flex no-block align-items-center p-10">
 	                                                <span class="btn btn-danger btn-circle"><i class="fa fa-link"></i></span>
 	                                                <div class="m-l-10">
@@ -143,7 +147,7 @@
 	                                            </div>
 	                                        </a>
 	                                        <!-- 대기결재 -->
-	                                        <a href="javascript:void(0)" class="link border-top">
+	                                        <a href="receiveAppBox.box" class="link border-top">
 	                                            <div class="d-flex no-block align-items-center p-10">
 	                                                <span class="btn btn-danger btn-circle"><i class="fa fa-link"></i></span>
 	                                                <div class="m-l-10">
@@ -225,15 +229,12 @@
 	                    <li class="nav-item dropdown">
 	                        <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark pro-pic" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="${ pageContext.servletContext.contextPath }/resources/images/users/1.jpg" alt="user" class="rounded-circle" width="31"></a>
 	                        <div class="dropdown-menu dropdown-menu-right user-dd animated">
-	                            <a class="dropdown-item" href="javascript:void(0)"><i class="ti-user m-r-5 m-l-5"></i> My Profile</a>
-	                            <a class="dropdown-item" href="javascript:void(0)"><i class="ti-wallet m-r-5 m-l-5"></i> My Balance</a>
-	                            <a class="dropdown-item" href="javascript:void(0)"><i class="ti-email m-r-5 m-l-5"></i> Inbox</a>
+	                            <a class="dropdown-item" href="myInfo.me"><i class="ti-user m-r-5 m-l-5"></i> My Profile</a>
+	                            <a class="dropdown-item" href="messenger.me"><i class="ti-email m-r-5 m-l-5"></i> Inbox</a>
 	                            <div class="dropdown-divider"></div>
-	                            <a class="dropdown-item" href="javascript:void(0)"><i class="ti-settings m-r-5 m-l-5"></i> Account Setting</a>
+	                            <a class="dropdown-item" href="sendAppBox.box"><i class="ti-settings m-r-5 m-l-5"></i> Electronic Approval</a>
 	                            <div class="dropdown-divider"></div>
 	                            <a class="dropdown-item" href="logout.me"><i class="fa fa-power-off m-r-5 m-l-5"></i> Logout</a>
-	                            <div class="dropdown-divider"></div>
-	                            <div class="p-l-30 p-10"><a href="javascript:void(0)" class="btn btn-sm btn-success btn-rounded">View Profile</a></div>
 	                        </div>
 	                    </li>
 	                    <!-- ============================================================== -->
@@ -282,6 +283,7 @@
 		                            <li class="sidebar-item"><a href="salaryList.sa" class="sidebar-link"><i class="mdi mdi-alert-octagon"></i><span class="hide-menu"> 급여 관리 </span></a></li>
 		                            <li class="sidebar-item"><a href="enrollForm.me" class="sidebar-link"><i class="mdi mdi-alert-octagon"></i><span class="hide-menu"> 인사 관리 </span></a></li>
 		                            <li class="sidebar-item"><a href="commuteList.co" class="sidebar-link"><i class="mdi mdi-alert-octagon"></i><span class="hide-menu"> 근태 관리 </span></a></li>
+		                            <li class="sidebar-item"><a href="commuteChart.co" class="sidebar-link"><i class="mdi mdi-alert-octagon"></i><span class="hide-menu"> 월별 지각 현황 </span></a></li>
 	                            </c:if>
 	                        </ul>
 	                    </li>
@@ -301,7 +303,7 @@
                                <li class="sidebar-item"><a href="reservationList.nc" class="sidebar-link"><i class="mdi mdi-format-list-bulleted"></i><span class="hide-menu"> 예약 내역 </span></a></li>
 	                        </ul>
 	                    </li>
-	                    <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="chat.ch" aria-expanded="false"><i class="mdi mdi-message-outline"></i><span class="hide-menu">Chat</span></a></li>
+	                    <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="chatter.ch" aria-expanded="false"><i class="mdi mdi-message-outline"></i><span class="hide-menu">Chat</span></a></li>
 	                </ul>
 	            </nav>
 	            <!-- End Sidebar navigation -->
@@ -335,10 +337,6 @@
     <script src="${ pageContext.servletContext.contextPath }/resources/assets/libs/flot.tooltip/js/jquery.flot.tooltip.min.js"></script>
     <script src="${ pageContext.servletContext.contextPath }/resources/js/pages/chart/chart-page-init.js"></script>
     <script>
-        function goProfile(){
-            location.href="yh-myprofile.html";
-        }
-        
         function goMyRequest(){
             location.href="sendAppBox.box";
   
@@ -373,21 +371,40 @@
         });
          
         function connectWs(){
-        	sock = new WebSocket("ws:localhost:"+location.port+"/jy/echo/websocket");
-        	console.log("함수실행");
+        	sock = new WebSocket("ws://localhost:"+location.port+"/jy/echo/websocket");
+
+      
+
+        	console.log("소켓실행");
+
         	socket = sock;
         	
    			sock.onmessage = function(cmd){
    				// alert(cmd.data);
    				if(cmd.data == 0){
    					//alert('알림갯수 함수 실행');
-   					readAlarms();
+   					readAlarms(); 
    				} else if(cmd.data == 5) {
-   					alert("결재서가 갱신되었습니다.");	
+   					alertify.alert("결재 상태가 변경되었습니다.");	
    				} else if(cmd.data == 6){
-   					alert("결재 상태가 변경되었습니다.");	
+            alertify.alert("새 결재서가 있습니다.");
+   				
    				} else if(cmd.data == 4){
-   					alert("쪽지 왔습니다.");
+   			    alertify.alert("쪽지 왔습니다.");
+   				
+   				} else {
+   					var data = cmd.data;
+   					
+   					var idx = data.indexOf(",");
+   					var no = data.substring(0, idx);
+   					var text = data.substring(idx+1);
+   					
+   					console.log(no);
+   					console.log(text);
+   					
+   					if(no == 7){
+   						alertify.alert(text+"님이 채팅메세지를 보냈습니다.");
+   					}
    				}
    				
    			};

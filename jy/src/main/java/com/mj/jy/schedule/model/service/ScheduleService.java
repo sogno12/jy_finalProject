@@ -14,7 +14,7 @@ public interface ScheduleService {
 	ArrayList<Schedule> selectSchedule(int memberNo);
 	
 	// 일정 드래그앤드롭
-	int drapSchedule(HashMap map);
+	int dragSchedule(HashMap map);
 	
 	// 일정 수정
 	int updateSchedule(Schedule event);

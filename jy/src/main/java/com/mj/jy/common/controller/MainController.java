@@ -1,6 +1,5 @@
 package com.mj.jy.common.controller;
 
-
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -15,8 +14,6 @@ import com.google.gson.Gson;
 import com.mj.jy.common.model.service.MainService;
 import com.mj.jy.todolist.model.vo.TodoList;
 
-import com.mj.jy.common.model.service.MainService;
-import com.mj.jy.todolist.model.vo.TodoList;
 
 @Controller
 public class MainController {

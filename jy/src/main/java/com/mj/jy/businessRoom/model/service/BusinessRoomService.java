@@ -4,17 +4,10 @@ import java.util.ArrayList;
 
 import com.mj.jy.businessRoom.model.vo.BusinessDTO;
 import com.mj.jy.businessRoom.model.vo.BusinessRoom;
+import com.mj.jy.namecard.model.vo.PageInfo;
 
 
 public interface BusinessRoomService {
-	
-
-
-	/** 회의실예약 form service
-	 * @param b
-	 * @return
-	 */
-	int insertBusinessRoom(BusinessRoom b);
 	
 	/** 회의실예약 리스트 service
 	 * @return
@@ -39,6 +32,10 @@ public interface BusinessRoomService {
 	
 	// 회의실 업데이트
 	int broomUpdate(int meetingNo);
+	
+	// 회의실 알람 업데이트
+	int updateBroomAlarm(int meetingNo);
+	
 	
 	
 }

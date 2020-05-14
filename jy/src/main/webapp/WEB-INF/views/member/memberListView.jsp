@@ -50,7 +50,7 @@
 	                            <div class="card-body">
 	                                <h5 class="card-title"></h5>
 	                                <div class="table-responsive">
-	                                    <table id="zero_config" class="table table-striped table-bordered">
+	                                    <table id="zero_config" class="table table-hover">
 	                                        <thead>
 	                                            <tr>
 	                                                <th>사번</th>
@@ -105,11 +105,18 @@
         /****************************************
          *       Basic Table                   *
          ****************************************/
-        $('#zero_config').DataTable();
+        
+        $(document).ready(function() {
 
-        $("#zero_config>tbody>tr>td").click(function(){
-			location.href="select.me?empNo=" + $(this).parent().children().eq(0).text();
-		});
+            var table = $('#zero_config').DataTable({order: [[2, 'desc'], [5, 'asc']]});
+             
+            $('#zero_config tbody').on('click', 'tr', function () {
+                var data = table.row( this ).data();
+                location.href="select.me?empNo=" + data[0];
+            });
+        });
+        
+        
     </script>
     
 </body>

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.mj.jy.businessRoom.model.dao.BusinessRoomDao;
 import com.mj.jy.businessRoom.model.vo.BusinessDTO;
 import com.mj.jy.businessRoom.model.vo.BusinessRoom;
+import com.mj.jy.namecard.model.vo.PageInfo;
 
 @Service("bService")
 public class BusinessRoomServiceImpl implements BusinessRoomService{
@@ -18,15 +19,7 @@ public class BusinessRoomServiceImpl implements BusinessRoomService{
 	private BusinessRoomDao bDao;
 	
 
-	/**
-	 * 회의실 예약 form service
-	 */
-	@Override
-	public int insertBusinessRoom(BusinessRoom b) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
+	
 	/** 회의실예약 리스트 service
 	 * @return
 	 */
@@ -68,7 +61,12 @@ public class BusinessRoomServiceImpl implements BusinessRoomService{
 		return bDao.broomUpdate(meetingNo);
 	}
 
-	
+	// 회의실 알람 업데이트
+	@Override
+	public int updateBroomAlarm(int meetingNo) {
+		return bDao.updateBroomAlarm(meetingNo);
+	}
+
 	
 
 }

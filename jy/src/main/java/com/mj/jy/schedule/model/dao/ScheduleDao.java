@@ -22,8 +22,8 @@ public class ScheduleDao {
 	}
 	
 	// 일정 드래그앤드롭
-	public int drapSchedule(SqlSessionTemplate sqlSession, HashMap map) {
-		return sqlSession.update("scheduleMapper.drapSchedule", map);
+	public int dragSchedule(SqlSessionTemplate sqlSession, HashMap map) {
+		return sqlSession.update("scheduleMapper.dragSchedule", map);
 	}
 	
 	// 일정 수정

@@ -190,6 +190,7 @@
                 <!-- Sales Cards  -->
                 <!-- ============================================================== -->
 
+				<jsp:include page="../common/footer.jsp"/>
                
 	        </div>
 	        <!-- ============================================================== -->
@@ -198,8 +199,8 @@
 	    
 		
 		
-		<jsp:include page="../common/footer.jsp"/>
 		</div>
+
 	<script>
 function autocomplete(inp, arr) {
   

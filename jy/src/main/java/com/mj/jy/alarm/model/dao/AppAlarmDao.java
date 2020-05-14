@@ -7,7 +7,7 @@ import com.mj.jy.alarm.model.vo.CountTypeDto;
 
 public interface AppAlarmDao {
 
-	int findEmpNo(int memberNo);
+	String findEmpNo(int memberNo);
 	int countAppAlarm(int memberNo);
 	List<CountTypeDto> eachAppAlarm(int memberNo);
 	void readSendAppAlarm(int memberNo);

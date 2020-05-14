@@ -6,7 +6,7 @@ import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
-import com.mj.jy.businessRoom.model.vo.BusinessRoom;
+import com.mj.jy.businessRoom.model.vo.BusinessDTO;
 import com.mj.jy.namecard.model.vo.Namecard;
 import com.mj.jy.namecard.model.vo.PageInfo;
 
@@ -44,5 +44,14 @@ public class NamecardDao {
 		return sqlSession.update("namecardMapper.nameUpdate", namecardNo);
 	}
 	
+	public ArrayList<BusinessDTO> selectBroomList(SqlSessionTemplate sqlSession, PageInfo pi){
+		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
+		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
+		return (ArrayList)sqlSession.selectList("namecardMapper.selectBroomList", null, rowBounds);
+	}
+
+	public int updateNameAlarm(SqlSessionTemplate sqlSession, int namecardNo) {
+		return sqlSession.update("namecardMapper.updateNameAlarm", namecardNo);
+	}
 	
 }

@@ -11,4 +11,6 @@ public interface CafeService {
 
 	// 주문 리스트 보이기
 	List<Menu> selectCafe(int memberNo);
+	
+	int updateCafe(int memberNo);
 }

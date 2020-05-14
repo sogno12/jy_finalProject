@@ -66,8 +66,6 @@ var editEvent = function (event, element, view) {
             displayDate = endDate;
         }
         
-       
-
         eventModal.modal('hide');
 
         event.allDay = statusAllDay;
@@ -93,7 +91,7 @@ var editEvent = function (event, element, view) {
             		"backColor": event.backgroundColor,
             		"content": event.description },
             success: function (response) {
-                alert('수정되었습니다.');
+                // alert('수정되었습니다.');
             }
         });
 
@@ -103,7 +101,7 @@ var editEvent = function (event, element, view) {
 // 삭제버튼
 $('#deleteEvent').on('click', function () {
 	
-    $('#deleteEvent').unbind();
+    // $('#deleteEvent').unbind();
     $("#calendar").fullCalendar('removeEvents', $(this).data('id'));
     eventModal.modal('hide');
     
@@ -113,7 +111,7 @@ $('#deleteEvent').on('click', function () {
         url: "delete.sc",
         data: { "scheduleNo": $(this).data('id') },
         success: function (response) {
-             alert('삭제되었습니다.');
+             // alert('삭제되었습니다.');
         }
     });
 

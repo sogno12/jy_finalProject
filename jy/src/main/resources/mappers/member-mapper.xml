@@ -49,13 +49,7 @@
   		  JOIN POSITION P USING(POSITION_NO)
  		 WHERE EMP_NO=#{empNo}
 	</select>
-	
-	<select id="searchPwd" parameterType="String" resultType="String">
-		SELECT PWD
-		  FROM MEMBER
-		 WHERE EMP_NO=#{empNo}
-	</select>
-	
+
 	<insert id="insertMember" parameterType="Member">
 		INSERT INTO MEMBER
 		VALUES (SEQ_MEM.NEXTVAL, #{departmentNo}, #{positionNo}, #{pwd}, 
@@ -123,6 +117,7 @@
 	            JOIN DEPARTMENT D USING(DEPARTMENT_NO)
 	            JOIN POSITION P USING(POSITION_NO)
 	            WHERE STATUS ='Y'
+
 	</select>
 	
 	<select id="getListDept" resultType="MemberDto">

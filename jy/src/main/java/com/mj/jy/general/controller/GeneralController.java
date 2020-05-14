@@ -45,17 +45,21 @@ public class GeneralController {
 	 * @return
 	 */
 	@RequestMapping("generalList.ge")
-	public String selectGeList(Model model, @RequestParam(value="currentPage", required=false, defaultValue="1") int currentPage) {
+	public String selectGeList(Model model, 
+			@RequestParam(value="bcurrentPage", required=false, defaultValue="1") int bcurrentPage,
+			@RequestParam(value="ncurrentPage", required=false, defaultValue="1") int ncurrentPage) {
 		
+		int broomListCount = nService.getBroomListCount();
 		int nameListCount = nService.getNameListCount();
 		
-		PageInfo pi = Pagination.getPageInfo(nameListCount, currentPage, 10, 5);
+		PageInfo pn = Pagination.getPageInfo(nameListCount, ncurrentPage, 10, 5);
+		PageInfo pb = Pagination.getPageInfo(nameListCount, bcurrentPage, 10, 5);
 		
-		ArrayList<Namecard> nlist = nService.selectNameList(pi);
+		ArrayList<Namecard> nlist = nService.selectNameList(pn);
+		ArrayList<BusinessDTO> blist = nService.selectBroomList(pb);
 		
-		ArrayList<BusinessDTO> blist = bService.selectBroomList();
-		
-		model.addAttribute("pi", pi);
+		model.addAttribute("pb", pb);
+		model.addAttribute("pn", pn);
 		model.addAttribute("nlist", nlist);
 		model.addAttribute("blist", blist);
 		
