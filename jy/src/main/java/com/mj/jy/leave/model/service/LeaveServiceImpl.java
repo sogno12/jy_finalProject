@@ -23,24 +23,15 @@ public class LeaveServiceImpl implements LeaveService {
 
 	// 나의 휴가 조회
 	@Override
-	public LeaveDto selectMyLeave(String empNo) {
+	public LeaveDto selectMyLeave(int empNo) {
 			return lDao.selectMyLeave(empNo);
-	}
-
-	// 휴가내역 총 갯수조회 서비스
-	@Override
-	public int getListCount() {
-		return lDao.getLeaveListCount();
 	}
 
 	// 사용한 휴가내역 조회
 	@Override
-	public ArrayList<LeaveListDto> selectLeaveList(String empNo,PageInfo pi) {
+	public ArrayList<LeaveListDto> selectLeaveList(int empNo) {
 		
-		int offset = (pi.getCurrentPage() - 1) * pi.getBoardLimit();
-		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
-		
-		return lDao.selectLeaveList(empNo,rowBounds);
+		return lDao.selectLeaveList(empNo);
 	}
 	
 	

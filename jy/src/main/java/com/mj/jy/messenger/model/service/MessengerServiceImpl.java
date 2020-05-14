@@ -50,5 +50,11 @@ public class MessengerServiceImpl implements MessengerService{
 		return mgDao.deleteMessage(msgNo);
 	}
 
+	@Override
+	public int readDone(int recieverNo) {
+		// TODO Auto-generated method stub
+		return mgDao.readDone(recieverNo);
+	}
+
 	
 }
