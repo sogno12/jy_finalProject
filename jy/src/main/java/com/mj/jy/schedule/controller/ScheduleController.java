@@ -31,12 +31,6 @@ public class ScheduleController {
 	@RequestMapping("insert.sc")
 	public String insertSchedule(Schedule eventData) {
 		
-		if(eventData.getAllDay().equals("false")) {
-			eventData.setAllDay("N");
-		} else {
-			eventData.setAllDay("Y");
-		}
-
 		int result = scService.insertSchedule(eventData);
 		
 		if(result > 0) {} else {}
@@ -65,9 +59,26 @@ public class ScheduleController {
 		map.put("startDate", startDate);
 		map.put("endDate", endDate);
 		
-		// System.out.println(map);
+//		System.out.println("drag : " + map);
+		int result = scService.dragSchedule(map);
 		
-		int result = scService.drapSchedule(map);
+		if(result > 0) {} else {}
+		
+		return "";
+	}
+	
+	// 일정 리사이즈
+	@RequestMapping("resize.sc")
+	public String resizeSchedule(String scheduleNo, String startDate, String endDate) {
+		
+		HashMap<String, String> map = new HashMap<String, String>();
+		
+		map.put("scheduleNo", scheduleNo);
+		map.put("startDate", startDate);
+		map.put("endDate", endDate);
+		
+//		 System.out.println("resize : " + map);
+		int result = scService.dragSchedule(map);
 		
 		if(result > 0) {} else {}
 		
@@ -77,13 +88,7 @@ public class ScheduleController {
 	// 일정 수정
 	@RequestMapping("update.sc")
 	public String updateSchedule(Schedule event) {
-		
-		if(event.getAllDay().equals("false")) {
-			event.setAllDay("N");
-		} else {
-			event.setAllDay("Y");
-		}
-		
+
 		// System.out.println(event);
 		
 		int result = scService.updateSchedule(event);

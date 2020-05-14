@@ -23,7 +23,7 @@
 	                <div class="col-12 d-flex no-block align-items-center">
 	                    <nav aria-label="breadcrumb">
 	                        <ol class="breadcrumb">
-	                            <li class="breadcrumb-item"><a href="#">Home</a></li>
+	                            <li class="breadcrumb-item"><a href="main.do">Home</a></li>
 	                        </ol>
 	                    </nav>
 	                </div>
@@ -43,7 +43,7 @@
 	                <!-- Column -->
 	                <div class="col-md-6 col-lg-2 col-xlg-3">
 	                    <div class="card card-hover">
-	                        <div class="box bg-cyan text-center" style="cursor: pointer;" onclick="goProfile();">
+	                        <div class="box bg-cyan text-center" style="cursor: pointer;" onclick="location.href='myInfo.me';">
 	                            <h1 class="font-light text-white"><i class="mdi mdi-account-card-details"></i></h1>
 	                            <h6 class="text-white">내 정보</h6>
 	                        </div>
@@ -182,14 +182,8 @@
 	                            <h4 class="card-title"><i class="mdi mdi-border-color">To Do List<a href="javascript:void(0)" data-toggle="modal" data-target="#add-new-todo" class="m-l-20" style="color: palevioletred;">+</a></i></h4>
 	                            <div class="todo-widget scrollable" style="height:450px;" id="todoArea">
 	                                <ul class="list-task todo-list list-group m-b-0" data-role="tasklist">
-
-                                    
-                                    
-                                    
-                                    
-                                    
+       
 									                 </ul>
-
 	                            </div>
 	                        </div>
 	                    </div>
@@ -248,7 +242,6 @@
 	</div>
 	
 	<script>
-	
 		
 		var memNo="<c:out value='${loginUser.memberNo}'/>";
 		var type='POST';
@@ -310,7 +303,7 @@
 										}
 										
 								value += "<label class='custom-control-label todo-label' for='customCheck" + obj.todoNo + "'>" +
-											"<span>" + obj.title + "</span>" +
+											"<span class='m-r-30'>" + obj.title + "</span>" +
 											"<span class='badge badge-pill badge-danger float-right'>Today</span>" +
 										"</label>" +
 									"</div>" +
