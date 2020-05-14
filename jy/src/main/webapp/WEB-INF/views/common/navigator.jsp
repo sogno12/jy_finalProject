@@ -378,14 +378,18 @@
          
         function connectWs(){
         	sock = new WebSocket("ws://localhost:"+location.port+"/jy/echo/websocket");
+
+      
+
         	console.log("소켓실행");
+
         	socket = sock;
         	
    			sock.onmessage = function(cmd){
    				// alert(cmd.data);
    				if(cmd.data == 0){
    					//alert('알림갯수 함수 실행');
-   					readAlarms();
+   					readAlarms(); 
    				} else if(cmd.data == 5) {
    					alertify.alert("결재 상태가 변경되었습니다.");	
    				} else if(cmd.data == 6){

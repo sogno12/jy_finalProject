@@ -49,5 +49,9 @@ public class NamecardDao {
 		RowBounds rowBounds = new RowBounds(offset, pi.getBoardLimit());
 		return (ArrayList)sqlSession.selectList("namecardMapper.selectBroomList", null, rowBounds);
 	}
+
+	public int updateNameAlarm(SqlSessionTemplate sqlSession, int namecardNo) {
+		return sqlSession.update("namecardMapper.updateNameAlarm", namecardNo);
+	}
 	
 }

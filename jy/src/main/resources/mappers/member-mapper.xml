@@ -124,6 +124,7 @@
 	            JOIN POSITION P USING(POSITION_NO)
 	            WHERE STATUS ='Y'
 
+	</select>
 	
 	<select id="getListDept" resultType="MemberDto">
 		SELECT M.NAME AS MEMBER_NAME, D.NAME DEPARTMENT_NAME, P.NAME POSITION_NAME,
