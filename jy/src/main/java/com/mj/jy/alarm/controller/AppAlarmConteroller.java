@@ -40,12 +40,11 @@ public class AppAlarmConteroller {
 				String typeFive = eachAlarm[5];
 				String typeSix = eachAlarm[6];
 				
-				text += "<a href='#' class='link border-top'><div class='d-flex no-block align-items-center p-10'><span class='btn btn-success btn-circle'><i class='ti-calendar'></i></span><div class='m-l-10'><h5 class='m-b-0'>회의실</h5><span class='mail-desc'>"+typeOne+"개의 신규알람</span></div></div></a>";
-				text += "<a href='#' class='link border-top'><div class='d-flex no-block align-items-center p-10'><span class='btn btn-success btn-circle'><i class='ti-calendar'></i></span><div class='m-l-10'><h5 class='m-b-0'>명함</h5><span class='mail-desc'>"+typeTwo+"개의 신규알람</span></div></div></a>";
-				text += "<a href='#' class='link border-top'><div class='d-flex no-block align-items-center p-10'><span class='btn btn-success btn-circle'><i class='ti-calendar'></i></span><div class='m-l-10'><h5 class='m-b-0'>카페</h5><span class='mail-desc'>"+typeThree+"개의 신규알람</span></div></div></a>";
-				text += "<a href='#' class='link border-top'><div class='d-flex no-block align-items-center p-10'><span class='btn btn-success btn-circle'><i class='ti-calendar'></i></span><div class='m-l-10'><h5 class='m-b-0'>쪽지</h5><span class='mail-desc'>"+typeFour+"개의 신규알람</span></div></div></a>";
-				text += "<a href='sendAppBox.box' class='link border-top'><div class='d-flex no-block align-items-center p-10'><span class='btn btn-success btn-circle'><i class='ti-calendar'></i></span><div class='m-l-10'><h5 class='m-b-0'>결재변경</h5><span class='mail-desc'>"+typeFive+"개의 신규알람</span></div></div></a>";
-				text += "<a href='receiveAppBox.box' class='link border-top'><div class='d-flex no-block align-items-center p-10'><span class='btn btn-success btn-circle'><i class='ti-calendar'></i></span><div class='m-l-10'><h5 class='m-b-0'>대기결재</h5><span class='mail-desc'>"+typeSix+"개의 신규알람</span></div></div></a>";
+				text += "<a href='#' class='link border-top'><div class='d-flex no-block align-items-center p-10'><span class='btn btn-warning btn-circle'><i class='fas fa-laptop'></i></span><div class='m-l-10'><h5 class='m-b-0'>회의실</h5><span class='mail-desc'>"+typeOne+"개의 신규알람</span></div></div></a>";
+				text += "<a href='#' class='link border-top'><div class='d-flex no-block align-items-center p-10'><span class='btn btn-danger btn-circle'><i class='fas fa-id-badge'></i></span><div class='m-l-10'><h5 class='m-b-0'>명함</h5><span class='mail-desc'>"+typeTwo+"개의 신규알람</span></div></div></a>";
+				text += "<a href='#' class='link border-top'><div class='d-flex no-block align-items-center p-10'><span class='btn btn-info btn-circle'><i class='fas fa-comment-alt'></i></span><div class='m-l-10'><h5 class='m-b-0'>쪽지</h5><span class='mail-desc'>"+typeFour+"개의 신규알람</span></div></div></a>";
+				text += "<a href='sendAppBox.box' class='link border-top'><div class='d-flex no-block align-items-center p-10'><span class='btn btn-success btn-circle'><i class='fas fa-clipboard-check'></i></span><div class='m-l-10'><h5 class='m-b-0'>결재변경</h5><span class='mail-desc'>"+typeFive+"개의 신규알람</span></div></div></a>";
+				text += "<a href='receiveAppBox.box' class='link border-top'><div class='d-flex no-block align-items-center p-10'><span class='btn btn-primary btn-circle'><i class='fas fa-notes-medical'></i></span><div class='m-l-10'><h5 class='m-b-0'>대기결재</h5><span class='mail-desc'>"+typeSix+"개의 신규알람</span></div></div></a>";
 			}
 			
 			Result response = new Result(ResponseStatus.SUCCESS, text);
