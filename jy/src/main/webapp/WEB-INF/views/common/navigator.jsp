@@ -338,7 +338,7 @@
    				} else if(cmd.data == 5) {
    					alertify.alert("결재 상태가 변경되었습니다.");	
    				} else if(cmd.data == 6){
-            		alertify.alert("새 결재서가 있습니다.");
+            		alertify.alert("결재 요청이 있습니다.");
    				} else if(cmd.data == 4){
    			    	alertify.alert("쪽지 왔습니다.");
    				} else if(cmd.data == 1){

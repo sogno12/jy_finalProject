@@ -61,11 +61,8 @@ public class BusinessRoomController {
 			// 알람 insert
 			appAlarmService.insertAppAlarm(broomNo, 1, "1");
 			
-			// 알람읽기
-			appAlarmService.countAppAlarm(1);
-			
-			// 알람띄우기
-			appAlarmService.noticeAppAlarm(1, "1");
+			// 알람읽기+띄우기
+			appAlarmService.sendAlarm(1, "1");
 			
 			return "convenience/namecard/namecardSuccess";
 		} else {

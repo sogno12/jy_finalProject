@@ -89,6 +89,12 @@ public class AppAlarmServiceImpl implements AppAlarmService {
 		appAlramDao.insertAppAlarm(alarm);
 	}
 
-
+	@Override
+	public void sendAlarm(int memberNo, String msg) {
+		/* msg */
+		/* 1.회의실, 2.명함, 4.쪽지, 5.결재상태변경, 6.결재요청 */
+		countAppAlarm(memberNo);
+		noticeAppAlarm(memberNo, msg);
+	}
 	
 }

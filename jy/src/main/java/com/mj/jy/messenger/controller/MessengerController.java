@@ -114,11 +114,7 @@ public class MessengerController {
 		 	int senderNo = loginUser.getMemberNo();
 	    	
 	    	appAlarmService.insertAppAlarm(senderNo, recieverNo, "4");
-	    	
-	    	appAlarmService.countAppAlarm(recieverNo);
-	    	
-	    	appAlarmService.noticeAppAlarm(recieverNo, "4");
-	    	
+	    	appAlarmService.sendAlarm(recieverNo, "4");
 	    	
 			model.addAttribute("m", m);
 			model.addAttribute("a", a);
