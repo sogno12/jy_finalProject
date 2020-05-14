@@ -96,8 +96,9 @@
 	                            <ul class="list-style-none">
 	                                <li>
 	                                    <div class="" id="alarm">
+	                                    	<c:if test="${ loginUser.departmentNo eq 1 }">
 	                                         <!-- 회의실 -->
-	                                        <a href="javascript:void(0)" class="link border-top">
+	                                        <a href="generalList.ge" class="link border-top">
 	                                            <div class="d-flex no-block align-items-center p-10">
 	                                                <span class="btn btn-warning btn-circle"><i class="fas fa-laptop"></i></span>
 	                                                <div class="m-l-10">
@@ -107,7 +108,7 @@
 	                                            </div>
 	                                        </a>
 	                                        <!-- 명함 -->
-	                                        <a href="javascript:void(0)" class="link border-top">
+	                                        <a href="generalList.ge" class="link border-top">
 	                                            <div class="d-flex no-block align-items-center p-10">
 	                                                <span class="btn btn-danger btn-circle"><i class="fas fa-badge"></i></span>
 	                                                <div class="m-l-10">
@@ -116,6 +117,7 @@
 	                                                </div>
 	                                            </div>
 	                                        </a>
+	                                        </c:if>
 	                                        <!-- 쪽지 -->
 	                                        <a href="messenger.me" class="link border-top">
 	                                            <div class="d-flex no-block align-items-center p-10">
@@ -324,8 +326,6 @@
         function connectWs(){
         	sock = new WebSocket("ws://localhost:"+location.port+"/jy/echo/websocket");
 
-      
-
         	console.log("소켓실행");
 
         	socket = sock;
@@ -338,20 +338,22 @@
    				} else if(cmd.data == 5) {
    					alertify.alert("결재 상태가 변경되었습니다.");	
    				} else if(cmd.data == 6){
-            alertify.alert("새 결재서가 있습니다.");
-   				
+            		alertify.alert("새 결재서가 있습니다.");
    				} else if(cmd.data == 4){
-   			    alertify.alert("쪽지 왔습니다.");
-   				
-   				} else {
+   			    	alertify.alert("쪽지 왔습니다.");
+   				} else if(cmd.data == 1){
+   			    	alertify.alert("새로운 회의실 예약건이 있습니다.");
+   				} else if(cmd.data == 2){
+   			    	alertify.alert("새로운 명함 신청건이 있습니다.");
+   				}else {
    					var data = cmd.data;
    					
    					var idx = data.indexOf(",");
    					var no = data.substring(0, idx);
    					var text = data.substring(idx+1);
    					
-   					console.log(no);
-   					console.log(text);
+   					// console.log(no);
+   					// console.log(text);
    					
    					if(no == 7){
    						alertify.alert(text+"님이 채팅메세지를 보냈습니다.");

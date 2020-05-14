@@ -152,13 +152,19 @@ public class EchoHandler extends TextWebSocketHandler {
 				WebSocketSession receiverSession = userSessionsMap.get(receiverEmpNo);
 				
 				try {
-					if("5".equals(cmd) && receiverSession != null) {
+					if("1".equals(cmd) && receiverSession != null) {
 						TextMessage tmpMsg = new TextMessage(cmd);
 						receiverSession.sendMessage(tmpMsg);
-					} else if ("6".equals(cmd) && receiverSession != null) {
+					} else if ("2".equals(cmd) && receiverSession != null) {
 						TextMessage tmpMsg = new TextMessage(cmd);
 						receiverSession.sendMessage(tmpMsg);
 					} else if ("4".equals(cmd) && receiverSession != null) {
+						TextMessage tmpMsg = new TextMessage(cmd);
+						receiverSession.sendMessage(tmpMsg);
+					} else if ("5".equals(cmd) && receiverSession != null) {
+						TextMessage tmpMsg = new TextMessage(cmd);
+						receiverSession.sendMessage(tmpMsg);
+					} else if ("6".equals(cmd) && receiverSession != null) {
 						TextMessage tmpMsg = new TextMessage(cmd);
 						receiverSession.sendMessage(tmpMsg);
 					} 
