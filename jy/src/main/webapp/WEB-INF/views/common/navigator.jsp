@@ -231,7 +231,7 @@
 	                    <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="mdi mdi-account-multiple"></i><span class="hide-menu">Team </span></a>
 	                        <ul aria-expanded="false" class="collapse  first-level">
 	                     
-	                            <li class="sidebar-item"><a href="board.bd" class="sidebar-link"><i class="mdi mdi-note-outline"></i><span class="hide-menu"> 사내 게시판 </span></a></li>
+	                            <li class="sidebar-item"><a href="boardList.bo" class="sidebar-link"><i class="mdi mdi-note-outline"></i><span class="hide-menu"> 사내 게시판 </span></a></li>
 	                            <li class="sidebar-item"><a href="teamTable.me" class="sidebar-link"><i class="mdi mdi-sitemap"></i><span class="hide-menu"> 팀 정보 </span></a></li>
 	                            
 	                            <c:if test="${ loginUser.departmentNo eq 1 }">
