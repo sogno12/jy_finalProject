@@ -24,43 +24,55 @@ public class Board {
 		this.views = views;
 		this.content = content;
 	}
+
 	public int getBoardNo() {
 		return boardNo;
 	}
+
 	public void setBoardNo(int boardNo) {
 		this.boardNo = boardNo;
 	}
+
 	public int getMemberNo() {
 		return memberNo;
 	}
+
 	public void setMemberNo(int memberNo) {
 		this.memberNo = memberNo;
 	}
+
 	public String getTitle() {
 		return title;
 	}
+
 	public void setTitle(String title) {
 		this.title = title;
 	}
+
 	public Date getWrittenDate() {
 		return writtenDate;
 	}
+
 	public void setWrittenDate(Date writtenDate) {
 		this.writtenDate = writtenDate;
 	}
+
 	public int getViews() {
 		return views;
 	}
+
 	public void setViews(int views) {
 		this.views = views;
 	}
+
 	public String getContent() {
 		return content;
 	}
+
 	public void setContent(String content) {
 		this.content = content;
 	}
-	
+
 	@Override
 	public String toString() {
 		return "Board [boardNo=" + boardNo + ", memberNo=" + memberNo + ", title=" + title + ", writtenDate="
@@ -68,5 +80,4 @@ public class Board {
 	}
 	
 	
-
 }

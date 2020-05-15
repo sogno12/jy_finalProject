@@ -4,10 +4,46 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.mj.jy.board.model.dao.BoardDao">
 
-	<select id="selectBoardList" resultType="Board">
-		SELECT *
-		FROM COMPANY_BOARD
+	<select id="selectBoardList" resultType="BoardDto">
+		SELECT BOARD_NO, C.MEMBER_NO, MEMBER.NAME, C.TITLE, WRITTEN_DATE, C.VIEWS, C.CONTENT, D.NAME AS DEPARTMENT_NAME, P.NAME AS POSITION_NAME
+		FROM COMPANY_BOARD C
+		JOIN MEMBER ON(C.MEMBER_NO = MEMBER.MEMBER_NO)
+		JOIN DEPARTMENT D USING(DEPARTMENT_NO)
+		JOIN POSITION P USING(POSITION_NO)
+		ORDER BY BOARD_NO DESC
 	</select>
+	
+	<update id="increaseCount" parameterType="_int">
+		UPDATE COMPANY_BOARD
+		SET VIEWS = VIEWS + 1
+		WHERE BOARD_NO = #{bno}
+	</update>
+	
+	<select id="selectBoard" resultType="BoardDto">
+		SELECT BOARD_NO, C.MEMBER_NO, MEMBER.NAME, C.TITLE, WRITTEN_DATE, C.VIEWS, C.CONTENT, D.NAME AS DEPARTMENT_NAME, P.NAME AS POSITION_NAME
+		FROM COMPANY_BOARD C
+		JOIN MEMBER ON(C.MEMBER_NO = MEMBER.MEMBER_NO)
+		JOIN DEPARTMENT D USING(DEPARTMENT_NO)
+		JOIN POSITION P USING(POSITION_NO)
+		WHERE BOARD_NO = #{bno}
+	</select>
+	
+	<insert id="insertBoard" parameterType="Board">
+		INSERT INTO COMPANY_BOARD
+		VALUES(seq_boa.nextval, #{memberNo}, #{title}, default, default, #{content})
+	</insert>
+	
+	<update id="updateBoard" parameterType="Board">
+		UPDATE COMPANY_BOARD
+		SET TITLE = #{title},
+			CONTENT = #{content}
+		WHERE BOARD_NO = #{boardNo}
+	</update>
+	
+	<delete id="deleteBoard" parameterType="_int">
+		DELETE FROM COMPANY_BOARD
+		WHERE BOARD_NO = #{boardNo}
+	</delete>
 
 
 </mapper>

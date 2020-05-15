@@ -8,16 +8,10 @@
 <title>Insert title here</title>
 </head>
 <style>
-	/*
-    .accordion-row {cursor: pointer;}
-    .accordion {display: none;width: 100%;}
-    .accordion-content {display: none;}
-    */
-    tbody > tr:hover {background-color:#f5f5f5;}
-    table{padding-left: 50px;}
+	table *{margin:5px;}
+    table{width:100%;}
 </style>
 <body>
-	
 	<div id="main-wrapper">
 		
 		<jsp:include page="../common/navigator.jsp"/>
@@ -66,51 +60,55 @@
 
                 <div class="row">
                     <div class="col-12">
-                        <div class="card" style="padding-left:10%; padding-right:10%;">
+                        <div class="card" style="padding-left:10%; padding-right:20%;">
                             <div class="card-body">
                                 <h5 class="card-title m-b-0">사내 게시판</h5>
-                                
-                      <a class="btn btn-secondary" style="float:right; margin-top:20px" href="enrollForm.bo">작성하기</a>          
-                      
-                      <label style="margin-left: 80%;">Search:<input type="search" class="form-control form-control-sm" placeholder="" aria-controls="zero_config"></label>
+                      <a class="btn btn-secondary" style="float:right" href="boardList.bo">목록으로</a>
                             </div>
-                            <table class="table" class="table table-hover" id="boardList">
+						<table id="contentArea" align="center" class="table">
+							<tr>
+								<th width="100">제목</th>
+					            <td colspan="3">${ b.title }</td>
+					            </tr>
+					            <tr>
+					            	<th>작성자</th>
+					                <td>${ b.name } ${ b.positionName }</td>
+					                <th style="width:100px">작성일</th>
+					                <td>${ b.writtenDate }</td>
+					            </tr>
+					
+					                <tr>
+					                    <th>내용</th>
+					                    <td colspan="3"><textarea class="form-control" readonly style="resize:none; width:80%; height:300px; padding:10px; background:white;">${ b.content }</textarea></td>
+					                </tr>
+					                
+					            </table>
+					            
+		            		<c:if test="${ loginUser.memberNo eq b.memberNo }">
+	        					<div align="center" style="margin:10px 100px 100px 10px;">
+	            					<button class="btn btn-primary" onclick="postFormSubmit(2);">수정하기</button>
+	            					<button class="btn btn-danger" onclick="postFormSubmit(1);">삭제하기</button>
+	        					</div>
+	        
+	        					<form id="postForm" action="" method="post">
+	        						<input type="hidden" name="bno" value="${ b.boardNo }">
+	        					</form>
+	        
+				            <script>
+				            	function postFormSubmit(num){
+				            		if(num == 1){	// 삭제하기 클릭시
+				            			$("#postForm").attr("action", "delete.bo");
+				            		}else{		// 수정하기 클릭시
+				            			$("#postForm").attr("action", "updateForm.bo");
+				            		}
+				            		
+				           			$("#postForm").submit();
+				           			
+				            	}
+				            </script>
+		            
+		            		</c:if>
 
-                                <thead style="padding-left: 150px;">
-                                    <tr>
-                                        <strong>
-                                            <th style="padding-left: 50px;">번호</th>
-                                            <th style="padding-left: 55px;">제목</th>
-                                            <th style="padding-left: 30px;">글쓴이</th>
-                                            <th style="padding-left: 20px;">부서</th>
-                                            <th style="padding-left: 35px;">날짜</th>
-                                            <th style="padding-left: 10px;">조회수</th>
-                                        </strong>
-                                        </tr>
-                                </thead>
-                                <tbody>
-			                	<c:forEach items="${ list }" var="b">
-				                    <tr>
-				                        <td style="padding-left: 60px;">${ b.boardNo }</td>
-				                        <td>${ b.title }</td>
-				                        <td>${ b.name } ${ b.positionName }</td>
-				                        <td>${ b.departmentName }</td>
-				                        <td>${ b.writtenDate }</td>
-				                        <td style="padding-left: 20px;">${ b.views }</td>
-				                    </tr>
-			                    </c:forEach>
-
-
-                                </tbody>
-                            </table>
-                           <ul style="margin-left: 35%; margin-top:50px;" class="pagination">
-                                <li class="paginate_button page-item previous disabled" id="zero_config_previous"><a href="#" aria-controls="zero_config" data-dt-idx="0" tabindex="0" class="page-link">Previous</a></li>
-                                <li class="paginate_button page-item active"><a href="#" aria-controls="zero_config" data-dt-idx="1" tabindex="0" class="page-link">1</a></li><li class="paginate_button page-item "><a href="#" aria-controls="zero_config" data-dt-idx="2" tabindex="0" class="page-link">2</a></li>
-                                <li class="paginate_button page-item "><a href="#" aria-controls="zero_config" data-dt-idx="3" tabindex="0" class="page-link">3</a></li><li class="paginate_button page-item "><a href="#" aria-controls="zero_config" data-dt-idx="4" tabindex="0" class="page-link">4</a></li>
-                                <li class="paginate_button page-item "><a href="#" aria-controls="zero_config" data-dt-idx="5" tabindex="0" class="page-link">5</a></li>
-                                <li class="paginate_button page-item "><a href="#" aria-controls="zero_config" data-dt-idx="6" tabindex="0" class="page-link">6</a></li>
-                                <li class="paginate_button page-item next" id="zero_config_next"><a href="#" aria-controls="zero_config" data-dt-idx="7" tabindex="0" class="page-link">Next</a></li>
-                            </ul>
                         </div>
                 
               
@@ -140,19 +138,10 @@
     <!-- All Jquery -->
     <!-- ============================================================== -->
 	
-	<script>
-		$(function(){
-			$("#boardList tbody tr").click(function(){
-				location.href = "detail.bo?bno=" + $(this).children().eq(0).text();
-			});
-		});
-	</script>
-	
-	
-	</div>
     
     </div>
-
+    
+    </div>
+    
 </body>
-
 </html>
