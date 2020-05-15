@@ -304,11 +304,15 @@
   
         }
         
-     </script>
-  
-        
+    </script>
+	<script type="text/javascript" scr="http://jsgetip.appspot.com"></script>
 	
 	<script type="text/javascript">
+	
+	function ipv(){
+		return -1!=ip().indexOf(":")?6:4
+	};
+	
 	   /***********************/
        /* Web Socket // Sujin */
        /***********************/
@@ -321,7 +325,7 @@
         });
          
         function connectWs(){
-        	sock = new WebSocket("ws://192.168.30.186:"+location.port+"/jy/echo/websocket");
+        	sock = new WebSocket("ws://localhost:" + location.port+"/jy/echo/websocket");
 
         	console.log("소켓실행");
 

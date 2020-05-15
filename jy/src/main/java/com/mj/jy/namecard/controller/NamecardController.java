@@ -100,8 +100,8 @@ public class NamecardController {
 		  
 		  
 
-	     ArrayList<BusinessDTO> blist = nService.selectBroomList(pb);
-		  ArrayList<Namecard> nlist = nService.selectNameList(pn);
+//	     ArrayList<BusinessDTO> blist = nService.selectBroomList(pb);
+//		  ArrayList<Namecard> nlist = nService.selectNameList(pn);
 		 
 		
 

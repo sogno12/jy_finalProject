@@ -1,7 +1,8 @@
-
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> 
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -106,45 +107,24 @@
 	                            <h4 class="card-title m-b-0">공지사항</h4>
 	                        </div>
 	                        <ul class="list-style-none">
-	                            <li class="d-flex no-block card-body">
-	                                <i class="fa fa-check-circle w-30px m-t-5"></i>
+	                        	<c:forEach var="b" items="${ bData }">
+	                        		<li class="d-flex no-block card-body">
 	                                <div>
-	                                    <a href="#" class="m-b-0 font-medium p-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</a>
-	                                    <span class="text-muted">But already everything was solved. It will ...</span>
+	                                    <a href="#" class="m-b-0 font-medium p-0">Title : ${ b.title }</a>
+	                                    <span class="text-muted">No.${ b.boardNo } &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ${ b.departmentName }</span>
 	                                </div>
 	                                <div class="ml-auto">
 	                                    <div class="tetx-right">
-	                                        <h5 class="text-muted m-b-0">20</h5>
-	                                        <span class="text-muted font-16">Jan</span>
+	                                        <h5 class="text-muted m-b-0">
+	                                        	<fmt:formatDate value="${ b.writtenDate }" pattern="dd" />
+	                                        </h5>
+	                                        <span class="text-muted font-16">
+	                                        	<fmt:formatDate value="${ b.writtenDate }" pattern="MMMMM" />
+	                                        </span>
 	                                    </div>
 	                                </div>
 	                            </li>
-	                            <li class="d-flex no-block card-body border-top">
-	                                <i class="fa fa-gift w-30px m-t-5"></i>
-	                                <div>
-	                                    <a href="#" class="m-b-0 font-medium p-0">Congratulation Maruti, Happy Birthday</a>
-	                                    <span class="text-muted">But already everything was solved. It will ...</span>
-	                                </div>
-	                                <div class="ml-auto">
-	                                    <div class="tetx-right">
-	                                        <h5 class="text-muted m-b-0">11</h5>
-	                                        <span class="text-muted font-16">Jan</span>
-	                                    </div>
-	                                </div>
-	                            </li>
-	                            <li class="d-flex no-block card-body border-top">
-	                                <i class="fa fa-plus w-30px m-t-5"></i>
-	                                <div>
-	                                    <a href="#" class="m-b-0 font-medium p-0">Maruti is a Responsive Admin theme</a>
-	                                    <span class="text-muted">But already everything was solved. It will ...</span>
-	                                </div>
-	                                <div class="ml-auto">
-	                                    <div class="tetx-right">
-	                                        <h5 class="text-muted m-b-0">19 </h5>
-	                                        <span class="text-muted font-16">Jan</span>
-	                                    </div>
-	                                </div>
-	                            </li>
+	                        	</c:forEach>
 	                        </ul>
 	                    </div>
 	
