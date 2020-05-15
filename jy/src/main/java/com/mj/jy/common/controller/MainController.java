@@ -29,6 +29,9 @@ public class MainController {
 	@RequestMapping("main.do")
 	public String goMain(@SessionAttribute("loginUser") MemberDto loginUser, Model model) {
 
+		// 공지사항
+		
+		// 결재내용
 		List<SentAppBoxDto> appData = mainService.getApprovalData(loginUser.getMemberNo());
 		model.addAttribute("appData", mainService.getApprovalData(loginUser.getMemberNo()));
 		

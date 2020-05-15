@@ -15,6 +15,8 @@ public class ReportDto {
 	private int attachmentNo;
 	private Date createDate;
 	private String title;
+	
+	@DateTimeFormat(pattern="MM/dd/yyyy")
 	private Date beginDate;
 	
 	@DateTimeFormat(pattern="MM/dd/yyyy")

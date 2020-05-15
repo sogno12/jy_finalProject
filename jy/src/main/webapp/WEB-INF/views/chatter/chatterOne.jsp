@@ -147,7 +147,7 @@
     		ENTER: 'ENTER',
     		MESSAGE: 'MESSAGE',
     	};
-        var wsUri = "ws:localhost:"+location.port+"/jy/chatter/websocket";
+        var wsUri = "ws:192.168.30.186:"+location.port+"/jy/chatter/websocket";
 
         websocket = new WebSocket(wsUri);
         

@@ -321,7 +321,7 @@
         });
          
         function connectWs(){
-        	sock = new WebSocket("ws://localhost:"+location.port+"/jy/echo/websocket");
+        	sock = new WebSocket("ws://192.168.30.186:"+location.port+"/jy/echo/websocket");
 
         	console.log("소켓실행");
 
