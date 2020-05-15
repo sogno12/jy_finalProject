@@ -91,8 +91,8 @@
 	                                    <div class="col-md-6">
 	                                        <select class="select2 form-control custom-select" style="width: 100%; height:36px;" name="departmentNo">
 	                                             <option selected>선택</option>
-	                                             <option value="1">인사팀</option>
-	                                             <option value="2">총무팀</option>
+	                                             <option value="1">총무팀</option>
+	                                             <option value="2">인사팀</option>
 	                                        </select>
 	                                    </div>
 	                                </div>
