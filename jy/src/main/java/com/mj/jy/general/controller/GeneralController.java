@@ -58,6 +58,7 @@ public class GeneralController {
 		ArrayList<Namecard> nlist = nService.selectNameList(pn);
 		ArrayList<BusinessDTO> blist = nService.selectBroomList(pb);
 		
+		
 		model.addAttribute("pb", pb);
 		model.addAttribute("pn", pn);
 		model.addAttribute("nlist", nlist);
