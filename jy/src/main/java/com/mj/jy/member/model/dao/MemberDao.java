@@ -25,6 +25,7 @@ public interface MemberDao {
 	List<MemberDto> getListDept(int departmentNo, RowBounds rowBounds);
 	int getCountDeptMember(int departmentNo);
 	int findMemberNo(Member mem);
+	int insertLeaveDays();
   
 	/*
 	 * package com.mj.jy.member.model.dao;

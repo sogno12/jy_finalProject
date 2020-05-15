@@ -127,4 +127,11 @@ public interface ApprovalService {
 	 * @return
 	 */
 	DisbursementDto getOneDis(int disbursementNo);
+	
+	
+	/** sujin17.
+	 * @param superApprovalDto
+	 * @return
+	 */
+	int theFindeSuper(SuperApprovalDto superApprovalDto);
 }

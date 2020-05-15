@@ -26,11 +26,19 @@
         ORDER BY RECEIVE_TIME DESC
 	</select>
 	
-	<update id="readMessage" parameterType="Messenger">
+	<update id="readMessage" parameterType="Messenger" >
 		UPDATE MESSENGER
 		SET RECEIVE_TIME = #{receiveTime}
 		WHERE MESSAGE_NO = #{messageNo}
 	</update>
+	
+	<update id="readDone">
+		UPDATE ALARM
+		SET STATUS='Y'
+		WHERE RECIEVER_NO = #{recieverNo}
+		    AND TYPE= 4
+	</update>
+	
 	
 	<update id="deleteMessage" parameterType="Messenger">
 		UPDATE MESSENGER

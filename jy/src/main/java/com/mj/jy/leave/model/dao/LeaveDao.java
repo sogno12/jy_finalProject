@@ -13,9 +13,8 @@ import com.mj.jy.namecard.model.vo.PageInfo;
 public interface LeaveDao {
 
 		// 나의 휴가 조회 
-		LeaveDto selectMyLeave(String empNo);
+		LeaveDto selectMyLeave(int empNo);
 		
-		int getLeaveListCount();
 
-		ArrayList<LeaveListDto> selectLeaveList(String empNo,  RowBounds rowBounds);
+		ArrayList<LeaveListDto> selectLeaveList(int empNo);
 }

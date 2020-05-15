@@ -19,5 +19,9 @@ public interface MessengerService {
 	
 	// 메세지 삭제 
 	int deleteMessage(int msgNo);
+
+	int readDone(int recieverNo);
+
+	
 	
 }

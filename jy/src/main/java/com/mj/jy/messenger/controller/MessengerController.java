@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.mj.jy.alarm.model.service.AppAlarmService;
 import com.mj.jy.approval.model.service.ApprovalService;
 import com.mj.jy.attachment.model.vo.Attachment;
@@ -115,11 +114,7 @@ public class MessengerController {
 		 	int senderNo = loginUser.getMemberNo();
 	    	
 	    	appAlarmService.insertAppAlarm(senderNo, recieverNo, "4");
-	    	
-	    	appAlarmService.countAppAlarm(recieverNo);
-	    	
-	    	appAlarmService.noticeAppAlarm(recieverNo, "4");
-	    	
+	    	appAlarmService.sendAlarm(recieverNo, "4");
 	    	
 			model.addAttribute("m", m);
 			model.addAttribute("a", a);
@@ -146,11 +141,9 @@ public class MessengerController {
 		   m.setReceiveTime(timestamp);
 		   m.setMessageNo(msgNo);
 		
-		   mgService.readMessage(m);
+		   int result = mgService.readMessage(m);
 		
-		   Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
-		   
-		return gson.toJson(m);
+		return String.valueOf(result);
 	}
 	
 	@ResponseBody

@@ -112,7 +112,7 @@
 	                                            <div class="modal-body">
 	                                                <div class="card">
 	                                                    <div class="table-responsive">
-		                                                        <table id="superModalTable" class="table text-center">
+		                                                    <table id="superModalTable" class="table text-center">
 		                                                        <thead>
 		                                                            <tr>
 			                                                            <th scope="col">#</th>
@@ -886,11 +886,11 @@
     		alert("지급조건을 선택해주십시오");
     		return false;
     	}
-    	if(bank.options[bank.selectedIndex].value == 0){
+    	if(terms.options[terms.selectedIndex].value=="계좌이체" && bank.options[bank.selectedIndex].value == 0){
     		alert("은행을 선택해주십시오");
     		return false;
     	}
-    	if(!check(reNum,account,"계좌번호는 숫자만 입력해주십시오")){
+    	if(terms.options[terms.selectedIndex].value=="계좌이체" && !check(reNum,account,"계좌번호는 숫자만 입력해주십시오")){
     		return false;
     	}
     	if(!check(reNum,payment,"총 금액은 숫자만 입력해주십시오")){

@@ -235,7 +235,7 @@
 		$('#senderNo').val(senderNo);
 		$('#receiverNo').val(receiverNo);
 		
-		var wintype ="width=320, height=483, resizable=no, scrollbars=yes"
+		var wintype ="width=480, height=720, resizable=no, scrollbars=yes"
 		window.open("","childwin", wintype);
 		$('#chatterOne').submit();
 	});
