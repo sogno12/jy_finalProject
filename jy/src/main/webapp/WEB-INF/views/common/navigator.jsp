@@ -303,9 +303,6 @@
             location.href="sendAppBox.box";
   
         }
-
-     
-     
         
      </script>
   
