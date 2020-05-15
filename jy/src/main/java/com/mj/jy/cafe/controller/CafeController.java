@@ -308,14 +308,17 @@ public class CafeController {
 			return "common/errorPage";
 			}
 		}
+
 	
 	@ResponseBody
 	@RequestMapping(value="selectCafe.ca", produces="application/json; charset=utf-8")
 	public String selectCafe(int memberNo) {
 		
+	
 		List<Menu> selectCafe = caService.selectCafe(memberNo);
 		
 		return new Gson().toJson(selectCafe);
+	
 	}
 	
 	@RequestMapping("insertCafe.ca")

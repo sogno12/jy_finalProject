@@ -82,7 +82,7 @@
                                          			 미승인 
                                          			</c:if>
                                          			<c:if test="${ b.status eq 'Y'}">
-                                         			승인
+                                         			<h5 style="color:red; font-weight:bold;">승인</h5>
                                          			</c:if>
                                              	</td>
                                             </tr>
@@ -183,7 +183,7 @@
 	                                                    	미승인
 	                                                    </c:if>
 	                                                    <c:if test="${n.status eq 'Y' }">
-	                                                    	승인
+	                                                    	<h5 style="color:red; font-weight:bold;">승인</h5>
 	                                                    </c:if>
 	                                                    </td>
 	                                                </tr>

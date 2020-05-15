@@ -79,9 +79,9 @@ public class BusinessRoomController {
 		  
 		  if(result > 0) {
 			  result2 = "1";
+			  // 알람읽음 처리
 			  bService.updateBroomAlarm(meetingNo);
 			  
-			  // 알람읽음 처리
 			  
 		  } else {
 			  result2 = "0";
