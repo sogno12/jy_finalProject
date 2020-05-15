@@ -145,14 +145,14 @@
                                     
                                     <label class="text-right col-md-3 m-t-15" style="display: inline-block;">(시작)날짜</label>
                                     <div class="input-group col-md-3" style="display: inline-block;">
-                                        <input type="text" class="form-control datepicker-autoclose" value="<fmt:formatDate value='${ oneReport.beginDate }' pattern='yyyy/MM/dd'/>" style="width: 120px; display: inline-block;" name="beginDate" id="beginDate1">
+                                        <input type="text" class="form-control datepicker-autoclose" value="<fmt:formatDate value='${ oneReport.beginDate }' pattern='MM/dd/yyyy'/>" style="width: 120px; display: inline-block;" name="beginDate" id="beginDate1">
                                         <div class="input-group-append" style="display: inline-block;">
                                             <span class="input-group-text"><i class="fa fa-calendar"></i></span>
                                         </div>
                                     </div>
                                     (종료날짜:선택작성)
                                     <div class="input-group col-md-3" style="display: inline-block;">
-                                        <input type="text" class="form-control datepicker-autoclose" value="<fmt:formatDate value='${ oneReport.endDate }' pattern='yyyy/MM/dd'/>" style="width: 120px; display: inline-block;" name="endDate" id="endDate1">
+                                        <input type="text" class="form-control datepicker-autoclose" value="<fmt:formatDate value='${ oneReport.endDate }' pattern='MM/dd/yyyy'/>" style="width: 120px; display: inline-block;" name="endDate" id="endDate1">
                                         <div class="input-group-append" style="display: inline-block;">
                                             <span class="input-group-text"><i class="fa fa-calendar"></i></span>
                                         </div>

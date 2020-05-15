@@ -64,7 +64,7 @@
 	                 <!-- Column -->
 	                <div class="col-md-6 col-lg-2 col-xlg-3">
 	                    <div class="card card-hover">
-	                        <div class="box bg-warning text-center" style="cursor: pointer;" onclick="goCafe();">
+	                        <div class="box bg-warning text-center" style="cursor: pointer;" onclick="window.location.href='cafeTeria.ca'">
 	                            <h1 class="font-light text-white"><i class="mdi mdi-coffee-outline"></i></h1>
 	                            <h6 class="text-white">카페테리아</h6>
 	                        </div>
