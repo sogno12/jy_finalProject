@@ -12,14 +12,14 @@ public class NamecardDTO {
 	private String name;
 	private String phone;
 	private String email;
-	private int empNo;
+	private String empNo;
 	
 	public NamecardDTO() {
 		
 	}
 
 	public NamecardDTO(int namecardNo, int memberNo, String contentType, String departmentName, String positionName,
-			String name, String phone, String email, int empNo) {
+			String name, String phone, String email, String empNo) {
 		super();
 		this.namecardNo = namecardNo;
 		this.memberNo = memberNo;
@@ -96,11 +96,11 @@ public class NamecardDTO {
 		this.email = email;
 	}
 
-	public int getEmpNo() {
+	public String getEmpNo() {
 		return empNo;
 	}
 
-	public void setEmpNo(int empNo) {
+	public void setEmpNo(String empNo) {
 		this.empNo = empNo;
 	}
 

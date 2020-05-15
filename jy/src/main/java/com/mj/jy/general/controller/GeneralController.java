@@ -53,7 +53,7 @@ public class GeneralController {
 		int nameListCount = nService.getNameListCount();
 		
 		PageInfo pn = Pagination.getPageInfo(nameListCount, ncurrentPage, 10, 5);
-		PageInfo pb = Pagination.getPageInfo(nameListCount, bcurrentPage, 10, 5);
+		PageInfo pb = Pagination.getPageInfo(broomListCount, bcurrentPage, 10, 5);
 		
 		ArrayList<Namecard> nlist = nService.selectNameList(pn);
 		ArrayList<BusinessDTO> blist = nService.selectBroomList(pb);

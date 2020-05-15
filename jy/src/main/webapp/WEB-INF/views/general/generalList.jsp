@@ -98,7 +98,7 @@
 					                    	<li class="badge badge-light disabled"><a class="page-link" href="">Previous</a></li>
 				                		</c:when>
 				                		<c:otherwise>
-				                			<li class="badge badge-light"><a class="page-link" href="generalList.ge?bcurrentPage=${ pb.currentPage-1 }&ncurrentPage=${ pn.currentPage }">Previous</a></li>
+				                			<li class="badge badge-light"><a class="page-link" href="generalList.ge?bcurrentPage=${ pb.currentPage+1 }&ncurrentPage=${ pn.currentPage }">Previous</a></li>
 				                		</c:otherwise>
 				                	</c:choose>
 				                    
@@ -121,7 +121,7 @@
 				                    		<li class="badge badge-light disabled"><a class="page-link" href="">Next</a></li>
 				                    	</c:when>
 				                    	<c:otherwise>
-					                    	<li class="badge badge-light"><a class="page-link" href="generalList.ge?currentPage=${pb.currentPage+1}&ncurrentPage=${ pn.currentPage }">Next</a></li>
+					                    	<li class="badge badge-light"><a class="page-link" href="generalList.ge?currentPage=${pb.currentPage-1}&ncurrentPage=${ pn.currentPage }">Next</a></li>
 				                    	</c:otherwise>
 				                    </c:choose>
 				                </ul>
@@ -149,7 +149,7 @@
                         			data:{meetingNo:meetingNo},
                         			success:function(){
                         				
-                        				confirm("승인하시겠습니까?");
+                        				alertify.confirm("승인하시겠습니까?");
                         				$(tar).parent().text("승인");
                         				
                         			},error:function(){
@@ -376,7 +376,7 @@
                             			data:{namecardNo:namecardNo},
                             			success:function(){
                             				
-                            				confirm("승인하시겠습니까?");
+                            				alertify.confirm("승인하시겠습니까?");
                             				$(tar).parent().text("승인");
                             				console.log("성공");
                             				

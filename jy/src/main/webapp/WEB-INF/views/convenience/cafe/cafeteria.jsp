@@ -508,7 +508,10 @@
 			                     		msg += '결제 금액 : ' + rsp.paid_amount;
 			                     		msg += '카드 승인번호 : ' + rsp.apply_num;
 			                     		
-			                     		location.href="insertCafe.ca?memberNo=" + memberNo;
+			                     		$.ajax({
+			                     			url:"insertCafe.ca?memberNo=" + memberNo
+			                     		})
+			                     		//location.href="insertCafe.ca?memberNo=" + memberNo;
 			                     		
 			                     	} else { // 실패시
 			                     		var msg = '결제에 실패하였습니다.';
