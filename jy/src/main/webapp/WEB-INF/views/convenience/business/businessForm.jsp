@@ -187,7 +187,7 @@
         					if(flag){ // 현재 그 시간은 예약 가능
         						value += "<option value='"+ (i+1) + "'>" + timeArr[i] + "</option>";
         					}else{ // 현재 그 시간은 예약 불가
-        						value += "<option disabled>" + timeArr[i] + "</option>";
+        						value += "<option disabled style='color:red;'>" + timeArr[i] + "</option>";
         					}
         				}
         			}
