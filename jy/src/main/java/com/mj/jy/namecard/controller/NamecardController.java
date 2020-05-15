@@ -64,11 +64,8 @@ public class NamecardController {
 			//알림 insert
 			appAlarmService.insertAppAlarm(namecardNo, 1, "2");
 			
-			// 알람읽기
-			appAlarmService.countAppAlarm(1);
-			
-			// 알람띄우기
-			appAlarmService.noticeAppAlarm(1, "2");
+			// 알람읽기 + 띄우기
+			appAlarmService.sendAlarm(1, "2");
 			
 			return "convenience/namecard/namecardSuccess";
 		} else {
@@ -97,10 +94,17 @@ public class NamecardController {
 	    PageInfo pb = Pagination.getPageInfo(broomListCount, bcurrentPage, 10, 5);
 	     PageInfo pn = Pagination.getPageInfo(nameListCount, ncurrentPage, 10, 5);
 		  
+
 	     ArrayList<BusinessDTO> blist = nService.selectBroomListMem(pb, memberNo);
 		  ArrayList<Namecard> nlist = nService.selectNameListMem(pn, memberNo);
 		  
 		  
+
+	     ArrayList<BusinessDTO> blist = nService.selectBroomList(pb);
+		  ArrayList<Namecard> nlist = nService.selectNameList(pn);
+		 
+		
+
 		  model.addAttribute("pb",pb); 
 		  model.addAttribute("pn",pn);
 		  model.addAttribute("nlist", nlist);

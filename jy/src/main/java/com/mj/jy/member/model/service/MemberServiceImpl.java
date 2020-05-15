@@ -23,11 +23,16 @@ public class MemberServiceImpl implements MemberService {
 	public MemberDto loginMember(MemberDto m) {
 		return mDao.loginMember(m);
 	}
-	
+
 	// 인사 카드 등록 서비스
 	@Override
 	public int insertMember(Member m) {
-		return mDao.insertMember(m);
+		
+		int result1 = mDao.insertMember(m);
+		int result2 = mDao.insertLeaveDays();
+		
+		return result1 * result2;
+		
 	}
 
 	// 직원 전체 조회 서비스

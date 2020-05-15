@@ -145,4 +145,10 @@
 		FROM MEMBER
 		WHERE EMP_NO = #{empNo}
 	</select>
+	
+	<insert id="insertLeaveDays">
+		INSERT INTO LEAVE_DAYS (LEAVEDAYS_YEAR, MEMBER_NO, GIVEN_DAYS, LEFT_DAYS, VACATIONCOUNT)
+		VALUES (TO_CHAR(SYSDATE, 'YYYY'), SEQ_MEM.CURRVAL, 20, 0, 0)
+	</insert>
+	
 </mapper>

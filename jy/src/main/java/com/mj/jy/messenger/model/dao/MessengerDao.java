@@ -16,4 +16,5 @@ public interface MessengerDao {
 	ArrayList<Messenger> selectMgList(String empNo);
 	int readMessage(Messenger m);
 	int deleteMessage(int msgNo);
+	int readDone(int recieverNo);
 }

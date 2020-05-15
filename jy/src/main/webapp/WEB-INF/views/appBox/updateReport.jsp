@@ -101,7 +101,7 @@
                                     <div class="form-group row">
                                         <label for="fname" class="col-sm-3 text-right control-label col-form-label">작성자</label>
                                         <div class="col-sm-2">
-                                            <input type="text" class="form-control" value="${ oneReport.name }" readonly id="createBy" name="createBy">
+                                            <input type="text" class="form-control" value="${ oneReport.name }" readonly id="createBy">
                                         </div>
                                     
                                         <label class="text-right col-md-2 m-t-15" style="display: inline-block;">작성일자</label>

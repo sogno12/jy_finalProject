@@ -255,7 +255,7 @@
 			WHERE LEAVEDAYS_YEAR = #{leavedaysYear} AND MEMBER_NO =#{memberNo}
 	</update>
 	
-		<select id="theFindeSuper" parameterType="SuperApprovalDto" resultType="_int">
+	<select id="theFindeSuper" parameterType="SuperApprovalDto" resultType="_int">
 		SELECT MEMBER_NO
 		FROM <if test="reportNo != 0">
 				REPORT_APP
