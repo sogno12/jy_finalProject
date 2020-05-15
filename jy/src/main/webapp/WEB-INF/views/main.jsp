@@ -1,7 +1,7 @@
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> 
 <!DOCTYPE html>
 <html>
 <head>
@@ -155,46 +155,23 @@
 	                        <table class="table">
 	                            <thead>
 	                                <tr>
-	                                    <th scope="col">Category</th>
-	                                    <th scope="col">Title</th>
+	                                    <th scope="col">Description</th>
 	                                    <th scope="col">Status</th>
-	                                    <th scope="col">Date</th>
 	                                </tr>
 	                            </thead>
 	                            <tbody>
-                            		<c:forEach var="a" items="${ appData }" varStatus="status" end="4">
-                            			<c:if test="${ a.approvalNo == 1 }">
-                            				<tr>
-			                                    <td>${ a.category }</td>
-			                                    <td>${ a.title }</td>
-			                                    <td class="text-warning">${ a.type }</td>
-			                                    <td>
-			                                    	<fmt:formatDate value="${a.createDate}" pattern="MM-dd HH:mm"/>
-			                                    </td>
-			                                </tr>
-                            			</c:if>
-                            			<c:if test="${ a.approvalNo == 2 }">
-                            				<tr>
-			                                    <td>${ a.category }</td>
-			                                    <td>${ a.title }</td>
-			                                    <td class="text-success">${ a.type }</td>
-			                                    <td>
-			                                    	<fmt:formatDate value="${a.createDate}" pattern="MM-dd HH:mm"/>
-			                                    </td>
-			                                </tr>
-                            			</c:if>
-                            			<c:if test="${ a.approvalNo == 3 }">
-	                            			<tr>
-			                                    <td>${ a.category }</td>
-			                                    <td>${ a.title }</td>
-			                                    <td class="text-danger">${ a.type }</td>
-			                                    <td>
-			                                    	<fmt:formatDate value="${a.createDate}" pattern="MM-dd HH:mm"/>
-			                                    </td>
-			                                </tr>
-                            			</c:if>
-                            		</c:forEach>
-                            
+	                                <tr>
+	                                    <td>Making The New Suit</td>
+	                                    <td class="text-success">Progress</td>
+	                                </tr>
+	                                <tr>
+	                                    <td>Luanch My New Site</td>
+	                                    <td class="text-warning">Pending</td>
+	                                </tr>
+	                                <tr>
+	                                    <td>Maruti Excellant Theme</td>
+	                                    <td class="text-danger">Cancled</td>
+	                                </tr>
 	                            </tbody>
 	                        </table>
 	                    </div>

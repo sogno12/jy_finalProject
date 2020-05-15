@@ -16,10 +16,11 @@ public class ReportDto {
 	private Date createDate;
 	private String title;
 	
+
 	@DateTimeFormat(pattern="MM/dd/yyyy")
 	private Date beginDate;
 	
-	@DateTimeFormat(pattern="MM/dd/yyyy")
+	@DateTimeFormat(pattern="yyyy/MM/dd")
 	private Date endDate;
 	private String content;
 	private int reasonNo;

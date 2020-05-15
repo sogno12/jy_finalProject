@@ -231,7 +231,7 @@
 	                    <li class="sidebar-item"> <a class="sidebar-link has-arrow waves-effect waves-dark" href="javascript:void(0)" aria-expanded="false"><i class="mdi mdi-account-multiple"></i><span class="hide-menu">Team </span></a>
 	                        <ul aria-expanded="false" class="collapse  first-level">
 	                     
-	                            <li class="sidebar-item"><a href="board.bd" class="sidebar-link"><i class="mdi mdi-note-outline"></i><span class="hide-menu"> 사내 게시판 </span></a></li>
+	                            <li class="sidebar-item"><a href="boardList.bo" class="sidebar-link"><i class="mdi mdi-note-outline"></i><span class="hide-menu"> 사내 게시판 </span></a></li>
 	                            <li class="sidebar-item"><a href="teamTable.me" class="sidebar-link"><i class="mdi mdi-sitemap"></i><span class="hide-menu"> 팀 정보 </span></a></li>
 	                            
 	                            <c:if test="${ loginUser.departmentNo eq 1 }">
@@ -262,7 +262,7 @@
 	                           <li class="sidebar-item"><a href="namecardForm.nc" class="sidebar-link"><i class="mdi mdi-contact-mail"></i><span class="hide-menu"> 명함 </span></a></li>
                                <li class="sidebar-item"><a href="businessForm.br" class="sidebar-link"><i class="mdi mdi-timetable"></i><span class="hide-menu"> 회의실 </span></a></li>
                                <li class="sidebar-item"><a href="cafeTeria.ca" class="sidebar-link"><i class="mdi mdi-coffee-to-go"></i><span class="hide-menu"> 카페테리아 </span></a></li>
-                               <li class="sidebar-item"><a href="reservationList.nc" class="sidebar-link"><i class="mdi mdi-format-list-bulleted"></i><span class="hide-menu"> 예약 내역 </span></a></li>
+                               <li class="sidebar-item"><a href="reservationList.nc?memberNo=${loginUser.memberNo}" class="sidebar-link"><i class="mdi mdi-format-list-bulleted"></i><span class="hide-menu"> 예약 내역 </span></a></li>
 	                        </ul>
 	                    </li>
 	                    <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="chatter.ch" aria-expanded="false"><i class="mdi mdi-message-outline"></i><span class="hide-menu">Chat</span></a></li>
