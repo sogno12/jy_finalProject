@@ -93,7 +93,7 @@
 	        <!-- ============================================================== -->
 	        <div class="container-fluid">
 	          
-                        <div class="card" style="width: 400px; float: left;margin-left: 5%;">
+                        <div class="card" style="width: 43%; float: left; margin-left: 1%;">
                         <form method="post" action="insert.mg" enctype="multipart/form-data">
                             <div class="card-body" >
                                 <h5 class="card-title">쪽지 보내기</h5>
@@ -131,9 +131,9 @@
                                     </div>
                                 </div>
                                 </div>
-                            </div>
                             </form>
-                             <div class="card" style="width:600px;float:right; margin-right: 5%;">
+                            </div>
+                             <div class="card" style="width:53%; float:right; margin-right: 1%;">
                             <div class="card-body" >
                                 <h4 class="card-title m-b-0">받은 쪽지함</h4>                                
                             </div>
