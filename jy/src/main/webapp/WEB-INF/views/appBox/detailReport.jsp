@@ -317,8 +317,8 @@
     });
     
     $('#checkBtn').click(function(){
-    	var memberNo = ${ loginUser.memberNo};
-    	var createBy = ${ oneReport.createBy};
+    	var memberNo = ${ loginUser.memberNo };
+    	var createBy = ${ oneReport.createBy };
     	var approvalNo = ${ oneReport.approvalNo };
     	
     	if( memberNo == createBy && approvalNo != 2) {

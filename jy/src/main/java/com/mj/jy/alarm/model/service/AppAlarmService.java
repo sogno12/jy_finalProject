@@ -35,4 +35,9 @@ public interface AppAlarmService {
 	 */
 	void insertAppAlarm(int senderNo, int recieverNo, String type);
 	
+	/** sujin8. 웹소켓 알림처리
+	 * @param memberNo
+	 * @param msg
+	 */
+	void sendAlarm(int memberNo, String msg);
 }

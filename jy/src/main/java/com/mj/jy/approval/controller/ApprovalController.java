@@ -93,8 +93,7 @@ public class ApprovalController {
 			// 보고서 결재요청 알람 등록 --> supervisor
 			appAlarmService.insertAppAlarm(loginUser.getMemberNo(), Integer.parseInt(superArray[superArray.length-1]), "6");
 			// 보고서 등록 알람 -> 웹소켓  (알람업뎃+알람표시)
-			appAlarmService.countAppAlarm(Integer.parseInt(superArray[superArray.length-1]));
-			appAlarmService.noticeAppAlarm(Integer.parseInt(superArray[superArray.length-1]), "6");
+			appAlarmService.sendAlarm(Integer.parseInt(superArray[superArray.length-1]), "6");
 		}else {
 			session.setAttribute("appMsg", "보고서 등록 실패");
 		}
@@ -136,8 +135,7 @@ public class ApprovalController {
 			// 결재서 결재요청 알람 등록 --> supervisor
 			appAlarmService.insertAppAlarm(loginUser.getMemberNo(), Integer.parseInt(superArray[superArray.length-1]), "6");
 			// 결재서 등록 완료 알람 -> 웹소켓
-			appAlarmService.countAppAlarm(Integer.parseInt(superArray[superArray.length-1]));
-			appAlarmService.noticeAppAlarm(Integer.parseInt(superArray[superArray.length-1]), "6");
+			appAlarmService.sendAlarm(Integer.parseInt(superArray[superArray.length-1]), "6");
 		}else {
 			session.setAttribute("appMsg", "결재서 등록 실패");
 		}
@@ -171,6 +169,7 @@ public class ApprovalController {
 		
 		if(updateResult> 0) {
 			session.setAttribute("appMsg", "보고서 수정 완료");
+			appAlarmService.sendAlarm(approvalService.theFindeSuper(new SuperApprovalDto("Report",reportDto.getReportNo())), "6");
 		}else {
 			session.setAttribute("appMsg", "보고서 수정 실패");
 		}
@@ -187,8 +186,6 @@ public class ApprovalController {
 		List<DisContent> disContents = disContentCreateDto.toEtities();
 		
 		disbursementDto.setUpdateBy(loginUser.getMemberNo());
-		// System.out.println("disContents: "+disContents);
-		// System.out.println("disbursement: "+disbursementDto);
 
 		//2. 첨부파일 처리
 		int folderNo = 3;
@@ -210,6 +207,7 @@ public class ApprovalController {
 		
 		if(updateDis > 0) {
 			session.setAttribute("appMsg", "결재서 수정 완료");
+			appAlarmService.sendAlarm(approvalService.theFindeSuper(new SuperApprovalDto("Disbursement",disbursementDto.getDisbursementNo())), "6");
 		}else {
 			session.setAttribute("appMsg", "결재서 수정 실패");
 		}
@@ -227,8 +225,7 @@ public class ApprovalController {
 		if(appResult> 0) {
 			session.setAttribute("appMsg", "결재상태 변경 완료");
 			// 결재 작성자에게 알림
-			appAlarmService.countAppAlarm(approvalService.getOneReport(no).getCreateBy());
-			appAlarmService.noticeAppAlarm(approvalService.getOneReport(no).getCreateBy(), "5");
+			appAlarmService.sendAlarm(approvalService.getOneReport(no).getCreateBy(), "5");
 		}else {
 			session.setAttribute("appMsg", "결재상태 변경 실패");
 		}
@@ -245,8 +242,7 @@ public class ApprovalController {
 		if(appResult> 0) {
 			session.setAttribute("appMsg", "결재상태 변경 완료");
 			// 결재 작성자에게 알림
-			appAlarmService.countAppAlarm(approvalService.getOneDis(no).getCreateBy());
-			appAlarmService.noticeAppAlarm(approvalService.getOneDis(no).getCreateBy(), "5");
+			appAlarmService.sendAlarm(approvalService.getOneDis(no).getCreateBy(), "5");
 		}else {
 			session.setAttribute("appMsg", "결재상태 변경 실패");
 		}
