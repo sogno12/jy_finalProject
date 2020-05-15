@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.SessionAttribute;
 
 import com.google.gson.Gson;
 import com.mj.jy.appBox.model.vo.SentAppBoxDto;
+import com.mj.jy.board.model.vo.TeamBoardDto;
 import com.mj.jy.common.model.service.MainService;
 import com.mj.jy.member.model.vo.MemberDto;
 import com.mj.jy.todolist.model.vo.TodoList;
@@ -30,9 +31,10 @@ public class MainController {
 	public String goMain(@SessionAttribute("loginUser") MemberDto loginUser, Model model) {
 
 		// 공지사항
+		List<TeamBoardDto> bData = mainService.getBoardData(loginUser.getDepartmentNo());
+		model.addAttribute("bData", mainService.getBoardData(loginUser.getDepartmentNo()));
 		
 		// 결재내용
-		List<SentAppBoxDto> appData = mainService.getApprovalData(loginUser.getMemberNo());
 		model.addAttribute("appData", mainService.getApprovalData(loginUser.getMemberNo()));
 		
 		return "main";

@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import com.mj.jy.appBox.model.vo.SentAppBoxDto;
+import com.mj.jy.board.model.vo.TeamBoardDto;
 import com.mj.jy.todolist.model.vo.TodoList;
 
 public interface MainService {
@@ -23,4 +24,10 @@ public interface MainService {
 	 * @return
 	 */
 	List<SentAppBoxDto> getApprovalData(int memberNo);
+
+	/** sujin2. 게시판 정보
+	 * @param memberNo
+	 * @return
+	 */
+	List<TeamBoardDto> getBoardData(int departmentNo);
 }
