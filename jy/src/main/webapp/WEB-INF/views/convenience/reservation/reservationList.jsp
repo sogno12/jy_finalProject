@@ -151,7 +151,7 @@
                                                         </label>
                                                     </th>
                                                     <th scope="col">NO</th>
-                                                    <th scope="col">NameCardType</th>
+                                                    <th scope="col">NAMECARD TYPE</th>
                                                     <th scope="col">REPORTINGDATE</th>
                                                     <th scope="col">PROCESSINGDATE</th>
                                                     <th scope="col">STATUS</th>

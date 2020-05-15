@@ -262,7 +262,7 @@
 	                           <li class="sidebar-item"><a href="namecardForm.nc" class="sidebar-link"><i class="mdi mdi-contact-mail"></i><span class="hide-menu"> 명함 </span></a></li>
                                <li class="sidebar-item"><a href="businessForm.br" class="sidebar-link"><i class="mdi mdi-timetable"></i><span class="hide-menu"> 회의실 </span></a></li>
                                <li class="sidebar-item"><a href="cafeTeria.ca" class="sidebar-link"><i class="mdi mdi-coffee-to-go"></i><span class="hide-menu"> 카페테리아 </span></a></li>
-                               <li class="sidebar-item"><a href="reservationList.nc" class="sidebar-link"><i class="mdi mdi-format-list-bulleted"></i><span class="hide-menu"> 예약 내역 </span></a></li>
+                               <li class="sidebar-item"><a href="reservationList.nc?memberNo=${loginUser.memberNo}" class="sidebar-link"><i class="mdi mdi-format-list-bulleted"></i><span class="hide-menu"> 예약 내역 </span></a></li>
 	                        </ul>
 	                    </li>
 	                    <li class="sidebar-item"> <a class="sidebar-link waves-effect waves-dark sidebar-link" href="chatter.ch" aria-expanded="false"><i class="mdi mdi-message-outline"></i><span class="hide-menu">Chat</span></a></li>

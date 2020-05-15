@@ -23,8 +23,22 @@ public interface NamecardService {
 	// 회의실예약 리스트 총갯수 조회
 	int getBroomListCount();
 	
+	// 회의실예약 리스트
 	ArrayList<BusinessDTO> selectBroomList(PageInfo pi);
 
 	// 명함 알람 업데이트
 	int updateNameAlarm(int namecardNo);
+
+	
+	// 명함 신청 리스트 총 갯수 조회용 서비스(멤버용)
+	int getNameListCountMem(int memberNo);
+		
+	// 회의실예약 리스트 총갯수 조회(멤버용)
+	int getBroomListCountMem(int memberNo);
+	
+	// 명함 신청 리스트 조회용 서비스(멤버용)
+	ArrayList<Namecard> selectNameListMem(PageInfo pi, int memberNo);
+	
+	// 회의실예약 리스트(멤버용)
+	ArrayList<BusinessDTO> selectBroomListMem(PageInfo pi, int memberNo);
 }
