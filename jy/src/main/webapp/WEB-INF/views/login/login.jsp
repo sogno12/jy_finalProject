@@ -73,7 +73,6 @@
                             <div class="col-12">
                                 <div class="form-group">
                                     <div class="p-t-20">
-                                        <button class="btn btn-info" id="to-recover" type="button"><i class="fa fa-lock m-r-5"></i> 비밀번호 찾기</button>
                                         <button class="btn btn-success float-right" type="submit">로그인</button>
                                     </div>
                                 </div>
@@ -81,32 +80,6 @@
                         </div>
                     </form>
                 </div>
-                
-                <div id="recoverform">
-                    <div class="text-center">
-                        <span class="text-white">아이디를 입력하세요.</span>
-                    </div>
-                    <div class="row m-t-20">
-                        <!-- Form -->
-                        <form class="col-12">
-                            <!-- email -->
-                            <div class="input-group mb-3">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text bg-danger text-white" id="basic-addon1"><i class="ti-email"></i></span>
-                                </div>
-                                <input type="text" class="form-control form-control-lg" placeholder="ID" id="pwdNo" name="pwdNo" aria-describedby="basic-addon1">
-                            </div>
-                            <!-- pwd -->
-                            <div class="row m-t-20 p-t-20 border-top border-secondary">
-                                <div class="col-12">
-                                    <a class="btn btn-success" href="#" id="to-login" name="action">로그인하기</a>
-                                    <button class="btn btn-info float-right" onclick="searchPwd();" type="submit" id="searchBtn">확인</button>
-                                </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-                
             </div>
         </div>
         <!-- ============================================================== -->

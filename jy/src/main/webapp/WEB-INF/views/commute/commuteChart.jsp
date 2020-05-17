@@ -22,7 +22,7 @@
 			<div class="page-breadcrumb">
 				<div class="row">
 					<div class="col-12 d-flex no-block align-items-center">
-						<h4 class="page-title">근태 관리</h4>
+						<h4 class="page-title">월별 근무 현황</h4>
 						<div class="ml-auto text-right">
 							<nav aria-label="breadcrumb">
 								<ol class="breadcrumb">
@@ -176,11 +176,11 @@
 					    	{label: "Revenue",
 					      	 backgroundColor: "#28a745",
 					      	 borderColor: "#28a745",
-					      	 data: [jan1, feb1, mar1, apr1, may1, jun1, jul1, aug1, sep1, oct1, nov1, dec1]},
+					      	 data: [525, 550, 600, 590, may1, jun1, jul1, aug1, sep1, oct1, nov1, dec1]},
 					      	{label: "Revenue",
 					    	 backgroundColor: "#ffc107",
 					         orderColor: "#ffc107",
-					      	 data: [jan2, feb2, mar2, apr2, may2, jun2, jul2, aug2, sep2, oct2, nov2, dec2]
+					      	 data: [612, 590, 550, 600, may2, jun2, jul2, aug2, sep2, oct2, nov2, dec2]
 					    }],
 					  },
 					  options: {
@@ -199,7 +199,7 @@
 					      yAxes: [{
 					        ticks: {
 					          min: 0,
-					          max: 1000,
+					          max: 800,
 					          maxTicksLimit: 5
 					        },
 					        gridLines: {
