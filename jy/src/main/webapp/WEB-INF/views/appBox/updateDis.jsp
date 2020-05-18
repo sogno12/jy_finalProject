@@ -96,7 +96,7 @@
                                  
                                      <label class="text-right col-md-2 m-t-15" style="display: inline-block;">작성일자</label>
                                      <div class="input-group col-md-2" style="display: inline-block;">
-                                         <input type="text" class="form-control" value="<fmt:formatDate value='${ oneDis.createDate }' pattern='yyyy/MM/dd'/>" style="width: 120px; display: inline-block;" readonly>
+                                         <input type="text" class="form-control" value="<fmt:formatDate value='${ oneDis.createDate }' pattern='MM/dd/yyyy'/>" style="width: 120px; display: inline-block;" readonly>
                                      </div>
                                 
                                  </div>
