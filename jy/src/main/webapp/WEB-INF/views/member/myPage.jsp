@@ -23,7 +23,7 @@
 	                <div class="col-12 d-flex no-block align-items-center">
 	                    <nav aria-label="breadcrumb">
 	                        <ol class="breadcrumb">
-	                            <li class="breadcrumb-item"><a href="#">Home</a></li>
+	                            <li class="breadcrumb-item"><a href="main.do">Home</a></li>
 	                            <li class="breadcrumb-item active" aria-current="page">List</li>
 	                        </ol>
 	                    </nav>
@@ -85,10 +85,7 @@
                                         <th scope="row" style="padding-left: 100px;">주소</th>
                                         <td style="padding-left: 100px;">${loginUser.address }</td>
                                     </tr>
-                                    <tr>
-                                        <th scope="row" style="padding-left: 100px;">나의정보 수정</th>
-                                        <td style="padding-left: 100px;"> <button class="badge badge-primary">인사과에 문의하기</button></td>
-                                    </tr>
+                                    
                                   </tbody>
                             </table>
                         </div>

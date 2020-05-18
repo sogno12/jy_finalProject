@@ -32,7 +32,7 @@
                         <div class="ml-auto text-right">
                             <nav aria-label="breadcrumb">
                                 <ol class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                                    <li class="breadcrumb-item"><a href="main.do">Home</a></li>
                                     <li class="breadcrumb-item active" aria-current="page">Form</li>
                                 </ol>
                             </nav>
@@ -101,13 +101,13 @@
                                     <div class="form-group row">
                                         <label for="fname" class="col-sm-3 text-right control-label col-form-label">작성자</label>
                                         <div class="col-sm-2">
-                                            <input type="text" class="form-control" value="${ oneReport.name }" readonly id="createBy" name="createBy">
+                                            <input type="text" class="form-control" value="${ oneReport.name }" readonly id="createBy">
                                         </div>
                                     
                                         <label class="text-right col-md-2 m-t-15" style="display: inline-block;">작성일자</label>
                                         <div class="input-group col-md-2" style="display: inline-block;">
                                         	<jsp:useBean id="now" class="java.util.Date" />
-                                            <input type="text" class="form-control" value="<fmt:formatDate value='${ oneReport.createDate }' pattern='yyyy/MM/dd'/>" style="width: 120px; display: inline-block;" readonly>
+                                            <input type="text" class="form-control" value="<fmt:formatDate value='${ oneReport.createDate }' pattern='MM/dd/yyyy'/>" style="width: 120px; display: inline-block;" readonly>
                                         </div>
                                                                         
                                     </div>
@@ -145,14 +145,14 @@
                                     
                                     <label class="text-right col-md-3 m-t-15" style="display: inline-block;">(시작)날짜</label>
                                     <div class="input-group col-md-3" style="display: inline-block;">
-                                        <input type="text" class="form-control datepicker-autoclose" value="<fmt:formatDate value='${ oneReport.beginDate }' pattern='yyyy/MM/dd'/>" style="width: 120px; display: inline-block;" name="beginDate" id="beginDate1">
+                                        <input type="text" class="form-control datepicker-autoclose" value="<fmt:formatDate value='${ oneReport.beginDate }' pattern='MM/dd/yyyy'/>" style="width: 120px; display: inline-block;" name="beginDate" id="beginDate1">
                                         <div class="input-group-append" style="display: inline-block;">
                                             <span class="input-group-text"><i class="fa fa-calendar"></i></span>
                                         </div>
                                     </div>
                                     (종료날짜:선택작성)
                                     <div class="input-group col-md-3" style="display: inline-block;">
-                                        <input type="text" class="form-control datepicker-autoclose" value="<fmt:formatDate value='${ oneReport.endDate }' pattern='yyyy/MM/dd'/>" style="width: 120px; display: inline-block;" name="endDate" id="endDate1">
+                                        <input type="text" class="form-control datepicker-autoclose" value="<fmt:formatDate value='${ oneReport.endDate }' pattern='MM/dd/yyyy'/>" style="width: 120px; display: inline-block;" name="endDate" id="endDate1">
                                         <div class="input-group-append" style="display: inline-block;">
                                             <span class="input-group-text"><i class="fa fa-calendar"></i></span>
                                         </div>
@@ -274,23 +274,6 @@
 	<!-- End Page wrapper  -->
 	<!-- ============================================================== -->
 	
-
-     <!-- ============================================================== -->
-    <!-- All Jquery -->
-    <!-- ============================================================== -->
-    <script src="${ pageContext.servletContext.contextPath }/resources/assets/libs/jquery/dist/jquery.min.js"></script>
-    <!-- Bootstrap tether Core JavaScript -->
-    <script src="${ pageContext.servletContext.contextPath }/resources/assets/libs/popper.js/dist/umd/popper.min.js"></script>
-    <script src="${ pageContext.servletContext.contextPath }/resources/assets/libs/bootstrap/dist/js/bootstrap.min.js"></script>
-    <!-- slimscrollbar scrollbar JavaScript -->
-    <script src="${ pageContext.servletContext.contextPath }/resources/assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>
-    <script src="${ pageContext.servletContext.contextPath }/resources/assets/extra-libs/sparkline/sparkline.js"></script>
-    <!--Wave Effects -->
-    <script src="${ pageContext.servletContext.contextPath }/resources/js/waves.js"></script>
-    <!--Menu sidebar -->
-    <script src="${ pageContext.servletContext.contextPath }/resources/js/sidebarmenu.js"></script>
-    <!--Custom JavaScript -->
-    <script src="${ pageContext.servletContext.contextPath }/resources/js/custom.min.js"></script>
     <!-- This Page JS -->
     <script src="${ pageContext.servletContext.contextPath }/resources/assets/libs/inputmask/dist/min/jquery.inputmask.bundle.min.js"></script>
     <script src="${ pageContext.servletContext.contextPath }/resources/js/pages/mask/mask.init.js"></script>
@@ -328,7 +311,7 @@
      *       Submit Table 유효성 검사                *
      ****************************************/
     var re = /^[a-z|A-Z|0-9|가-힣|\s]{3,30}$/
-    var reCon = /^[a-z|A-Z|0-9|가-힣|\s]{3,1000}$/
+    var reCon = /^[a-z|A-Z|0-9|가-힣|./?!@#$%^&*()|\s]{3,1000}$/
     var reNum = /^[0-9]{3,10}$/
     
    	function check(re, what, message){

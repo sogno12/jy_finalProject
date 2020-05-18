@@ -24,7 +24,7 @@
                         <div class="ml-auto text-right">
                             <nav aria-label="breadcrumb">
                                 <ol class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                                    <li class="breadcrumb-item"><a href="main.do">Home</a></li>
                                     <li class="breadcrumb-item active" aria-current="page">Convenience</li>
                                 </ol>
                             </nav>
@@ -82,7 +82,7 @@
                                          			 미승인 
                                          			</c:if>
                                          			<c:if test="${ b.status eq 'Y'}">
-                                         			승인
+                                         			<h5 style="color:red; font-weight:bold;">승인</h5>
                                          			</c:if>
                                              	</td>
                                             </tr>
@@ -151,7 +151,7 @@
                                                         </label>
                                                     </th>
                                                     <th scope="col">NO</th>
-                                                    <th scope="col">NameCardType</th>
+                                                    <th scope="col">NAMECARD TYPE</th>
                                                     <th scope="col">REPORTINGDATE</th>
                                                     <th scope="col">PROCESSINGDATE</th>
                                                     <th scope="col">STATUS</th>
@@ -183,7 +183,7 @@
 	                                                    	미승인
 	                                                    </c:if>
 	                                                    <c:if test="${n.status eq 'Y' }">
-	                                                    	승인
+	                                                    	<h5 style="color:red; font-weight:bold;">승인</h5>
 	                                                    </c:if>
 	                                                    </td>
 	                                                </tr>

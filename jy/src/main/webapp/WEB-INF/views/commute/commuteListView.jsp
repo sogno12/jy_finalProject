@@ -28,7 +28,7 @@
                         <div class="ml-auto text-right">
                             <nav aria-label="breadcrumb">
                                 <ol class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                                    <li class="breadcrumb-item"><a href="main.do">Home</a></li>
                                     <li class="breadcrumb-item active" aria-current="page">Commute</li>
                                 </ol>
                             </nav>
@@ -46,45 +46,45 @@
                 <!-- ============================================================== -->
                 <!-- Start Page Content -->
                 <!-- ============================================================== -->
-                <div class="row">
+				
+				<div class="row">
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body">
                                 <h5 class="card-title"></h5>
-                                <div class="table-responsive">
-                                    <table id="zero_config" class="table table-striped table-bordered">
-                                        <thead>
-                                            <tr>
-                                            	<th>사번</th>
-                                                <th>이름</th>
-                                                <th>날짜</th>
-                                                <th>출근 시간</th>
-                                                <th>퇴근 시간</th>
-                                                <th>지각 여부</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                        	<c:forEach items="${ list }" var="co">
+	                                <div class="table-responsive">
+	                                    <table id="commuteTable" class="table table-hover">
+	                                        <thead>
 	                                            <tr>
-	                                            	<td>${ co.empNo }</td>
-	                                                <td>${ co.memberName }</td>
-	                                                <td>${ co.commuteDate }</td>
-	                                                <td><fmt:formatDate value="${co.attendTime}" type="time"></fmt:formatDate></td>
-	                                                <td><fmt:formatDate value="${co.quittingTime}" type="time"></fmt:formatDate></td>
-	                                                <c:choose>
-	                                                	<c:when test="${ co.tardy eq 'N' }">
-	                                                		<td></td>
-	                                                	</c:when>
-	                                                	<c:otherwise>
-	                                                		<td>지각</td>
-	                                                	</c:otherwise>
-	                                                </c:choose>
+	                                            	<th>사번</th>
+	                                            	<th>부서</th>
+	                                                <th>이름</th>
+	                                                <th>날짜</th>
+	                                                <th>출근 시간</th>
+	                                                <th>퇴근 시간</th>
 	                                            </tr>
-                                            </c:forEach>
-                                        </tbody>
-                                    </table>
-                                </div>
-
+	                                        </thead>
+	                                        <tbody>
+	                                        	<c:forEach items="${ list }" var="co">
+		                                            <tr>
+		                                            	<td>${ co.empNo }</td>
+		                                            	<td>${ co.departmentName }</td>
+		                                                <td>${ co.memberName }</td>
+		                                                <td>${ co.commuteDate }</td>
+		                                                <c:choose>
+		                                                	<c:when test="${ co.tardy eq 'N' }">		                                                
+				                                                <td><fmt:formatDate value="${co.attendTime}" type="time"></fmt:formatDate></td>
+		                                                	</c:when>
+		                                                	<c:otherwise>
+		                                                		<td style="color:red;"><fmt:formatDate value="${co.attendTime}" type="time"></fmt:formatDate></td>
+		                                                	</c:otherwise>
+		                                                </c:choose>
+			                                            <td><fmt:formatDate value="${co.quittingTime}" type="time"></fmt:formatDate></td>
+		                                            </tr>
+	                                            </c:forEach>
+	                                        </tbody>
+	                                    </table>
+	                                </div>
                             </div>
                         </div>
                     </div>
@@ -126,8 +126,9 @@
         /****************************************
          *       Basic Table                   *
          ****************************************/
-        $('#zero_config').DataTable();
-        
+        $('#commuteTable').DataTable({
+        	"order": [[3, 'desc'], [4, 'desc']] // asc 또는 desc
+         });
     </script>
 </body>
 </html>

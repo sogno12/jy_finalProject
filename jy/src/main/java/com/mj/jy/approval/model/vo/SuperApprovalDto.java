@@ -14,6 +14,13 @@ public class SuperApprovalDto {
 	public SuperApprovalDto() {
 	}
 	
+	public SuperApprovalDto(String table, int no) {
+		switch(table) {
+			case "Report" : this.reportNo = no; break;
+			case "Disbursement" : this.disbursementNo = no; break;
+		}
+	}
+	
 	public SuperApprovalDto(String table, int memberNo, int no, int approvalNo) {
 		this.memberNo = memberNo;
 		switch(table) {

@@ -32,7 +32,7 @@
                         <div class="ml-auto text-right">
                             <nav aria-label="breadcrumb">
                                 <ol class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                                    <li class="breadcrumb-item"><a href="main.do">Home</a></li>
                                     <li class="breadcrumb-item active" aria-current="page">Circular</li>
                                 </ol>
                             </nav>
@@ -75,16 +75,14 @@
                                                         <table id="CircularModal1" class="table text-center">
                                                         <thead>
                                                             <tr>
-                                                            <th scope="col">#</th>
-                                                            <th scope="col">조회자</th>
-                                                            <th scope="col">부서</th>
-                                                            <th scope="col">조회일시</th>
+	                                                            <th scope="col">조회자</th>
+	                                                            <th scope="col">부서</th>
+	                                                            <th scope="col">조회일시</th>
                                                             </tr>
                                                         </thead>
                                                         <tbody>
                                                         	<c:forEach var="cr" items="${cirReadingList}">
 	                                                        	<tr>
-		                                                            <th scope="row">1</th>
 		                                                            <td>${cr.name}</td>
 		                                                            <td>${cr.deName}</td>
 		                                                            <td><fmt:formatDate value="${cr.date}" pattern="MM/dd HH:mm"/></td>
@@ -116,32 +114,19 @@
                                                         <table id="CircularModal2" class="table text-center">
                                                         <thead>
                                                             <tr>
-                                                            <th scope="col">#</th>
-                                                            <th scope="col">조회자</th>
-                                                            <th scope="col">부서</th>
-                                                            <th scope="col">조회일시</th>
+	                                                            <th scope="col">대상</th>
+	                                                            <th scope="col">부서</th>
+	                                                            <th scope="col">조회일시</th>
                                                             </tr>
                                                         </thead>
                                                         <tbody>
-                                                            <tr>
-	                                                            <th scope="row">1</th>
-	                                                            <td>Mark</td>
-	                                                            <td>행정부</td>
-	                                                            <td>미열람</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <th scope="row">2</th>
-                                                                <td>Ted</td>
-                                                                <td>기획부</td>
-                                                                <td>미열람</td>
-                                                            </tr>
-                                                            <tr>
-                                                                <th scope="row">3</th>
-                                                                <td>Fred</td>
-                                                                <td>인사부</td>
-                                                                <td>미열람</td>
-                                                            </tr>
-                                                            
+                                                        	<c:forEach var="nr" items="${notReadingList}">
+	                                                        	<tr>
+		                                                            <td>${nr.name}</td>
+		                                                            <td>${nr.deName}</td>
+		                                                            <td>미열람</td>
+	                                                            </tr>
+                                                        	</c:forEach>
                                                         </tbody>
                                                         </table>
                                                     </div>
@@ -259,23 +244,7 @@
     <!-- ============================================================== -->
     <!-- End Wrapper -->
     <!-- ============================================================== -->
-    <!-- ============================================================== -->
-     <!-- ============================================================== -->
-    <!-- All Jquery -->
-    <!-- ============================================================== -->
-    <script src="${ pageContext.servletContext.contextPath }/resources/assets/libs/jquery/dist/jquery.min.js"></script>
-    <!-- Bootstrap tether Core JavaScript -->
-    <script src="${ pageContext.servletContext.contextPath }/resources/assets/libs/popper.js/dist/umd/popper.min.js"></script>
-    <script src="${ pageContext.servletContext.contextPath }/resources/assets/libs/bootstrap/dist/js/bootstrap.min.js"></script>
-    <!-- slimscrollbar scrollbar JavaScript -->
-    <script src="${ pageContext.servletContext.contextPath }/resources/assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>
-    <script src="${ pageContext.servletContext.contextPath }/resources/assets/extra-libs/sparkline/sparkline.js"></script>
-    <!--Wave Effects -->
-    <script src="${ pageContext.servletContext.contextPath }/resources/js/waves.js"></script>
-    <!--Menu sidebar -->
-    <script src="${ pageContext.servletContext.contextPath }/resources/js/sidebarmenu.js"></script>
-    <!--Custom JavaScript -->
-    <script src="${ pageContext.servletContext.contextPath }/resources/js/custom.min.js"></script>
+
     <!-- This Page JS -->
     <script src="${ pageContext.servletContext.contextPath }/resources/assets/libs/inputmask/dist/min/jquery.inputmask.bundle.min.js"></script>
     <script src="${ pageContext.servletContext.contextPath }/resources/js/pages/mask/mask.init.js"></script>

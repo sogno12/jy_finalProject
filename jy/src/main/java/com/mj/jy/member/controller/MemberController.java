@@ -1,25 +1,29 @@
 package com.mj.jy.member.controller;
 
-import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.google.gson.Gson;
+import com.mj.jy.alarm.model.service.AppAlarmService;
 import com.mj.jy.member.model.service.MemberService;
 import com.mj.jy.member.model.vo.Member;
 import com.mj.jy.member.model.vo.MemberDto;
+import com.mj.jy.messenger.model.service.MessengerService;
+import com.mj.jy.messenger.model.vo.Messenger;
+import com.mj.jy.namecard.model.vo.PageInfo;
+import com.mj.jy.namecard.model.vo.Pagination;
 
 @Controller
 public class MemberController {
@@ -27,7 +31,11 @@ public class MemberController {
 	@Autowired
 	private MemberService mService;
 	@Autowired
+	private MessengerService mgService;
+	@Autowired
 	private BCryptPasswordEncoder bcryptPasswordEncoder;
+	@Autowired
+	private AppAlarmService appAlarmService;
 	
 	// 로그인
 	@RequestMapping("login.me")
@@ -39,7 +47,13 @@ public class MemberController {
 		
 		if(loginUser != null && bcryptPasswordEncoder.matches(m.getPwd(), loginUser.getPwd())) {
 			
-			session.setAttribute("loginUser", loginUser);			
+			session.setAttribute("loginUser", loginUser);
+			
+			// 세션에 로그인한 회원의 알람 내용 담기
+			String eachAlarms = appAlarmService.eachAppAlarm(loginUser.getMemberNo());
+			String[] eachAlarm = eachAlarms.split(",");
+			session.setAttribute("eachAlarm", eachAlarm);
+			
 			mv.setViewName("redirect:/main.do");
 			
 		} else {
@@ -49,25 +63,7 @@ public class MemberController {
 		
 		return mv;
 	}
-	
-	/*
-	// 비밀번호 찾기
-	@ResponseBody
-	@RequestMapping(value="searchPwd.me", produces="application/json; charset=utf-8")
-	public String searchPwd(String empNo, Model model, HttpServletResponse response) throws IOException {
-		
-		String pwd = mService.searchPwd(empNo);
-		
-		if(pwd != null && bcryptPasswordEncoder.matches(, ())) {
-			// model.addAttribute("member", member);			
-		} else {
-			model.addAttribute("일치하는 회원이 없습니다.");
-		}
-		return new Gson().toJson(m);
-	
-	}
-	*/
-	
+
 	// 로그아웃
 	@RequestMapping("logout.me")
 	public String logoutMember(HttpSession session) {
@@ -103,8 +99,8 @@ public class MemberController {
 		if(result > 0) {
 			
 			// 인사카드 등록 후 전체 회원 조회하는 메뉴로 리턴
-			selectMemberList(m, model);
-			return "member/memberListView";
+			 selectMemberList(m, model);
+			return "redirect:memberList.me";
 			
 		} else {
 			return "";
@@ -124,7 +120,7 @@ public class MemberController {
 	// 직원 상세 정보
 	@RequestMapping("select.me")
 	public String selectMember(String empNo, Model model) {
-		
+		// System.out.println(empNo);
 		MemberDto m = mService.selectMember(empNo);
 		model.addAttribute("m", m);
 		return "member/memberDetailView";
@@ -158,8 +154,13 @@ public class MemberController {
 		
 		if(result > 0) {
 			
-			model.addAttribute("empNo", m.getEmpNo());
-			return "redirect:select.me";
+			if(m.getResignDate() == null) {				
+				model.addAttribute("empNo", m.getEmpNo());
+				return "redirect:select.me";
+			} else {
+				return "redirect:memberList.me";
+			}
+			
 			
 		} else {
 			
@@ -173,6 +174,7 @@ public class MemberController {
 		return "member/myPage";
 	}
 	
+	
 	// 근태관리
 	@RequestMapping("commute.me")
 	public String commute(HttpSession session) {
@@ -181,33 +183,65 @@ public class MemberController {
 	
 	// 주소록
 	@RequestMapping("addressBook.me")
-	public String addressBook(Model model) {
+	public String addressBook(Model model,@RequestParam(value="currentPage", required=false, defaultValue="1") int currentPage) {
 		
-		ArrayList<Member> listDept = mService.selectListDept();
-		ArrayList<Member> listPos = mService.selectListPos();
+		int listCount = mService.getListCount();
+		
+		PageInfo pi1 = Pagination.getPageInfo(listCount, currentPage, 10, 5);
+		PageInfo pi2 = Pagination.getPageInfo(listCount, currentPage, 10, 5);
+		
+		ArrayList<Member> listDept = mService.selectListDept(pi1);
+		ArrayList<Member> listPos = mService.selectListPos(pi2);
 		
 		model.addAttribute("listDept",listDept);
 		model.addAttribute("listPos",listPos);
+		model.addAttribute("pi1", pi1);
+		model.addAttribute("pi2", pi2);
 		
 		return "member/addressBook";
 	}
 	
-	// 급여정보
-	@RequestMapping("salary.me")
-	public String salary(HttpSession session) {
-		return "member/salary";
-	}
-	
-	// 휴가정보
-	@RequestMapping("leave.me")
-	public String leave(HttpSession session) {
-		return "member/vacation";
-	}
-	
 	// 쪽지
 	@RequestMapping("messenger.me")
-	public String messenger(HttpSession session) {
+	public String messenger(@SessionAttribute("loginUser") MemberDto loginUser, Model model) {	
+	   
+		String empNo = loginUser.getEmpNo();
+		
+		ArrayList<Messenger> list = mgService.selectMgList(empNo);
+		
+		
+		Member mem = new Member();
+		mem.setEmpNo(empNo);
+	 	
+	 	int recieverNo = mService.findMemberNo(mem);
+	 	
+		mgService.readDone(recieverNo);
+		model.addAttribute("list" , list);
+		
+		
+		
 		return "member/messenger";
+	}
+	
+	@GetMapping("teamTable.me")
+	public String goTeamMemberTable(@SessionAttribute("loginUser") MemberDto loginUser, Model model,
+			@RequestParam(required = false, defaultValue = "1") int pageIndex, 
+			@RequestParam(required = false, defaultValue = "5") int countNum) {
+		
+		int departmentNo = loginUser.getDepartmentNo();
+		int count = mService.getCountDeptMember(departmentNo);
+		if(countNum == 0) {
+			countNum = count;
+		}
+		PageInfo pi = Pagination.getPageInfo(count, pageIndex, 10, countNum);
+		model.addAttribute("listDept", mService.getListDept(departmentNo, pi));
+		// System.out.println(mService.getListDept(departmentNo, pi));
+		if(countNum == count) {
+			countNum = 0;
+		}
+		model.addAttribute("countNum", countNum);
+		
+		return "member/teamMemberTable";
 	}
 	
 }

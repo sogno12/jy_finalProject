@@ -26,8 +26,14 @@ public class NamecardServiceImpl implements NamecardService{
 	 */
 	@Override
 	public int insertNamecard(Namecard n) {
+		int result = nDao.insertNamecard(sqlSession, n);
 		
-		return nDao.insertNamecard(sqlSession, n);
+		int namecardNo = 0;
+		if(result > 0) {
+			namecardNo = n.getNamecardNo();
+		}
+		
+		return namecardNo;
 	}
 
 
@@ -57,7 +63,6 @@ public class NamecardServiceImpl implements NamecardService{
 	}
 
 
-
 	/**
 	 * 회의실 리스트 총 갯수 
 	 */
@@ -66,10 +71,40 @@ public class NamecardServiceImpl implements NamecardService{
 		return nDao.getBroomListCount(sqlSession);
 	}
 
-
+	// 회의실 리스트 조회
 	@Override
 	public ArrayList<BusinessDTO> selectBroomList(PageInfo pi) {
 		return nDao.selectBroomList(sqlSession, pi);
+	}
+
+	// 명함 알람
+	@Override
+	public int updateNameAlarm(int namecardNo) {
+		return nDao.updateNameAlarm(sqlSession, namecardNo);
+	}
+
+
+	// 명함 신청 리스트 총 갯수 조회용 서비스(멤버용)
+	@Override
+	public int getNameListCountMem(int memberNo) {
+		return nDao.getNameListCountMem(sqlSession, memberNo);
+	}
+
+	// 회의실예약 리스트 총갯수 조회(멤버용)
+	@Override
+	public int getBroomListCountMem(int memberNo) {
+		return nDao.getBroomListCountMem(sqlSession, memberNo);
+	}
+
+	@Override
+	public ArrayList<Namecard> selectNameListMem(PageInfo pi, int memberNo) {
+		return nDao.selectNameListMem(sqlSession, pi, memberNo);
+	}
+
+
+	@Override
+	public ArrayList<BusinessDTO> selectBroomListMem(PageInfo pi, int memberNo) {
+		return nDao.selectBroomListMem(sqlSession, pi, memberNo);
 	}
 
 

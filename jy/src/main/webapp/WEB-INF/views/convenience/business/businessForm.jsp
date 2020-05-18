@@ -20,7 +20,7 @@
                         <div class="ml-auto text-right">
                             <nav aria-label="breadcrumb">
                                 <ol class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                                    <li class="breadcrumb-item"><a href="main.do">Home</a></li>
                                     <li class="breadcrumb-item active" aria-current="page">Convenience</li>
                                 </ol>
                             </nav>
@@ -187,7 +187,7 @@
         					if(flag){ // 현재 그 시간은 예약 가능
         						value += "<option value='"+ (i+1) + "'>" + timeArr[i] + "</option>";
         					}else{ // 현재 그 시간은 예약 불가
-        						value += "<option disabled>" + timeArr[i] + "</option>";
+        						value += "<option disabled style='color:red;'>" + timeArr[i] + "</option>";
         					}
         				}
         			}

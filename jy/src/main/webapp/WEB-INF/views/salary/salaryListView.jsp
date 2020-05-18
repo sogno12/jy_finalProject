@@ -24,7 +24,7 @@
                         <div class="ml-auto text-right">
                             <nav aria-label="breadcrumb">
                                 <ol class="breadcrumb">
-                                    <li class="breadcrumb-item"><a href="#">Home</a></li>
+                                    <li class="breadcrumb-item"><a href="${ pageContext.servletContext.contextPath }/WEB-INF/views/main.jsp">Home</a></li>
                                     <li class="breadcrumb-item active" aria-current="page">Salary</li>
                                 </ol>
                             </nav>
@@ -42,37 +42,42 @@
                 <!-- ============================================================== -->
                 <!-- Start Page Content -->
                 <!-- ============================================================== -->
+				
                 <div class="row">
                     <div class="col-12">
                         <div class="card">
                             <div class="card-body">
                                 <h5 class="card-title"></h5>
-                                <div class="table-responsive">
-                                    <table id="zero_config" class="table table-striped table-bordered">
-                                        <thead>
-                                            <tr>
-                                            	<th>#</th>
-                                            	<th>사번</th>
-                                                <th>이름</th>
-                                                <th>부서</th>
-                                                <th>직급</th>
-                                                <th>급여</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                        	<c:forEach items="${ list }" var="sa">
+                                	 <div class="table-responsive">
+	                                    <table id="zero_config" class="table table-hover">
+	                                        <thead>
 	                                            <tr>
-                                        			<th scope="row"><input type="hidden" value="${ sa.salaryNo }"></th>
-	                                            	<td>${ sa.empNo }</td>
-	                                                <td>${ sa.memberName }</td>
-	                                                <td>${ sa.departmentName }</td>
-	                                                <td>${ sa.positionName }</td>
-	                                                <td>${ sa.sum }</td>
+	                                            	<th>#</th>
+	                                            	<th>사번</th>
+	                                                <th>이름</th>
+	                                                <th>부서</th>
+	                                                <th>직급</th>
+	                                                <th>급여</th>
+	                                                <th>지급 날짜</th>
 	                                            </tr>
-                                            </c:forEach>
-                                        </tbody>
-                                    </table>
-                                </div>
+	                                        </thead>
+	                                        <tbody>
+	                                        	<c:forEach items="${ list }" var="sa">
+		                                            <tr>
+	                                        			<!-- <td><input type="hidden" value="${ sa.salaryNo }"></td> -->
+	                                        			<td>${ sa.salaryNo }</td>
+		                                            	<td>${ sa.empNo }</td>
+		                                                <td>${ sa.memberName }</td>
+		                                                <td>${ sa.departmentName }</td>
+		                                                <td>${ sa.positionName }</td>
+		                                                <td>${ sa.sum }</td>
+		                                                <td>${ sa.payDate }</td>
+		                                            </tr>
+	                                            </c:forEach>
+	                                        </tbody>
+	                                    </table>
+	                                </div>
+	                            </div>
                             </div>
                         </div>
                     </div>
@@ -87,18 +92,17 @@
                 <!-- ============================================================== -->
                 <!-- End Right sidebar -->
                 <!-- ============================================================== -->
+	            <jsp:include page="../common/footer.jsp"/>
             </div>
             <!-- ============================================================== -->
             <!-- End Container fluid  -->
             <!-- ============================================================== -->
             
-            <jsp:include page="../common/footer.jsp"/>
         
         </div>
         <!-- ============================================================== -->
         <!-- End Page wrapper  -->
         <!-- ============================================================== -->
-    </div>
     <!-- ============================================================== -->
     <!-- End Wrapper -->
     <!-- ============================================================== -->
@@ -110,12 +114,16 @@
         /****************************************
          *       Basic Table                   *
          ****************************************/
-        $('#zero_config').DataTable();
+        $(document).ready(function() {
 
-
-        $("#zero_config tbody tr").click(function(){
-        	location.href="select.sa?salaryNo=" + $(this).children().eq(0).children().eq(0).val();
-		});
+            var table = $('#zero_config').DataTable({order: [[6, 'desc'], [3, 'desc']]});
+             
+            $('#zero_config tbody').on('click', 'tr', function () {
+                var data = table.row( this ).data();
+                // console.log(data[0].val);
+                location.href="select.sa?salaryNo=" + data[0];
+            });
+        });
     </script>
 </body>
 </html>
