@@ -47,4 +47,5 @@
 		 WHERE SCHEDULE_NO=#{scheduleNo}
 	</update>
 
+
 </mapper>

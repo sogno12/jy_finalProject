@@ -3,16 +3,22 @@ package com.mj.jy.common.controller;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttribute;
 
 import com.google.gson.Gson;
+import com.mj.jy.appBox.model.vo.SentAppBoxDto;
+import com.mj.jy.board.model.vo.TeamBoardDto;
 import com.mj.jy.common.model.service.MainService;
+import com.mj.jy.member.model.vo.MemberDto;
 import com.mj.jy.todolist.model.vo.TodoList;
+
 
 @Controller
 public class MainController {
@@ -22,7 +28,14 @@ public class MainController {
 	
 	// 메인화면(공지사항, 결재 진행사항, todolist)
 	@RequestMapping("main.do")
-	public String goMain(Model model) {
+	public String goMain(@SessionAttribute("loginUser") MemberDto loginUser, Model model) {
+
+		// 공지사항
+		List<TeamBoardDto> bData = mainService.getBoardData(loginUser.getDepartmentNo());
+		model.addAttribute("bData", mainService.getBoardData(loginUser.getDepartmentNo()));
+		
+		// 결재내용
+		model.addAttribute("appData", mainService.getApprovalData(loginUser.getMemberNo()));
 		
 		return "main";
 	}

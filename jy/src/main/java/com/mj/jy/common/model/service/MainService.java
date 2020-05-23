@@ -2,7 +2,10 @@ package com.mj.jy.common.model.service;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
+import com.mj.jy.appBox.model.vo.SentAppBoxDto;
+import com.mj.jy.board.model.vo.TeamBoardDto;
 import com.mj.jy.todolist.model.vo.TodoList;
 
 public interface MainService {
@@ -15,4 +18,16 @@ public interface MainService {
 	
 	// 할 일 리스트 조회 서비스
 	public ArrayList<TodoList> selectTodoList(int memberNo);
+
+	/** sujin1. 결재정보 가져오기
+	 * @param memberNo
+	 * @return
+	 */
+	List<SentAppBoxDto> getApprovalData(int memberNo);
+
+	/** sujin2. 게시판 정보
+	 * @param memberNo
+	 * @return
+	 */
+	List<TeamBoardDto> getBoardData(int departmentNo);
 }

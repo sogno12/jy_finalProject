@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> 
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -43,7 +45,9 @@
 	                <!-- Column -->
 	                <div class="col-md-6 col-lg-2 col-xlg-3">
 	                    <div class="card card-hover">
-	                        <div class="box bg-cyan text-center" style="cursor: pointer;" onclick="location.href='myInfo.me';">
+
+	                        <div class="box bg-cyan text-center" style="cursor: pointer;"onclick="window.location.href='myInfo.me'">
+
 	                            <h1 class="font-light text-white"><i class="mdi mdi-account-card-details"></i></h1>
 	                            <h6 class="text-white">내 정보</h6>
 	                        </div>
@@ -61,7 +65,7 @@
 	                 <!-- Column -->
 	                <div class="col-md-6 col-lg-2 col-xlg-3">
 	                    <div class="card card-hover">
-	                        <div class="box bg-warning text-center" style="cursor: pointer;" onclick="goCafe();">
+	                        <div class="box bg-warning text-center" style="cursor: pointer;" onclick="window.location.href='cafeTeria.ca'">
 	                            <h1 class="font-light text-white"><i class="mdi mdi-coffee-outline"></i></h1>
 	                            <h6 class="text-white">카페테리아</h6>
 	                        </div>
@@ -70,7 +74,7 @@
 	                <!-- Column -->
 	                <div class="col-md-6 col-lg-2 col-xlg-3">
 	                    <div class="card card-hover">
-	                        <div class="box bg-danger text-center" style="cursor: pointer;" onclick="goToWork();">
+	                        <div class="box bg-danger text-center" style="cursor: pointer;" onclick="window.location.href='commute.me'">
 	                            <h1 class="font-light text-white"><i class="mdi mdi-tie"></i></h1>
 	                            <h6 class="text-white">출근</h6>
 	                        </div>
@@ -79,7 +83,7 @@
 	                <!-- Column -->
 	                <div class="col-md-6 col-lg-2 col-xlg-3">
 	                    <div class="card card-hover">
-	                        <div class="box bg-info text-center" style="cursor: pointer;" onclick="leaveWork();">
+	                        <div class="box bg-info text-center" style="cursor: pointer;" onclick="window.location.href='commute.me'">
 	                            <h1 class="font-light text-white"><i class="mdi mdi-heart-outline"></i></h1>
 	                            <h6 class="text-white">퇴근</h6>
 	                        </div>
@@ -103,45 +107,24 @@
 	                            <h4 class="card-title m-b-0">공지사항</h4>
 	                        </div>
 	                        <ul class="list-style-none">
-	                            <li class="d-flex no-block card-body">
-	                                <i class="fa fa-check-circle w-30px m-t-5"></i>
+	                        	<c:forEach var="b" items="${ bData }">
+	                        		<li class="d-flex no-block card-body">
 	                                <div>
-	                                    <a href="#" class="m-b-0 font-medium p-0">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</a>
-	                                    <span class="text-muted">But already everything was solved. It will ...</span>
+	                                    <a href="#" class="m-b-0 font-medium p-0">Title : ${ b.title }</a>
+	                                    <span class="text-muted">No.${ b.boardNo } &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; ${ b.departmentName }</span>
 	                                </div>
 	                                <div class="ml-auto">
 	                                    <div class="tetx-right">
-	                                        <h5 class="text-muted m-b-0">20</h5>
-	                                        <span class="text-muted font-16">Jan</span>
+	                                        <h5 class="text-muted m-b-0">
+	                                        	<fmt:formatDate value="${ b.writtenDate }" pattern="dd" />
+	                                        </h5>
+	                                        <span class="text-muted font-16">
+	                                        	<fmt:formatDate value="${ b.writtenDate }" pattern="MMMMM" />
+	                                        </span>
 	                                    </div>
 	                                </div>
 	                            </li>
-	                            <li class="d-flex no-block card-body border-top">
-	                                <i class="fa fa-gift w-30px m-t-5"></i>
-	                                <div>
-	                                    <a href="#" class="m-b-0 font-medium p-0">Congratulation Maruti, Happy Birthday</a>
-	                                    <span class="text-muted">But already everything was solved. It will ...</span>
-	                                </div>
-	                                <div class="ml-auto">
-	                                    <div class="tetx-right">
-	                                        <h5 class="text-muted m-b-0">11</h5>
-	                                        <span class="text-muted font-16">Jan</span>
-	                                    </div>
-	                                </div>
-	                            </li>
-	                            <li class="d-flex no-block card-body border-top">
-	                                <i class="fa fa-plus w-30px m-t-5"></i>
-	                                <div>
-	                                    <a href="#" class="m-b-0 font-medium p-0">Maruti is a Responsive Admin theme</a>
-	                                    <span class="text-muted">But already everything was solved. It will ...</span>
-	                                </div>
-	                                <div class="ml-auto">
-	                                    <div class="tetx-right">
-	                                        <h5 class="text-muted m-b-0">19 </h5>
-	                                        <span class="text-muted font-16">Jan</span>
-	                                    </div>
-	                                </div>
-	                            </li>
+	                        	</c:forEach>
 	                        </ul>
 	                    </div>
 	
@@ -152,23 +135,46 @@
 	                        <table class="table">
 	                            <thead>
 	                                <tr>
-	                                    <th scope="col">Description</th>
+	                                    <th scope="col">Category</th>
+	                                    <th scope="col">Title</th>
 	                                    <th scope="col">Status</th>
+	                                    <th scope="col">Date</th>
 	                                </tr>
 	                            </thead>
 	                            <tbody>
-	                                <tr>
-	                                    <td>Making The New Suit</td>
-	                                    <td class="text-success">Progress</td>
-	                                </tr>
-	                                <tr>
-	                                    <td>Luanch My New Site</td>
-	                                    <td class="text-warning">Pending</td>
-	                                </tr>
-	                                <tr>
-	                                    <td>Maruti Excellant Theme</td>
-	                                    <td class="text-danger">Cancled</td>
-	                                </tr>
+                            		<c:forEach var="a" items="${ appData }" varStatus="status" end="4">
+                            			<c:if test="${ a.approvalNo == 1 }">
+                            				<tr>
+			                                    <td>${ a.category }</td>
+			                                    <td>${ a.title }</td>
+			                                    <td class="text-warning">${ a.type }</td>
+			                                    <td>
+			                                    	<fmt:formatDate value="${a.createDate}" pattern="MM-dd HH:mm"/>
+			                                    </td>
+			                                </tr>
+                            			</c:if>
+                            			<c:if test="${ a.approvalNo == 2 }">
+                            				<tr>
+			                                    <td>${ a.category }</td>
+			                                    <td>${ a.title }</td>
+			                                    <td class="text-success">${ a.type }</td>
+			                                    <td>
+			                                    	<fmt:formatDate value="${a.createDate}" pattern="MM-dd HH:mm"/>
+			                                    </td>
+			                                </tr>
+                            			</c:if>
+                            			<c:if test="${ a.approvalNo == 3 }">
+	                            			<tr>
+			                                    <td>${ a.category }</td>
+			                                    <td>${ a.title }</td>
+			                                    <td class="text-danger">${ a.type }</td>
+			                                    <td>
+			                                    	<fmt:formatDate value="${a.createDate}" pattern="MM-dd HH:mm"/>
+			                                    </td>
+			                                </tr>
+                            			</c:if>
+                            		</c:forEach>
+                            
 	                            </tbody>
 	                        </table>
 	                    </div>
@@ -182,11 +188,8 @@
 	                            <h4 class="card-title"><i class="mdi mdi-border-color">To Do List<a href="javascript:void(0)" data-toggle="modal" data-target="#add-new-todo" class="m-l-20" style="color: palevioletred;">+</a></i></h4>
 	                            <div class="todo-widget scrollable" style="height:450px;" id="todoArea">
 	                                <ul class="list-task todo-list list-group m-b-0" data-role="tasklist">
-
-										
-										
-
-									</ul>
+       
+									                 </ul>
 	                            </div>
 	                        </div>
 	                    </div>

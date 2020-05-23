@@ -2,10 +2,13 @@ package com.mj.jy.common.model.service;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.mj.jy.appBox.model.vo.SentAppBoxDto;
+import com.mj.jy.board.model.vo.TeamBoardDto;
 import com.mj.jy.common.model.dao.MainDao;
 import com.mj.jy.todolist.model.vo.TodoList;
 
@@ -31,6 +34,16 @@ public class MainServiceImpl implements MainService {
 	@Override
 	public ArrayList<TodoList> selectTodoList(int memberNo) {
 		return mainDao.selectTodoList(memberNo);
+	}
+
+	@Override
+	public List<SentAppBoxDto> getApprovalData(int memberNo) {
+		return mainDao.getApprovalData(memberNo);
+	}
+
+	@Override
+	public List<TeamBoardDto> getBoardData(int departmentNo) {
+		return mainDao.getBoardData(departmentNo);
 	}
 
 }

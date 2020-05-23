@@ -19,5 +19,7 @@ public interface BusinessRoomDao {
 	
 	int broomUpdate(int meetingNo);
 	
+	int updateBroomAlarm(int meetingNo);
+	
 	
 }

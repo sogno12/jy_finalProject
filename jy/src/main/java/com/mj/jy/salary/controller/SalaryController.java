@@ -2,11 +2,15 @@ package com.mj.jy.salary.controller;
 
 import java.util.ArrayList;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.mj.jy.member.model.vo.MemberDto;
 import com.mj.jy.salary.model.service.SalaryService;
 import com.mj.jy.salary.model.vo.SalaryDto;
 
@@ -38,5 +42,18 @@ public class SalaryController {
 		model.addAttribute("sa", sa);
 		
 		return "salary/salaryDetailView";
+	}
+	
+	// 급여 내정보 상세 조회
+	@RequestMapping("salary.me")
+	public String salary(HttpSession session,Model model) {
+		String empNo = ((MemberDto)session.getAttribute("loginUser")).getEmpNo();
+		
+		SalaryDto s = saService.selectMySalary(empNo);
+		
+		s.setEmpNo(empNo);
+
+		model.addAttribute("s", s);
+		return "member/salary";
 	}
 }

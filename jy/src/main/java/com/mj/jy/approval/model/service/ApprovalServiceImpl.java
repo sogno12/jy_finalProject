@@ -1,11 +1,16 @@
 package com.mj.jy.approval.model.service;
 
+import java.util.Calendar;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.mj.jy.alarm.model.service.AppAlarmService;
+import com.mj.jy.appBox.model.dao.AppBoxDao;
 import com.mj.jy.appBox.model.vo.DisbursementDto;
 import com.mj.jy.appBox.model.vo.ReportDto;
 import com.mj.jy.approval.model.dao.ApprovalDao;
@@ -26,9 +31,13 @@ import com.mj.jy.report.model.vo.ReportApp;
 public class ApprovalServiceImpl implements ApprovalService {
 
 	private final ApprovalDao appDao;
+	private final AppBoxDao appBoxDao;
+	private final AppAlarmService appAlarmService;
 	
-	public ApprovalServiceImpl(ApprovalDao appDao) {
+	public ApprovalServiceImpl(ApprovalDao appDao, AppBoxDao appBoxDao, AppAlarmService appAlarmService) {
 		this.appDao = appDao;
+		this.appBoxDao = appBoxDao;
+		this.appAlarmService = appAlarmService;
 	}
 
 	@Override
@@ -50,7 +59,6 @@ public class ApprovalServiceImpl implements ApprovalService {
 		//리포트 추가
 		enrollResult = appDao.enrollReport(report);
 		report.setReportNo(report.getReportNo());
-		
 		
 		//리포트-super연결
 		for(int i=0; i<superArray.length; i++) {
@@ -142,12 +150,42 @@ public class ApprovalServiceImpl implements ApprovalService {
 		//3. '승인'시, 다음 결재자로 넘기기
 		if(approvalResult>0 && superApprovalDto.getApprovalNo() == 2) {
 			// 3_1. 결재자 status 전부 -1
-			appDao.updateApp(superApprovalDto);
+			updateApp(superApprovalDto);
 			// 3_2. 상위결재자가 있을 경우 확인 (해당 Report에 status =1 인 결재자가 있는지)
-			int findSuper = appDao.findSupervisor(superApprovalDto);
+			int findSuper = findSupervisor(superApprovalDto);
 			// 3_3. 상위결재자가 있으므로 Report Table - approval_no = 1로 업데이트
 			if(findSuper > 0) {
+				// 4_1. 원 보고서 approval_no=1로 수정
 				appDao.updateApproval(new SuperApprovalDto("Report", superApprovalDto.getMemberNo(), superApprovalDto.getReportNo(), 1));
+				// 4_2. 새 상위결재자에게 알람
+				int theFindSuper = theFindeSuper(superApprovalDto);
+				appAlarmService.sendAlarm(theFindSuper, "6");
+			}else { // 4. 상위결재자가 없으면 휴가서의 경우 휴가 날짜 빼주기
+				ReportDto reportDto = getOneReport(superApprovalDto.getReportNo());
+				
+				Double countV = (double) 0;
+				
+				if(reportDto.getReasonNo() == 1) {
+					if(reportDto.getEndDate() != null) {
+						countV = calcDate(reportDto.getBeginDate(), reportDto.getEndDate());
+					}else {
+						countV = (double) 1;
+					}
+				} else if(reportDto.getReasonNo() == 2) {
+					countV = 0.5;
+				}
+				
+				Calendar beginDate = dateToCalendar(reportDto.getBeginDate());
+				int thisYear = beginDate.get(beginDate.YEAR);
+				
+				Map<String, Double> updateVacationCount = new HashMap();
+				updateVacationCount.put("memberNo", (double) reportDto.getCreateBy());
+				updateVacationCount.put("leavedaysYear", (double) thisYear);
+				updateVacationCount.put("countV", (double) countV);
+				
+				int result = appDao.changeVacationCount(updateVacationCount);
+				
+				System.out.println(result);
 			}
 		}
 		
@@ -174,17 +212,23 @@ public class ApprovalServiceImpl implements ApprovalService {
 		//3. '승인'시, 다음 결재자로 넘기기
 		if(approvalResult>0 && superApprovalDto.getApprovalNo() == 2) {
 			// 3_1. 결재자 status 전부 -1
-			appDao.updateApp(superApprovalDto);
-			// 3_2. 상위결재자가 있을 경우 확인 (해당 Report에 status =1 인 결재자가 있는지)
-			int findSuper = appDao.findSupervisor(superApprovalDto);
+			updateApp(superApprovalDto);
+			// 3_2. 상위결재자가 있을 경우 확인 (해당 Report에 status =1 인 결재자가 있는지 찾음)
+			int findSuper = findSupervisor(superApprovalDto);
 			// 3_3. 상위결재자가 있으므로 Report Table - approval_no = 1로 업데이트
 			if(findSuper > 0) {
+				// 4_1. 원 결재서 approval_no=1로 수정
 				appDao.updateApproval(new SuperApprovalDto("Disbursement", superApprovalDto.getMemberNo(), superApprovalDto.getDisbursementNo(), 1));
+				// 4_2. 새 상위결재자에게 알람
+				int theFindSuper = theFindeSuper(superApprovalDto);
+				appAlarmService.countAppAlarm(theFindSuper);
+				appAlarmService.noticeAppAlarm(theFindSuper, "6");
 			}
 		}
 			
 		return approvalResult;
 	}
+
 
 	@Override
 	public int deleteReport(int reportNo) {
@@ -252,6 +296,55 @@ public class ApprovalServiceImpl implements ApprovalService {
 			}
 		
 		return updateResult;
+	}
+
+	/* 주말을 제외한 평일 날짜 구하기 */
+	public Double calcDate(Date beginDate, Date endDate) {
+		Double count = (double) 0;
+		
+		Calendar cal = dateToCalendar(beginDate);
+		
+		while(true) {
+			int nWeek = cal.get(Calendar.DAY_OF_WEEK);
+			if( nWeek != 6 && nWeek != 7) {
+				count ++;
+			}
+			cal.add(Calendar.DAY_OF_YEAR, 1);
+			System.out.println(cal.compareTo(dateToCalendar(endDate)));
+			if(cal.compareTo(dateToCalendar(endDate)) == 0) {
+				return count;
+			}
+		}
+	}
+	
+	/* Date 타입 Calendar로 매핑 */
+	public Calendar dateToCalendar(Date date) {
+		Calendar c = Calendar.getInstance();
+		c.setTime(date);
+		return c;
+	}
+	
+	@Override
+	public ReportDto getOneReport(int reportNo) {
+		return appBoxDao.getOneReport(reportNo);
+	}
+	
+	@Override
+	public DisbursementDto getOneDis(int disbursementNo) {
+		return appBoxDao.getOneDis(disbursementNo);
+	}
+	
+	public void updateApp(SuperApprovalDto superApprovalDto) {
+		appDao.updateApp(superApprovalDto);
+	}
+	
+	public int findSupervisor(SuperApprovalDto superApprovalDto) {
+		return appDao.findSupervisor(superApprovalDto);
+	}
+	
+	@Override
+	public int theFindeSuper(SuperApprovalDto superApprovalDto) {
+		return appDao.theFindeSuper(superApprovalDto);
 	}
 
 	

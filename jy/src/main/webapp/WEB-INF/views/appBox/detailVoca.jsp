@@ -216,7 +216,11 @@
                                                     	<c:if test="${ loginUser.memberNo eq oneReport.createBy && oneReport.approvalNo eq 3 }">
                                                         	<button type="button" class="btn btn-warning" id="updateBtn">수정</button>
                                                         </c:if>
-                                                        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#Modal4">결재</button>
+                                                        <c:forEach var="s" items="${ supervisers }">
+                                                        	<c:if test="${ s.name eq loginUser.memberName }">
+                                                        		<button type="button" class="btn btn-success" data-toggle="modal" data-target="#Modal4">결재</button>
+												        	</c:if>
+												      	</c:forEach>
                                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                                     </div>
                                                 </div>
@@ -263,23 +267,6 @@
 	<!-- End Page wrapper  -->
 	<!-- ============================================================== -->
 	
-
-     <!-- ============================================================== -->
-    <!-- All Jquery -->
-    <!-- ============================================================== -->
-    <script src="${ pageContext.servletContext.contextPath }/resources/assets/libs/jquery/dist/jquery.min.js"></script>
-    <!-- Bootstrap tether Core JavaScript -->
-    <script src="${ pageContext.servletContext.contextPath }/resources/assets/libs/popper.js/dist/umd/popper.min.js"></script>
-    <script src="${ pageContext.servletContext.contextPath }/resources/assets/libs/bootstrap/dist/js/bootstrap.min.js"></script>
-    <!-- slimscrollbar scrollbar JavaScript -->
-    <script src="${ pageContext.servletContext.contextPath }/resources/assets/libs/perfect-scrollbar/dist/perfect-scrollbar.jquery.min.js"></script>
-    <script src="${ pageContext.servletContext.contextPath }/resources/assets/extra-libs/sparkline/sparkline.js"></script>
-    <!--Wave Effects -->
-    <script src="${ pageContext.servletContext.contextPath }/resources/js/waves.js"></script>
-    <!--Menu sidebar -->
-    <script src="${ pageContext.servletContext.contextPath }/resources/js/sidebarmenu.js"></script>
-    <!--Custom JavaScript -->
-    <script src="${ pageContext.servletContext.contextPath }/resources/js/custom.min.js"></script>
     <!-- This Page JS -->
     <script src="${ pageContext.servletContext.contextPath }/resources/assets/libs/inputmask/dist/min/jquery.inputmask.bundle.min.js"></script>
     <script src="${ pageContext.servletContext.contextPath }/resources/js/pages/mask/mask.init.js"></script>
@@ -329,17 +316,20 @@
     });
 	
     $('#checkBtn').click(function(){
-    	if( ${loginUser.memberNo } == ${oneDis.createBy} && ${oneDis.approvalNo} != 2) {
+    	var memberNo = ${ loginUser.memberNo};
+    	var createBy = ${ oneReport.createBy};
+    	var approvalNo = ${ oneReport.approvalNo };
+    	
+    	if( memberNo == createBy && approvalNo != 2) {
     		location.href='${ pageContext.servletContext.contextPath }/sendAppBox.box';
-    	}else if(  ${loginUser.memberNo} == ${oneDis.createBy} && ${oneDis.approvalNo} == 2 ){
+    	}else if(  memberNo == createBy && approvalNo == 2 ){
     		location.href='${ pageContext.servletContext.contextPath }/endSentAppBox.box';
-    	}else if(  ${loginUser.memberNo} != ${oneDis.createBy} && ${oneDis.approvalNo} != 2 ){
+    	}else if(  memberNo != createBy && approvalNo != 2 ){
     		location.href='${ pageContext.servletContext.contextPath }/receiveAppBox.box';
     	}else {
     		location.href='${ pageContext.servletContext.contextPath }/endReceiveAppBox.box';
     	}
     });
-    
 	</script>
     
 </div>

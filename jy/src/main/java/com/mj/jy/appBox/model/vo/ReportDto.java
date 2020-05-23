@@ -3,6 +3,7 @@ package com.mj.jy.appBox.model.vo;
 import java.util.Date;
 
 import org.apache.ibatis.type.Alias;
+import org.springframework.format.annotation.DateTimeFormat;
 
 @Alias("ReportDto")
 public class ReportDto {
@@ -14,7 +15,12 @@ public class ReportDto {
 	private int attachmentNo;
 	private Date createDate;
 	private String title;
+	
+
+	@DateTimeFormat(pattern="MM/dd/yyyy")
 	private Date beginDate;
+	
+	@DateTimeFormat(pattern="MM/dd/yyyy")
 	private Date endDate;
 	private String content;
 	private int reasonNo;

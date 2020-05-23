@@ -62,28 +62,29 @@
                                   <tbody>
                                     <tr>
                                       <th scope="row" style="padding-left: 100px;">이름</th>
-                                      <td style="padding-right: 100px;">이요한</td>
+                                      <td style="padding-right: 100px;" id="name">${loginUser.memberName }</td>
                                     
                                     </tr>
                                     <tr>
                                       <th scope="row" style="padding-left: 100px;">부서</th>
-                                      <td style="padding-right: 100px;">인사과</td>
+                                      <td style="padding-right: 100px;" id="department" >${loginUser.departmentName }</td>
                                      
                                     </tr>
                                     <tr>
                                         <th scope="row" style="padding-left: 100px;">지각여부(일)</th>
-                                        <td style="padding-right: 100px;">정상출근</td>
+                                        <td style="padding-right: 100px;" id="attended" > - </td>
                                     </tr>
                                     <tr>
                                         <th scope="row" style="padding-left: 100px;">지각여부(월)</th>
-                                        <td style="padding-right: 100px;">5일</td>
+                                        <td style="padding-right: 100px;" id="tardycount">-</td>
                                     </tr>
                                     <tr>
                                         <th scope="row" style="padding-left: 100px;">결근횟수</th>
-                                        <td style="padding-right: 100px;" class="show">10일<br>
-                                            <button class="badge badge-primary" data-toggle="modal" data-target="#exampleModal">결근 조회</button>
+                                        <td style="padding-right: 100px;" class="show" id="absence"> -<br>
+                                            
                                         </td>
-                            
+                                       
+                            	
                                     </tr>
                                    <!-- Modal -->
                                         <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -98,10 +99,8 @@
                                                 <div class="modal-body">
                                                 <ul>
                                                     <li>02/23/2020</li>
-                                                    <li>02/23/2020</li>
-                                                    <li>02/23/2020</li>
-                                                    <li>02/23/2020</li>
-                                                    <li>02/23/2020</li>
+                                                    <li>02/20/2020</li>
+                                                    <li>03/20/2020</li>                             
                                                 </ul>
                                                 </div>
                                                 <div class="modal-footer">
@@ -114,11 +113,12 @@
                                         <th scope="row" style="padding-left: 100px;">출근</th>
                                         <td style="padding-right: 100px;">
                                         
-                                        <button class="badge badge-primary" onclick="clock();">Clock In</button></td>
+                                        <button class="badge badge-primary" id="clockIn" >Clock In</button></td>
                                     </tr>
                                     <tr>
                                         <th scope="row" style="padding-left: 100px;">퇴근</th>
-                                        <td style="padding-right: 100px;"><button class="badge badge-primary" onclick="clock();">Clock Out</button></td>
+                                        <td style="padding-right: 100px;"><button class="badge badge-primary" id="clockOut">Clock Out</button></td>
+                                   			<input type="hidden" id="empNo" value="${loginUser.empNo }">
                                     </tr>
                                   </tbody>
                             </table>
@@ -142,8 +142,11 @@
 		</div>
 	</div>
 	 <script>
-	 
-	function clock(){
+	
+	$(function(){
+		
+		selectClockIn();
+		
 		var today = new Date();
 		var day = new Date();
 		
@@ -154,6 +157,7 @@
 		var hh = today.getHours();
 		var mm = today.getMinutes();
 		var ss = today.getSeconds();
+		
 		if(dd<10) 
 		{
 		    dd='0'+dd;
@@ -166,13 +170,145 @@
 
 		today = MM+'-'+dd+'-'+yyyy + ' ' + hh + ':' + mm + ':' + ss;
 		day = MM + '-' + dd + '-' + yyyy;
-		console.log(today);
-		console.log(day);
 		
+	console.log(today);
+	console.log(day);
 	
+		// 출근 
+		$("#clockIn").click(function(){
+			$.ajax({
+				url:"clockIn.co",
+				data:{ today: today, day:day },
+				type:"post",
+				success:function(result){
+				
+					alertify.alert("출근 확인!");
+					selectClockIn();
+				
+				}, error:function(){
+					console.log("ajax 통신 실패");
+				}
+				});
+				
+			});
 		
+		// 퇴근 
+		$("#clockOut").click(function(){
+			$.ajax({
+				url:"clockOut.co",
+				data:{ today: today },
+				type:"post",
+				success:function(result){
+				
+					alertify.alert("퇴근 확인!");
+					selectClockIn();
+				
+				}, error:function(){
+					console.log("ajax 통신 실패");
+				}
+				});
+				
+			});
 		
+		});
+	
+	
+	// 출석한거 불러오는거
+	function selectClockIn(){
+		
+		$.ajax({
+			url:"selectClock.co",
+			data:{empNo: $("#empNo").val()},
+			type:"post",
+			success: function(c){
+	
+				console.log(c);
+				var valueT="";
+				var valueM = "";
+				var valueD = "";
+				var valueA = "";
+				var valueQ = "";
+				var valueC = "";
+				var valuetd = "";
+				
+			 if(c.tardy == 'N'){
+				 
+				  valueT += '정상출근';
+				  
+			 } else if(c.tardy == 'Y'){
+				 
+				 valueT += '지각';
+				 
+			 } else{
+				 
+				 valueT += '-';
+			 }
+			 
+			 if (c.attendTime != null){
+				 
+				 valueC += c.attendTime;
+				 $("#clockIn").prop('disabled', true);
+			
+			 }else{
+				 
+				 valueC += "clockIn";
+				 $("#clockIn").prop('disabled', false);
+			
+			 }
+			 
+ 			if (c.quittingTime != null){
+				 
+				 valueQ += c.quittingTime;
+				 $("#clockOut").prop('disabled', true);
+			
+			 }else{
+				 
+				 valueQ += "Clock Out";
+				 $("#clockOut").prop('disabled', false);
+			
+			 }
+			 
+			 if(c.absence < 1){
+				 
+				 valueA += '-';
+			
+			 }else{
+				 
+				 valueA += c.absence + '일' ;
+			
+			 }
+			 if(c.tardycount < 1){
+			
+				 valuetd += '-';
+			
+			 }else{
+			
+				 valuetd += c.tardycount + '번';
+			
+			 }
+		
+ 			
+			 valueA += '<br>' + "<button class='badge badge-primary' data-toggle='modal' data-target='#exampleModal'>" + "결근 조회" + "</button>" ;
+			 valueM += c.name;
+			 valueD += c.department;
+			 
+			 
+			 
+			 $("#attended").html(valueT);
+			 $("#absence").html(valueA);
+			 $("#clockIn").html(valueC);
+			 $("#clockOut").html(valueQ);
+			 $("#tardycount").html(valuetd);
+			 
+			 
+			}, error:function(){
+				console.log('통신실패!')
+			}
+			
+		});
+       
 	}
+	
 	
     function showTime(){
         var date = new Date();
@@ -203,6 +339,7 @@
     }
     
     showTime();
+    
         </script>
 </body>
 </html>

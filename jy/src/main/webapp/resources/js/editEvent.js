@@ -111,7 +111,7 @@ $('#deleteEvent').on('click', function () {
         url: "delete.sc",
         data: { "scheduleNo": $(this).data('id') },
         success: function (response) {
-             alert('삭제되었습니다.');
+             // alert('삭제되었습니다.');
         }
     });
 

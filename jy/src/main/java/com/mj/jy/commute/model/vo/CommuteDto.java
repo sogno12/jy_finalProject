@@ -19,7 +19,25 @@ public class CommuteDto {
 	private String memberName;		// 이름
 	private int count;				// 지각횟수
 	private String departmentName;	// 부서
+	private String today;
+	private String day;
 	
+	public String getToday() {
+		return today;
+	}
+
+	public void setToday(String today) {
+		this.today = today;
+	}
+
+	public String getDay() {
+		return day;
+	}
+
+	public void setDay(String day) {
+		this.day = day;
+	}
+
 	public CommuteDto() {}
 	
 	public CommuteDto(int commuteNo, int memberNo, Date commuteDate, Timestamp attendTime, Timestamp quittingTime,

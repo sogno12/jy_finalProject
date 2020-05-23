@@ -7,6 +7,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 
+
 </head>
 <body>
 	<div id="main-wrapper">
@@ -43,13 +44,9 @@
                         <div class="card">
                             <div class="card-body" style="padding-bottom: 0px;">
                                 <h5 class="card-title m-b-0" > 주소록</h5>
-                     <label style="margin-left: 80%;margin-top: -5%;">검색:<input type="text" id="keyword" class="form-control form-control-sm" placeholder="이름" aria-controls="zero_config"></label></form>
+                     <label style="margin-left: 80%;margin-top: -5%;">검색:<input type="text" id="keyword" class="form-control form-control-sm" placeholder="이름" aria-controls="zero_config"></label>
                             </div>
-                            <ul class="nav nav-tabs" role="tablist">
-                                <li class="nav-item"> <a class="nav-link active" data-toggle="tab" href="#home" role="tab"><span class="hidden-sm-up"></span> <span class="hidden-xs-down">부서별</span></a> </li>
-                                <li class="nav-item"> <a class="nav-link" data-toggle="tab" href="#profile" role="tab"><span class="hidden-sm-up"></span> <span class="hidden-xs-down">직급별</span></a> </li>
-                                
-                            </ul>
+                           
                             <!-- Tab panes -->
                             <div class="tab-content tabcontent-border">
                                 <div class="tab-pane active" id="home" role="tabpanel">
@@ -70,6 +67,7 @@
                                                 </strong>
                                                 </tr>
                                                <c:forEach items="${ listDept }" var="d">
+                                               
                                                 <tr>
                                                     <td> ${d.departmentName }</td>
                                                     <td>${d.memberName }</td>
@@ -83,15 +81,40 @@
                                             </tbody>
                                         </table>
                                         </p>
-                                        <ul style="margin-left: 35%;" class="pagination">
-                                            <li class="paginate_button page-item previous disabled" id="zero_config_previous"><a href="#" aria-controls="zero_config" data-dt-idx="0" tabindex="0" class="page-link">Previous</a></li>
-                                            <li class="paginate_button page-item active"><a href="#" aria-controls="zero_config" data-dt-idx="1" tabindex="0" class="page-link">1</a></li><li class="paginate_button page-item "><a href="#" aria-controls="zero_config" data-dt-idx="2" tabindex="0" class="page-link">2</a></li>
-                                            <li class="paginate_button page-item "><a href="#" aria-controls="zero_config" data-dt-idx="3" tabindex="0" class="page-link">3</a></li><li class="paginate_button page-item "><a href="#" aria-controls="zero_config" data-dt-idx="4" tabindex="0" class="page-link">4</a></li>
-                                            <li class="paginate_button page-item "><a href="#" aria-controls="zero_config" data-dt-idx="5" tabindex="0" class="page-link">5</a></li>
-                                            <li class="paginate_button page-item "><a href="#" aria-controls="zero_config" data-dt-idx="6" tabindex="0" class="page-link">6</a></li>
-                                            <li class="paginate_button page-item next" id="zero_config_next"><a href="#" aria-controls="zero_config" data-dt-idx="7" tabindex="0" class="page-link">Next</a></li>
-                                        </ul>
-                                        
+                                         <ul style="margin-left: 35%;" class="pagination">
+			                                   <c:choose>
+			                					<c:when test="${ pi1.currentPage eq 1 }">
+			                                                <li class="paginate_button page-item previous disabled" id="zero_config_previous"><a href="#" aria-controls="zero_config" data-dt-idx="0" tabindex="0" class="page-link">Previous</a></li>
+			                                  	</c:when>
+			                					<c:otherwise>
+			                                                <li class="paginate_button page-item previous" id="zero_config_previous"><a href="addressBook.me?currentPage=${ pi1.currentPage-1 }" aria-controls="zero_config" data-dt-idx="0" tabindex="0" class="page-link">Previous</a></li>
+			                                         </c:otherwise>
+			                                   </c:choose>
+			                                   
+			                                    <c:forEach begin="${ pi1.startPage }" end="${ pi1.endPage }" var="p"> 
+			                                 
+			                                    <c:choose>
+			                    				<c:when test="${ pi1.currentPage ne p }">
+			                                                <li class="paginate_button page-item active"><a href="addressBook.me?currentPage=${ p }" aria-controls="zero_config" data-dt-idx="1" tabindex="0" class="page-link">${ p }</a></li>
+			                                    	</c:when>
+			                    				<c:otherwise>
+			                                                <li class="paginate_button page-item "><a href="" aria-controls="zero_config" data-dt-idx="3" tabindex="0" class="page-link">${ p }</a></li>
+			                                    </c:otherwise>
+			                                    </c:choose>
+			                                    
+			                                    </c:forEach>
+			                                    
+			                                    <c:choose>
+			                                       	<c:when test="${ pi1.currentPage eq pi1.maxPage }">     										
+			                                                <li class="paginate_button page-item next disabled" id="zero_config_next"><a href="" aria-controls="zero_config" data-dt-idx="7" tabindex="0" class="page-link">Next</a></li>
+			                                        </c:when>
+			                                        <c:otherwise>
+			                                        	   
+			                                                <li class="paginate_button page-item next" id="zero_config_next"><a href="addressBook.me?currentPage=${pi1.currentPage + 1 }" aria-controls="zero_config" data-dt-idx="7" tabindex="0" class="page-link">Next</a></li>
+			                                        </c:otherwise>
+			                                        </c:choose>
+                                            </ul>
+                                   
                                     </div>
                                 </div>
                                 <div class="tab-pane  p-20" id="profile" role="tabpanel">
@@ -128,14 +151,39 @@
                                         </tbody>
                                     </table>
                             
-                           <ul style="margin-left: 35%;" class="pagination">
-                                <li class="paginate_button page-item previous disabled" id="zero_config_previous"><a href="#" aria-controls="zero_config" data-dt-idx="0" tabindex="0" class="page-link">Previous</a></li>
-                                <li class="paginate_button page-item active"><a href="#" aria-controls="zero_config" data-dt-idx="1" tabindex="0" class="page-link">1</a></li><li class="paginate_button page-item "><a href="#" aria-controls="zero_config" data-dt-idx="2" tabindex="0" class="page-link">2</a></li>
-                                <li class="paginate_button page-item "><a href="#" aria-controls="zero_config" data-dt-idx="3" tabindex="0" class="page-link">3</a></li><li class="paginate_button page-item "><a href="#" aria-controls="zero_config" data-dt-idx="4" tabindex="0" class="page-link">4</a></li>
-                                <li class="paginate_button page-item "><a href="#" aria-controls="zero_config" data-dt-idx="5" tabindex="0" class="page-link">5</a></li>
-                                <li class="paginate_button page-item "><a href="#" aria-controls="zero_config" data-dt-idx="6" tabindex="0" class="page-link">6</a></li>
-                                <li class="paginate_button page-item next" id="zero_config_next"><a href="#" aria-controls="zero_config" data-dt-idx="7" tabindex="0" class="page-link">Next</a></li>
-                            </ul>
+             							 <ul style="margin-left: 35%;" class="pagination">
+			                                   <c:choose>
+			                					<c:when test="${ pi2.currentPage eq 1 }">
+			                                                <li class="paginate_button page-item previous disabled" id="zero_config_previous"><a href="addressBook.me?currentPage=${ pi2.currentPage-1 }" aria-controls="zero_config" data-dt-idx="0" tabindex="0" class="page-link">Previous</a></li>
+			                                  	</c:when>
+			                					<c:otherwise>
+			                                                <li class="paginate_button page-item previous disabled" id="zero_config_previous"><a href="#" aria-controls="zero_config" data-dt-idx="0" tabindex="0" class="page-link">Previous</a></li>
+			                                         </c:otherwise>
+			                                   </c:choose>
+			                                   
+			                                    <c:forEach begin="${ pi2.startPage }" end="${ pi2.endPage }" var="p"> 
+			                                 
+			                                    <c:choose>
+			                    				<c:when test="${ pi2.currentPage ne p }">
+			                                                <li class="paginate_button page-item active"><a href="addressBook.me?currentPage=${ p }" aria-controls="zero_config" data-dt-idx="1" tabindex="0" class="page-link">${ p }</a></li>
+			                                    	</c:when>
+			                    				<c:otherwise>
+			                                                <li class="paginate_button page-item "><a href="" aria-controls="zero_config" data-dt-idx="3" tabindex="0" class="page-link">${ p }</a></li>
+			                                    </c:otherwise>
+			                                    </c:choose>
+			                                    
+			                                    </c:forEach>
+			                                    
+			                                    <c:choose>
+			                                       	<c:when test="${ pi2.currentPage eq pi2.maxPage }">     										
+			                                                <li class="paginate_button page-item next" id="zero_config_next"><a href="" aria-controls="zero_config" data-dt-idx="7" tabindex="0" class="page-link">Next</a></li>
+			                                        </c:when>
+			                                        <c:otherwise>
+			                                        	   
+			                                                <li class="paginate_button page-item next" id="zero_config_next"><a href="addressBook.me?currentPage=${pi2.currentPage + 1 }" aria-controls="zero_config" data-dt-idx="7" tabindex="0" class="page-link">Next</a></li>
+			                                        </c:otherwise>
+			                                        </c:choose>
+                                            </ul>
                         </div>
                         </div>
                         </div>
@@ -159,6 +207,14 @@
 	</div>
 	
 	<script>
+	
+	// 검색기능
+	$(document).ready(function () {
+		  $('#dtBasicExample').DataTable();
+		  $('.dataTables_length').addClass('bs-select');
+		});
+	
+	
                 $(document).ready(function() {
                    $("#keyword").keyup(function() {
                        var k = $(this).val();
@@ -172,6 +228,11 @@
                        $(temp2).parent().show();
                    })
                })
+                 $('#zero_config').DataTable();
+     
+                
            </script>
+           
+           
 </body>
 </html>

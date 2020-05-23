@@ -19,15 +19,7 @@ public class BusinessRoomServiceImpl implements BusinessRoomService{
 	private BusinessRoomDao bDao;
 	
 
-	/**
-	 * 회의실 예약 form service
-	 */
-	@Override
-	public int insertBusinessRoom(BusinessRoom b) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
+	
 	/** 회의실예약 리스트 service
 	 * @return
 	 */
@@ -67,6 +59,12 @@ public class BusinessRoomServiceImpl implements BusinessRoomService{
 	public int broomUpdate(int meetingNo) {
 		
 		return bDao.broomUpdate(meetingNo);
+	}
+
+	// 회의실 알람 업데이트
+	@Override
+	public int updateBroomAlarm(int meetingNo) {
+		return bDao.updateBroomAlarm(meetingNo);
 	}
 
 	

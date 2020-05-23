@@ -76,13 +76,13 @@
                                                 <td>
                                                 	
                                                 	<c:if test="${ b.status eq 'N' }">
-                                               		 	<button onclick="broomSub(${b.meetingNo}, this);" type="submit" class="submitbtn">승인하기</button>
+                                               		 	<button onclick="broomSub(${b.meetingNo}, this);" type="submit" class="submitbtn btn btn-outline-success">승인하기</button>
                                                		</c:if>
                                                		<c:if test="${ b.status eq 'Y' }">승인</c:if>
                                                 </td>
                                                 <td>
                                                		&nbsp;&nbsp;&nbsp;
-                                                	<button onclick="selectBroom(${b.roomNo});" data-toggle="modal" data-target="#detailview">회의실 정보</button>
+                                                	<button class="btn btn-outline-secondary" onclick="selectBroom(${b.roomNo});" data-toggle="modal" data-target="#detailview">회의실 정보</button>
                                                 </td> 
                                             </tr>
                                             </c:forEach>
@@ -98,7 +98,7 @@
 					                    	<li class="badge badge-light disabled"><a class="page-link" href="">Previous</a></li>
 				                		</c:when>
 				                		<c:otherwise>
-				                			<li class="badge badge-light"><a class="page-link" href="generalList.ge?bcurrentPage=${ pb.currentPage-1 }&ncurrentPage=${ pn.currentPage }">Previous</a></li>
+				                			<li class="badge badge-light"><a class="page-link" href="generalList.ge?bcurrentPage=${ pb.currentPage+1 }&ncurrentPage=${ pn.currentPage }">Previous</a></li>
 				                		</c:otherwise>
 				                	</c:choose>
 				                    
@@ -121,7 +121,7 @@
 				                    		<li class="badge badge-light disabled"><a class="page-link" href="">Next</a></li>
 				                    	</c:when>
 				                    	<c:otherwise>
-					                    	<li class="badge badge-light"><a class="page-link" href="generalList.ge?currentPage=${pb.currentPage+1}&ncurrentPage=${ pn.currentPage }">Next</a></li>
+					                    	<li class="badge badge-light"><a class="page-link" href="generalList.ge?currentPage=${pb.currentPage-1}&ncurrentPage=${ pn.currentPage }">Next</a></li>
 				                    	</c:otherwise>
 				                    </c:choose>
 				                </ul>
@@ -149,7 +149,7 @@
                         			data:{meetingNo:meetingNo},
                         			success:function(){
                         				
-                        				confirm("승인하시겠습니까?");
+                        				alertify.confirm("승인하시겠습니까?");
                         				$(tar).parent().text("승인");
                         				
                         			},error:function(){
@@ -165,7 +165,7 @@
                                 <div class="card">
                                     <form class="form-horizontal">
                                         <div class="card-body">
-                                            <h4 class="card-title">회의실 정보</h4>
+                                            <h4 class="card-title"><i class="mdi mdi-check-all">회의실 정보</i></h4>
                                             <div class="form-group row">
                                                 <label for="lname" class="col-sm-3 text-right control-label col-form-label">BUSINESSROOM</label>
                                                 <div class="col-sm-9">
@@ -265,12 +265,11 @@
                                                     <td>
                                                     	<c:if test="${n.status eq 'Y' }">승인</c:if>
                                                     	<c:if test="${n.status eq 'N' }">
-                                                    		<button onclick="ncSub(${n.namecardNo}, this);" type="submit" class="submitbtn">승인하기</button>
+                                                    		<button onclick="ncSub(${n.namecardNo}, this);" type="submit" class="submitbtn btn btn-outline-success">승인하기</button>
                                                     	</c:if>
                                                     </td>
                                                     <td>
-                                                    	
-                                                    	<button onclick="selectNcDetail(${n.namecardNo});" data-toggle="modal" data-target="#detailviewName">상세보기</button>
+                                                    	<button class="btn btn-outline-secondary" onclick="selectNcDetail(${n.namecardNo});" data-toggle="modal" data-target="#detailviewName">상세보기</button>
                                                     </td>
                                                 </tr>
                                               </c:forEach> 
@@ -377,7 +376,7 @@
                             			data:{namecardNo:namecardNo},
                             			success:function(){
                             				
-                            				confirm("승인하시겠습니까?");
+                            				alertify.confirm("승인하시겠습니까?");
                             				$(tar).parent().text("승인");
                             				console.log("성공");
                             				
@@ -400,7 +399,7 @@
                                 <div class="card">
                                     <form class="form-horizontal">
                                         <div class="card-body">
-                                            <h4 class="card-title">명함신청 정보</h4>
+                                            <h4 class="card-title"><i class="mdi mdi-check-all">명함신청 정보</i></h4>
                                             <div class="form-group row">
                                                 <label for="fname" class="col-sm-3 text-right control-label col-form-label">NO</label>
                                                 <div class="col-sm-9">
