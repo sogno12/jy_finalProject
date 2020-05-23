@@ -245,7 +245,7 @@
 		                            <li class="sidebar-item"><a href="salaryList.sa" class="sidebar-link"><i class="mdi mdi-alert-octagon"></i><span class="hide-menu"> 급여 관리 </span></a></li>
 		                            <li class="sidebar-item"><a href="enrollForm.me" class="sidebar-link"><i class="mdi mdi-alert-octagon"></i><span class="hide-menu"> 인사 관리 </span></a></li>
 		                            <li class="sidebar-item"><a href="commuteList.co" class="sidebar-link"><i class="mdi mdi-alert-octagon"></i><span class="hide-menu"> 근태 관리 </span></a></li>
-		                            <li class="sidebar-item"><a href="commteChart.co" class="sidebar-link"><i class="mdi mdi-alert-octagon"></i><span class="hide-menu"> 월별 근무 현황 </span></a></li>
+		                            <li class="sidebar-item"><a href="commuteChart.co" class="sidebar-link"><i class="mdi mdi-alert-octagon"></i><span class="hide-menu"> 월별 근무 현황 </span></a></li>
 	                            </c:if>
 	                        </ul>
 	                    </li>
@@ -305,7 +305,7 @@
         }
         
     </script>
-	<script type="text/javascript" scr="http://jsgetip.appspot.com"></script>
+	<script type="text/javascript" src="http://jsgetip.appspot.com"></script>
 	
 	<script type="text/javascript">
 	
